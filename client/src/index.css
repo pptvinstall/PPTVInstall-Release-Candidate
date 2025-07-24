@@ -1,0 +1,308 @@
+/* Import our custom accessibility styles */
+@import './components/ui/accessibility-styles.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 33% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 213 94% 59%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+
+    --radius: 0.875rem;
+
+    --brand-blue-50: 213 100% 98%;
+    --brand-blue-100: 214 95% 93%;
+    --brand-blue-200: 213 94% 87%;
+    --brand-blue-300: 213 94% 78%;
+    --brand-blue-400: 213 94% 68%;
+    --brand-blue-500: 213 94% 59%;
+    --brand-blue-600: 217 91% 50%;
+    --brand-blue-700: 221 70% 40%;
+    --brand-blue-800: 224 64% 33%;
+    --brand-blue-900: 226 57% 21%;
+    --brand-blue-950: 227 64% 15%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground scroll-smooth;
+  }
+  
+  /* Add padding for fixed header is now applied directly in main.tsx */
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+/* Gradient text utilities */
+@layer utilities {
+  /* Text gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-brand-blue-600 to-brand-blue-800 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-brand-blue-400 to-brand-blue-600 bg-clip-text text-transparent;
+  }
+
+  /* Shadows with hover effects */
+  .shadow-card {
+    @apply shadow-md transition-all duration-300 hover:shadow-lg;
+  }
+
+  /* Button hover effects */
+  .btn-hover-effect {
+    @apply transform transition-transform duration-300 hover:scale-105 active:scale-95;
+  }
+
+  /* Trust badge styles - enhanced */
+  .trust-badge {
+    @apply inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full bg-blue-50 text-blue-800 border border-blue-200 shadow-sm transition-all duration-200 hover:bg-blue-100;
+  }
+
+  .trust-badge-icon {
+    @apply text-blue-600;
+  }
+
+  /* Enhanced section styles */
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+  
+  /* Dialog customizations */
+  .dialog-overlay {
+    @apply fixed inset-0 bg-black/50 z-40 backdrop-blur-sm;
+  }
+  
+  .dialog-content {
+    @apply z-50 bg-background rounded-t-xl sm:rounded-xl shadow-xl focus:outline-none;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4 leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-blue-600 mb-8;
+  }
+
+  /* Scroll container positioning */
+  .scroll-container {
+    @apply relative;
+    position: relative !important;
+  }
+
+  /* Card styles */
+  .feature-card {
+    @apply p-6 rounded-lg border border-gray-200 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-200;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
+
+/* Fix container positioning and pointer events */
+.scroll-container,
+[data-radix-scroll-area-viewport],
+.scroll-viewport,
+.scroll-area-viewport,
+.scroll-area-root,
+.scroll-area-container,
+.radix-scroll-area,
+[role="dialog"],
+.dialog-content,
+.dialog-overlay,
+.container,
+.service-selection-grid,
+.booking-step-grid,
+.wizard-step {
+  position: relative !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure proper overflow handling */
+.scroll-area-viewport {
+  overflow: auto !important;
+  height: 100% !important;
+  pointer-events: auto !important;
+}
+
+/* Fix pointer events for interactive elements */
+button,
+a,
+input,
+select,
+[role="button"],
+[tabindex="0"] {
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 1;
+}
+
+/* Global fix for Radix UI ScrollArea */
+[data-radix-scroll-area-viewport] {
+  position: relative !important;
+}
+
+/* Ensure all possible scroll containers have proper positioning */
+.scroll-area-root,
+.scroll-area-viewport,
+[data-radix-scroll-area],
+[data-radix-scroll-area-viewport],
+.sticky-scroll-container {
+  position: relative !important;
+  overflow: auto;
+}
+
+/* Desktop Responsive Fixes */
+@media (min-width: 768px) {
+  /* Main container for booking wizard */
+  .booking-wizard-container {
+    max-width: 95%; 
+    width: 100%;
+    margin: 0 auto;
+    position: relative !important;
+  }
+  
+  /* Grid layout for booking steps */
+  .booking-step-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr !important; /* Fixed ratio for desktop */
+    gap: 1.5rem;
+    align-items: stretch;
+    width: 100%;
+  }
+  
+  /* Service selection grid for desktop */
+  .service-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  /* Form layout for customer details */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  
+  /* Price calculator for desktop */
+  .price-calculator {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 300px;
+  }
+  
+  /* Calendar container */
+  .calendar-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  
+  /* Better spacing for steps */
+  .wizard-step {
+    padding: 1.5rem;
+    height: 100%;
+  }
+  
+  /* Fix main step container */
+  .md\:col-span-3 {
+    grid-column: span 3 / span 3 !important;
+  }
+  
+  /* Fix sidebar container */
+  .md\:col-span-2 {
+    grid-column: span 2 / span 2 !important;
+  }
+  
+  /* ScrollArea fixes */
+  [data-radix-scroll-area-viewport] {
+    position: relative !important;
+    height: auto !important;
+    min-height: 280px;
+  }
+}
+
+/* Dialog overlay fixes */
+[data-state="open"][data-scope="dialog"] {
+  pointer-events: auto !important;
+}
+
+/* Mobile dialog fixes - Custom styles */
+@media (max-width: 640px) {
+  [data-state="open"][data-scope="dialog"][data-scope-content="content"] {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 1.25rem 1.25rem 0 0 !important;
+    max-height: 85vh !important;
+    margin: 0 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: transform 0.2s ease-out !important;
+    z-index: 999 !important;
+  }
+}
+
+/* Important fixes for z-indexes */
+.popover-content, 
+.rdp, 
+.calendar-popover,
+[data-radix-popper-content-wrapper] {
+  z-index: 100 !important;
+}
