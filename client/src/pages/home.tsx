@@ -128,7 +128,7 @@ export default function HomePage() {
       {/* Hero Section with Desktop Side-by-Side Layout */}
       <section
         ref={heroRef}
-        className="min-h-screen flex items-center bg-white pt-8 pb-6"
+        className="min-h-screen flex items-center bg-white pt-4 pb-4"
         style={{ position: 'relative' }}
       >
         <div className="absolute inset-0 z-0 opacity-5">
@@ -200,26 +200,26 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="w-full max-w-md mx-auto lg:max-w-none"
             >
-              {/* Brevo Email Collection Form - Simplified */}
-              <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-lg p-6">
+              {/* Brevo Email Collection Form - Premium Design */}
+              <div className="bg-white rounded-xl border border-gray-200 shadow-[0_4px_24px_rgba(0,0,0,0.08)] p-8">
                 <form 
                   method="POST" 
                   action="https://227ffc5e.sibforms.com/serve/MUIFADMwSnYCslXF8bLxtleOov-F7a4CANC06GZYWXpCFBU7p3i79fMNZJqnZB9JjBsZO0oa5PzWlfX2TSSfHoY4TqhXlDQjER-vytp2X8PD5Uo8l7_6wS0kwA_4JYR4oEXdPrEVZhsPtXSR7F7ABbmS-rcg-kuwt8J4O5IsTOhAZtxaqXixNJiVWsfGBhb_rRy-st8bzSt5M7Me"
-                  className="space-y-6 max-w-md mx-auto"
+                  className="space-y-5 max-w-md mx-auto font-['Inter',sans-serif]"
                 >
                   {/* Form Title */}
-                  <div className="text-center">
-                    <h2 className="text-3xl font-bold text-blue-600 mb-2">
+                  <div className="text-center mb-6">
+                    <h2 className="text-3xl font-bold text-[#1A56DB] mb-3 leading-tight">
                       Join the Picture Perfect Experience
                     </h2>
-                    <p className="text-red-500 text-base">
+                    <p className="text-[#EF4444] text-base leading-relaxed">
                       Unlock exclusive deals, early access to specials, and pro tips to elevate your home setup.
                     </p>
                   </div>
                   
                   {/* Name Field */}
-                  <div className="space-y-2">
-                    <label htmlFor="FIRSTNAME" className="block text-sm font-semibold text-blue-600">
+                  <div className="space-y-1.5">
+                    <label htmlFor="FIRSTNAME" className="block text-sm font-semibold text-[#1A56DB]">
                       Name *
                     </label>
                     <input 
@@ -227,21 +227,21 @@ export default function HomePage() {
                       id="FIRSTNAME" 
                       name="FIRSTNAME" 
                       required 
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                       placeholder="Your full name"
                     />
-                    <p className="text-xs text-red-500 text-right">Let us know who we're talking to!</p>
+                    <p className="text-xs text-[#EF4444] text-right">Let us know who we're talking to!</p>
                   </div>
                   
                   {/* Phone Number Field */}
-                  <div className="space-y-2">
-                    <label htmlFor="SMS" className="block text-sm font-semibold text-blue-600">
+                  <div className="space-y-1.5">
+                    <label htmlFor="SMS" className="block text-sm font-semibold text-[#1A56DB]">
                       Phone Number *
                     </label>
                     <div className="flex gap-2">
                       <select 
                         name="SMS__COUNTRY_CODE" 
-                        className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                         defaultValue="+1"
                       >
                         <option value="+1">+1 US</option>
@@ -253,16 +253,16 @@ export default function HomePage() {
                         id="SMS" 
                         name="SMS" 
                         required 
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                         placeholder="(555) 123-4567"
                       />
                     </div>
-                    <p className="text-xs text-red-500 text-right">For exclusive SMS deals & updates (no spam, just the good stuff).</p>
+                    <p className="text-xs text-[#EF4444] text-right">For exclusive SMS deals & updates (no spam, just the good stuff).</p>
                   </div>
                   
                   {/* Email Field */}
-                  <div className="space-y-2">
-                    <label htmlFor="EMAIL" className="block text-sm font-semibold text-blue-600">
+                  <div className="space-y-1.5">
+                    <label htmlFor="EMAIL" className="block text-sm font-semibold text-[#1A56DB]">
                       Email *
                     </label>
                     <input 
@@ -270,43 +270,40 @@ export default function HomePage() {
                       id="EMAIL" 
                       name="EMAIL" 
                       required 
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                       placeholder="your@email.com"
                     />
-                    <p className="text-xs text-red-500 text-right">Stay in the loop with promos, upgrades & insider tips.</p>
+                    <p className="text-xs text-[#EF4444] text-right">Stay in the loop with promos, upgrades & insider tips.</p>
                   </div>
                   
                   {/* Birthday Field */}
-                  <div className="space-y-2">
-                    <label htmlFor="BIRTHDAY" className="block text-sm font-semibold text-blue-600">
+                  <div className="space-y-1.5">
+                    <label htmlFor="BIRTHDAY" className="block text-sm font-semibold text-[#1A56DB]">
                       Birthday (Optional)
                     </label>
                     <input 
-                      type="text" 
+                      type="date" 
                       id="BIRTHDAY" 
                       name="BIRTHDAY" 
-                      pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$"
-                      title="dd-mm-yyyy"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="25-12-1990"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                     />
-                    <p className="text-xs text-red-500 text-right">dd-mm-yyyy format</p>
+                    <p className="text-xs text-[#EF4444] text-right">For special birthday offers</p>
                   </div>
                   
                   {/* Privacy Notice */}
-                  <div className="text-sm text-gray-600">
-                    <p>
+                  <div className="text-sm text-gray-600 pt-4 border-t border-gray-100">
+                    <p className="leading-relaxed">
                       We use Brevo as our marketing platform. By submitting this form you agree that the personal data you provided will be transferred to Brevo for processing in accordance with{' '}
-                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-blue-600 underline">
+                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-[#1A56DB] underline hover:text-[#1440A0] transition-colors">
                         Brevo's Privacy Policy
                       </a>.
                     </p>
                   </div>
                   
-                  {/* Submit Button */}
+                  {/* Submit Button - Matches Book Now Button */}
                   <button 
                     type="submit" 
-                    className="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                    className="w-full bg-[#1A56DB] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#1440A0] hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-['Inter',sans-serif] text-base"
                   >
                     JOIN NOW
                   </button>
