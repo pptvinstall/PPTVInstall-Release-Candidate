@@ -200,171 +200,123 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="w-full max-w-md mx-auto lg:max-w-none"
             >
-              {/* Brevo Email Collection Form - Iframe Integration */}
-              <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-lg">
-                <iframe 
-                  src="https://227ffc5e.sibforms.com/serve/MUIFALhWNoyU9FNS0lzZ-DOzAYxZqtsjBF_QwAXzHJ2j3T8QZf0VIPmSWHcMXFsR4hUuPXtR2tyX55yZDMcefZx-m3O5aJj4zvUOGnF6AdVM6P1WnqG8NWYUiCf2ufoNrtLESlvtf3fk59CyfD1wI4L2Qf1kd5H1K8EjFYRg7yw2HJ8IOKzLrANDV-CysCjhfsxcda_p-D6-MYeZ"
-                  width="100%"
-                  height="600"
-                  style={{ border: 'none' }}
-                  title="Join the Picture Perfect Experience - Email Signup"
-                  loading="lazy"
-                />
-              </div>
-              {/* Backup - Brevo Form Container (hidden) */}
-              <div className="sib-form hidden" style={{ textAlign: 'center', backgroundColor: '#EFF2F7' }}>
-                <div id="sib-form-container" className="sib-form-container">
-                  <div id="error-message" className="sib-form-message-panel" style={{ fontSize: '16px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#661d1d', backgroundColor: '#ffeded', borderRadius: '3px', borderColor: '#ff4949', maxWidth: '540px', display: 'none' }}>
-                    <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
-                      <span className="sib-form-message-panel__inner-text">
-                        Oops! We couldn't save your info. Please try again in a moment.
-                      </span>
-                    </div>
+              {/* Brevo Email Collection Form - Simplified */}
+              <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-lg p-6">
+                <form 
+                  method="POST" 
+                  action="https://227ffc5e.sibforms.com/serve/MUIFADMwSnYCslXF8bLxtleOov-F7a4CANC06GZYWXpCFBU7p3i79fMNZJqnZB9JjBsZO0oa5PzWlfX2TSSfHoY4TqhXlDQjER-vytp2X8PD5Uo8l7_6wS0kwA_4JYR4oEXdPrEVZhsPtXSR7F7ABbmS-rcg-kuwt8J4O5IsTOhAZtxaqXixNJiVWsfGBhb_rRy-st8bzSt5M7Me"
+                  className="space-y-6 max-w-md mx-auto"
+                >
+                  {/* Form Title */}
+                  <div className="text-center">
+                    <h2 className="text-3xl font-bold text-blue-600 mb-2">
+                      Join the Picture Perfect Experience
+                    </h2>
+                    <p className="text-red-500 text-base">
+                      Unlock exclusive deals, early access to specials, and pro tips to elevate your home setup.
+                    </p>
                   </div>
                   
-                  <div id="success-message" className="sib-form-message-panel" style={{ fontSize: '16px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#085229', backgroundColor: '#e7faf0', borderRadius: '3px', borderColor: '#13ce66', maxWidth: '540px', display: 'none' }}>
-                    <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
-                      <span className="sib-form-message-panel__inner-text">
-                        You're in! Welcome to the Picture Perfect experience.
-                      </span>
-                    </div>
+                  {/* Name Field */}
+                  <div className="space-y-2">
+                    <label htmlFor="FIRSTNAME" className="block text-sm font-semibold text-blue-600">
+                      Name *
+                    </label>
+                    <input 
+                      type="text" 
+                      id="FIRSTNAME" 
+                      name="FIRSTNAME" 
+                      required 
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Your full name"
+                    />
+                    <p className="text-xs text-red-500 text-right">Let us know who we're talking to!</p>
                   </div>
                   
-                  <div id="sib-container" className="sib-container--large sib-container--vertical" style={{ textAlign: 'center', backgroundColor: 'rgba(255,255,255,1)', maxWidth: '540px', borderRadius: '3px', borderWidth: '1px', borderColor: '#C0CCD9', borderStyle: 'solid', direction: 'ltr', margin: '0 auto' }}>
-                    <form id="sib-form" method="POST" action="https://227ffc5e.sibforms.com/serve/MUIFALhWNoyU9FNS0lzZ-DOzAYxZqtsjBF_QwAXzHJ2j3T8QZf0VIPmSWHcMXFsR4hUuPXtR2tyX55yZDMcefZx-m3O5aJj4zvUOGnF6AdVM6P1WnqG8NWYUiCf2ufoNrtLESlvtf3fk59CyfD1wI4L2Qf1kd5H1K8EjFYRg7yw2HJ8IOKzLrANDV-CysCjhfsxcda_p-D6-MYeZ" data-type="subscription">
-                      
-                      {/* Form Title */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-form-block" style={{ fontSize: '27px', textAlign: 'left', fontWeight: '700', fontFamily: 'Helvetica, sans-serif', color: '#3C4858', backgroundColor: 'transparent' }}>
-                          <p>Join the Picture Perfect Experience</p>
-                        </div>
-                      </div>
-                      
-                      {/* Form Description */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-form-block" style={{ fontSize: '21px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#3C4858', backgroundColor: 'transparent' }}>
-                          <div className="sib-text-form-block">
-                            <p>Unlock exclusive deals, early access to specials, and pro tips to elevate your home setup.</p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* First Name Field */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-input sib-form-block">
-                          <div className="form__entry entry_block">
-                            <div className="form__label-row">
-                              <label className="entry__label" style={{ fontWeight: '700', textAlign: 'left', fontSize: '16px', fontFamily: 'Helvetica, sans-serif', color: '#3c4858' }} htmlFor="FIRSTNAME" data-required="*">First Name</label>
-                              <div className="entry__field">
-                                <input className="input" maxLength={200} type="text" id="FIRSTNAME" name="FIRSTNAME" autoComplete="off" placeholder="FIRSTNAME" data-required="true" required />
-                              </div>
-                            </div>
-                            <label className="entry__specification" style={{ fontSize: '12px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#8390A4' }}>
-                              Let us know who we're talking to!
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Phone Number Field */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-sms-field sib-form-block">
-                          <div className="form__entry entry_block">
-                            <div className="form__label-row">
-                              <label className="entry__label" style={{ fontWeight: '700', textAlign: 'left', fontSize: '16px', fontFamily: 'Helvetica, sans-serif', color: '#3c4858' }} htmlFor="SMS" data-required="*">Phone Number</label>
-                              <div className="sib-sms-input-wrapper" style={{ direction: 'ltr' }}>
-                                <div className="sib-sms-input" data-placeholder="SMS" data-required="1" data-country-code="US" data-whatsapp-country-code="US" data-attributename="SMS">
-                                  <div className="entry__field">
-                                    <select className="input" name="SMS__COUNTRY_CODE" data-required="true">
-                                      <option value="+1">+1 US</option>
-                                    </select>
-                                  </div>
-                                  <div className="entry__field" style={{ width: '100%' }}>
-                                    <input type="tel" className="input" id="SMS" name="SMS" autoComplete="off" placeholder="SMS" data-required="true" required />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <label className="entry__specification" style={{ fontSize: '12px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#8390A4' }}>
-                              For exclusive SMS deals &amp; updates (no spam, just the good stuff).
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Birthday Field */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-input sib-form-block">
-                          <div className="form__entry">
-                            <div className="form__label-row">
-                              <label className="entry__label" style={{ fontWeight: '700', textAlign: 'left', fontSize: '16px', fontFamily: 'Helvetica, sans-serif', color: '#3c4858' }} htmlFor="BIRTHDAY">Birthday</label>
-                              <div className="entry__field">
-                                <input maxLength={200} type="text" data-type="date" className="input" pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$" title="dd-mm-yyyy" data-format="dd-mm-yyyy" id="BIRTHDAY" name="BIRTHDAY" autoComplete="off" placeholder="BIRTHDAY" />
-                              </div>
-                            </div>
-                            <label className="entry__specification" style={{ fontSize: '12px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#8390A4' }}>
-                              dd-mm-yyyy
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Email Field */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-input sib-form-block">
-                          <div className="form__entry entry_block">
-                            <div className="form__label-row">
-                              <label className="entry__label" style={{ fontWeight: '700', textAlign: 'left', fontSize: '16px', fontFamily: 'Helvetica, sans-serif', color: '#3c4858' }} htmlFor="EMAIL" data-required="*">Email</label>
-                              <div className="entry__field">
-                                <input className="input" type="text" id="EMAIL" name="EMAIL" autoComplete="off" placeholder="EMAIL" data-required="true" required />
-                              </div>
-                            </div>
-                            <label className="entry__specification" style={{ fontSize: '12px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#8390A4' }}>
-                              Stay in the loop with promos, upgrades &amp; insider tips.
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Privacy Notice */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-form__declaration" style={{ direction: 'ltr' }}>
-                          <div style={{ fontSize: '14px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#687484', backgroundColor: 'transparent' }}>
-                            <p>We use Brevo as our marketing platform. By submitting this form you agree that the personal data you provided will be transferred to Brevo for processing in accordance with <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank">Brevo's Privacy Policy.</a></p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* reCAPTCHA */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-captcha sib-form-block">
-                          <div className="form__entry entry_block">
-                            <div className="form__label-row">
-                              <label className="entry__label" style={{ fontWeight: '700', textAlign: 'left', fontSize: '16px', fontFamily: 'Helvetica, sans-serif', color: '#3c4858' }}>Form secured by reCAPTCHA</label>
-                              <div className="g-recaptcha sib-visible-recaptcha" id="sib-captcha" data-sitekey="6LcYXY0rAAAAAFtZ5pblsWeJPowEER0rqUQbqtjM" data-callback="handleCaptchaResponse" style={{ direction: 'ltr' }}></div>
-                            </div>
-                            <label className="entry__specification" style={{ fontSize: '12px', textAlign: 'left', fontFamily: 'Helvetica, sans-serif', color: '#8390A4' }}>
-                              Form secured by reCAPTCHA
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Submit Button */}
-                      <div style={{ padding: '16px 0' }}>
-                        <div className="sib-form-block" style={{ textAlign: 'left' }}>
-                          <button className="sib-form-block__button sib-form-block__button-with-loader" style={{ fontSize: '16px', textAlign: 'left', fontWeight: '700', fontFamily: 'Helvetica, sans-serif', color: '#FFFFFF', backgroundColor: '#3E4857', borderRadius: '3px', borderWidth: '0px' }} form="sib-form" type="submit">
-                            SUBSCRIBE
-                          </button>
-                        </div>
-                      </div>
-                      
-                      <input type="text" name="email_address_check" className="input--hidden" style={{ display: 'none' }} />
-                      <input type="hidden" name="locale" value="en" />
-                    </form>
+                  {/* Phone Number Field */}
+                  <div className="space-y-2">
+                    <label htmlFor="SMS" className="block text-sm font-semibold text-blue-600">
+                      Phone Number *
+                    </label>
+                    <div className="flex gap-2">
+                      <select 
+                        name="SMS__COUNTRY_CODE" 
+                        className="px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        defaultValue="+1"
+                      >
+                        <option value="+1">+1 US</option>
+                        <option value="+1">+1 CA</option>
+                        <option value="+44">+44 GB</option>
+                      </select>
+                      <input 
+                        type="tel" 
+                        id="SMS" 
+                        name="SMS" 
+                        required 
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="(555) 123-4567"
+                      />
+                    </div>
+                    <p className="text-xs text-red-500 text-right">For exclusive SMS deals & updates (no spam, just the good stuff).</p>
                   </div>
-                </div>
+                  
+                  {/* Email Field */}
+                  <div className="space-y-2">
+                    <label htmlFor="EMAIL" className="block text-sm font-semibold text-blue-600">
+                      Email *
+                    </label>
+                    <input 
+                      type="email" 
+                      id="EMAIL" 
+                      name="EMAIL" 
+                      required 
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="your@email.com"
+                    />
+                    <p className="text-xs text-red-500 text-right">Stay in the loop with promos, upgrades & insider tips.</p>
+                  </div>
+                  
+                  {/* Birthday Field */}
+                  <div className="space-y-2">
+                    <label htmlFor="BIRTHDAY" className="block text-sm font-semibold text-blue-600">
+                      Birthday (Optional)
+                    </label>
+                    <input 
+                      type="text" 
+                      id="BIRTHDAY" 
+                      name="BIRTHDAY" 
+                      pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$"
+                      title="dd-mm-yyyy"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="25-12-1990"
+                    />
+                    <p className="text-xs text-red-500 text-right">dd-mm-yyyy format</p>
+                  </div>
+                  
+                  {/* Privacy Notice */}
+                  <div className="text-sm text-gray-600">
+                    <p>
+                      We use Brevo as our marketing platform. By submitting this form you agree that the personal data you provided will be transferred to Brevo for processing in accordance with{' '}
+                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-blue-600 underline">
+                        Brevo's Privacy Policy
+                      </a>.
+                    </p>
+                  </div>
+                  
+                  {/* Submit Button */}
+                  <button 
+                    type="submit" 
+                    className="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                  >
+                    JOIN NOW
+                  </button>
+                  
+                  {/* Hidden fields for Brevo */}
+                  <input type="text" name="email_address_check" style={{ display: 'none' }} />
+                  <input type="hidden" name="locale" value="en" />
+                </form>
               </div>
+
             </motion.div>
           </div>
         </div>
