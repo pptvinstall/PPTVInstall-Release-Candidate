@@ -245,6 +245,24 @@
         console.log('Form submitted - Brevo will handle processing');
         return true;
       }
+      
+      // Enhanced success detection for Picture Perfect integration
+      window.addEventListener('load', function() {
+        const form = document.getElementById('sib-form');
+        if (form) {
+          form.addEventListener('submit', function() {
+            setTimeout(function() {
+              const successMsg = document.getElementById('success-message');
+              if (successMsg && successMsg.style.display !== 'none') {
+                // Trigger custom success modal
+                window.postMessage('brevo-form-success', window.location.origin);
+                // Hide Brevo's default success message
+                successMsg.style.display = 'none';
+              }
+            }, 1500);
+          });
+        }
+      });
     </script>
   </body>
 </html>

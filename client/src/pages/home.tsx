@@ -65,15 +65,17 @@ export default function HomePage() {
       trackLead({ source: 'brevo_form_submit' });
     };
     
-    // Listen for Brevo form success
-    window.addEventListener('message', (event) => {
-      if (event.origin === 'https://sibforms.com' && event.data === 'form-success') {
+    // Listen for custom success message from Brevo form
+    const handleMessage = (event) => {
+      if (event.origin === window.location.origin && event.data === 'brevo-form-success') {
         handleBrevoSuccess();
       }
-    });
+    };
+    
+    window.addEventListener('message', handleMessage);
     
     return () => {
-      window.removeEventListener('message', handleBrevoSuccess);
+      window.removeEventListener('message', handleMessage);
     };
   }, []);
 
