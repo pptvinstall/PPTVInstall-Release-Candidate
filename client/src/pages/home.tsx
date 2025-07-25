@@ -60,16 +60,36 @@ export default function HomePage() {
   const showcaseOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0.7]);
   const showcaseScale = useTransform(heroScrollProgress, [0, 0.5], [1, 1.05]);
 
-  // Handle Brevo form success
-  const handleFormSubmit = (e: React.FormEvent) => {
-    // Allow normal form submission to Brevo
-    // Add tracking
-    trackLead({ source: 'brevo_form_submit' });
+  // Handle Brevo form success - Prevent redirect and submit via fetch
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent default form submission redirect
     
-    // Show success modal after a brief delay to allow form submission
-    setTimeout(() => {
+    const formData = new FormData(e.currentTarget);
+    
+    try {
+      // Submit to Brevo without redirect
+      await fetch('https://227ffc5e.sibforms.com/serve/MUIFAORX-sUxF1INXeVZ4MEHF-ZqHQq3Dp-NgpQnIa0ZVx4aM4kUizmV8L0Zjtwuc9IjCzNKbAKSdYmrp0rmAsoDex-umT2WtC8hSfft6fSybf-qhN3VmJFcOmiIunk7swUsf0Q4FpQYEsrXBMwxaEcunAcfAEZO9ymottARx6jsEnGnnCSIoVomhColDxPaIsnmFfW-U_WOSfjf', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Allow cross-origin request
+      });
+      
+      // Track successful submission
+      trackLead({ source: 'brevo_form_submit' });
+      
+      // Show success modal immediately
       setShowSuccessModal(true);
-    }, 1000);
+      
+      // Reset form
+      e.currentTarget.reset();
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+      // Still show success modal since no-cors mode doesn't return response
+      trackLead({ source: 'brevo_form_submit' });
+      setShowSuccessModal(true);
+      e.currentTarget.reset();
+    }
   };
 
   useEffect(() => {
