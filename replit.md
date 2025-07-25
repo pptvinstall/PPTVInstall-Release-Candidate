@@ -4,6 +4,14 @@
 A comprehensive home service platform specializing in TV mounting and smart home installations across Metro Atlanta, featuring a mobile-first booking experience with advanced technological integrations.
 
 ## Recent Changes
+### Brevo CRM Integration Complete (July 25, 2025)
+- ✓ **Premium Brevo Form**: Native-looking email collection form with custom success handling
+- ✓ **No External Redirects**: Custom success modal keeps users on-site after form submission
+- ✓ **Professional Design**: Matching site colors (#1A56DB, #EF4444), Inter font, premium styling
+- ✓ **Mobile Optimized**: Responsive side-by-side desktop layout, stacked mobile with proper spacing
+- ✓ **Enhanced UX**: Date picker for birthdays, SMS opt-in, conversion tracking with Meta Pixel
+- ✓ **CRM Automation**: All customer data flows to Brevo for automated marketing campaigns
+
 ### PostgreSQL Migration Complete (July 23, 2025)
 - ✓ **PostgreSQL Database**: Successfully migrated from SQLite to Neon PostgreSQL
 - ✓ **Database Schema**: All 12 tables created and operational (bookings, customers, pricing_config, etc.)

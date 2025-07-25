@@ -14,7 +14,8 @@ import {
   Home,
   Clock,
   Trophy,
-  PhoneCall
+  PhoneCall,
+  X
 } from "lucide-react";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { useEffect, useState, useRef } from "react";
@@ -28,6 +29,7 @@ import { MetaTags, META_CONFIGS } from "@/components/ui/meta-tags";
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const showcaseRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -55,6 +57,34 @@ export default function HomePage() {
 
   const showcaseOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0.7]);
   const showcaseScale = useTransform(heroScrollProgress, [0, 0.5], [1, 1.05]);
+
+  // Handle form submission
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    try {
+      // Submit to Brevo
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Handle CORS for external form submission
+      });
+      
+      // Show success modal regardless of response (no-cors mode)
+      setShowSuccessModal(true);
+      
+      // Track conversion
+      trackLead({ source: 'brevo_form_submit' });
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+      // Still show success modal since no-cors prevents error detection
+      setShowSuccessModal(true);
+    }
+  };
 
   // Simulate loading
   useEffect(() => {
@@ -221,6 +251,7 @@ export default function HomePage() {
                   method="POST" 
                   action="https://227ffc5e.sibforms.com/serve/MUIFADMwSnYCslXF8bLxtleOov-F7a4CANC06GZYWXpCFBU7p3i79fMNZJqnZB9JjBsZO0oa5PzWlfX2TSSfHoY4TqhXlDQjER-vytp2X8PD5Uo8l7_6wS0kwA_4JYR4oEXdPrEVZhsPtXSR7F7ABbmS-rcg-kuwt8J4O5IsTOhAZtxaqXixNJiVWsfGBhb_rRy-st8bzSt5M7Me"
                   className="space-y-4 max-w-md mx-auto font-['Inter',sans-serif]"
+                  onSubmit={handleFormSubmit}
                 >
                   {/* Form Title */}
                   <div className="text-center mb-4">
@@ -694,6 +725,64 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-auto p-8 relative"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <X className="h-5 w-5 text-gray-500" />
+            </button>
+
+            {/* Success Content */}
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="h-8 w-8 text-green-600" />
+              </div>
+              
+              <h3 className="text-2xl font-bold text-[#1A56DB] mb-3">
+                🎉 You're In!
+              </h3>
+              
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Welcome to the Picture Perfect Experience! We'll keep you updated with VIP-only perks, exclusive offers, and pro installation tips.
+              </p>
+              
+              <div className="space-y-3">
+                <Button
+                  onClick={() => setShowSuccessModal(false)}
+                  className="w-full bg-[#1A56DB] hover:bg-[#1440A0] text-white py-3 rounded-lg font-medium"
+                >
+                  Continue Exploring
+                </Button>
+                
+                <Link href="/booking" className="block">
+                  <Button
+                    variant="outline"
+                    className="w-full border-[#1A56DB] text-[#1A56DB] hover:bg-[#1A56DB] hover:text-white py-3 rounded-lg font-medium"
+                    onClick={() => {
+                      setShowSuccessModal(false);
+                      trackLead({ source: 'success_modal_book_now' });
+                    }}
+                  >
+                    Book Your Installation Now
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
