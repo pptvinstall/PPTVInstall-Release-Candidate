@@ -137,27 +137,42 @@ export default function HomePage() {
 
         <div className="container mx-auto px-4 relative z-10">
           {/* Desktop: Side-by-side layout, Mobile: Stacked */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center lg:items-center">
             
             {/* Left Side - Hero Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-center lg:text-left"
+              className="text-center lg:text-left bg-white/5 backdrop-blur-sm rounded-xl p-8 shadow-[0_4px_24px_rgba(0,0,0,0.08)] border border-white/10"
             >
-              <div className="inline-flex items-center justify-center gap-1 px-4 py-1.5 mb-6 rounded-full bg-white border border-blue-100 lg:mx-0 mx-auto">
+              <div className="inline-flex items-center justify-center gap-1 px-4 py-1.5 mb-8 rounded-full bg-white border border-blue-100 lg:mx-0 mx-auto">
                 <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
                 <span className="text-sm text-blue-600">Available Now in Metro Atlanta</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 text-blue-600 leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-blue-600 leading-tight">
                 Professional TV<br />Mounting & Smart<br />Home Installation
               </h1>
 
-              <p className="text-lg lg:text-xl text-blue-600 mb-6">
+              <p className="text-lg lg:text-xl text-blue-600 mb-4">
                 Expert installation services with flawless<br />results in Metro Atlanta
               </p>
+
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8 text-blue-500 text-sm font-medium">
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                  Clean Wire Management
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                  Fireplace Installs
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                  Smart Home Setups
+                </span>
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-3 items-center lg:justify-start justify-center">
                 <Link href="/booking" className="w-full sm:w-auto">
@@ -193,32 +208,32 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* Right Side - Brevo Form */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="w-full max-w-md mx-auto lg:max-w-none"
-            >
+            {/* Right Side - Brevo Form (Desktop), Below Hero (Mobile) */}
+            <div className="w-full max-w-md mx-auto lg:max-w-none mt-6 lg:mt-0">
               {/* Brevo Email Collection Form - Premium Design */}
-              <div className="bg-white rounded-xl border border-gray-200 shadow-[0_4px_24px_rgba(0,0,0,0.08)] p-8">
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                className="bg-white rounded-xl border border-gray-200 shadow-[0_4px_24px_rgba(0,0,0,0.08)] p-6"
+              >
                 <form 
                   method="POST" 
                   action="https://227ffc5e.sibforms.com/serve/MUIFADMwSnYCslXF8bLxtleOov-F7a4CANC06GZYWXpCFBU7p3i79fMNZJqnZB9JjBsZO0oa5PzWlfX2TSSfHoY4TqhXlDQjER-vytp2X8PD5Uo8l7_6wS0kwA_4JYR4oEXdPrEVZhsPtXSR7F7ABbmS-rcg-kuwt8J4O5IsTOhAZtxaqXixNJiVWsfGBhb_rRy-st8bzSt5M7Me"
-                  className="space-y-5 max-w-md mx-auto font-['Inter',sans-serif]"
+                  className="space-y-4 max-w-md mx-auto font-['Inter',sans-serif]"
                 >
                   {/* Form Title */}
-                  <div className="text-center mb-6">
-                    <h2 className="text-3xl font-bold text-[#1A56DB] mb-3 leading-tight">
+                  <div className="text-center mb-4">
+                    <h2 className="text-2xl font-bold text-[#1A56DB] mb-2 leading-tight">
                       Join the Picture Perfect Experience
                     </h2>
-                    <p className="text-[#EF4444] text-base leading-relaxed">
+                    <p className="text-[#EF4444] text-sm leading-relaxed">
                       Unlock exclusive deals, early access to specials, and pro tips to elevate your home setup.
                     </p>
                   </div>
                   
                   {/* Name Field */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <label htmlFor="FIRSTNAME" className="block text-sm font-semibold text-[#1A56DB]">
                       Name *
                     </label>
@@ -227,21 +242,21 @@ export default function HomePage() {
                       id="FIRSTNAME" 
                       name="FIRSTNAME" 
                       required 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                       placeholder="Your full name"
                     />
                     <p className="text-xs text-[#EF4444] text-right">Let us know who we're talking to!</p>
                   </div>
                   
                   {/* Phone Number Field */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <label htmlFor="SMS" className="block text-sm font-semibold text-[#1A56DB]">
                       Phone Number *
                     </label>
                     <div className="flex gap-2">
                       <select 
                         name="SMS__COUNTRY_CODE" 
-                        className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                        className="px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                         defaultValue="+1"
                       >
                         <option value="+1">+1 US</option>
@@ -253,15 +268,15 @@ export default function HomePage() {
                         id="SMS" 
                         name="SMS" 
                         required 
-                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                        className="flex-1 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                         placeholder="(555) 123-4567"
                       />
                     </div>
-                    <p className="text-xs text-[#EF4444] text-right">For exclusive SMS deals & updates (no spam, just the good stuff).</p>
+                    <p className="text-xs text-[#EF4444] text-right">For exclusive SMS deals & updates.</p>
                   </div>
                   
                   {/* Email Field */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <label htmlFor="EMAIL" className="block text-sm font-semibold text-[#1A56DB]">
                       Email *
                     </label>
@@ -270,14 +285,14 @@ export default function HomePage() {
                       id="EMAIL" 
                       name="EMAIL" 
                       required 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                       placeholder="your@email.com"
                     />
-                    <p className="text-xs text-[#EF4444] text-right">Stay in the loop with promos, upgrades & insider tips.</p>
+                    <p className="text-xs text-[#EF4444] text-right">Stay in the loop with promos & insider tips.</p>
                   </div>
                   
                   {/* Birthday Field */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <label htmlFor="BIRTHDAY" className="block text-sm font-semibold text-[#1A56DB]">
                       Birthday (Optional)
                     </label>
@@ -285,13 +300,13 @@ export default function HomePage() {
                       type="date" 
                       id="BIRTHDAY" 
                       name="BIRTHDAY" 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
                     />
                     <p className="text-xs text-[#EF4444] text-right">For special birthday offers</p>
                   </div>
                   
                   {/* Privacy Notice */}
-                  <div className="text-sm text-gray-600 pt-4 border-t border-gray-100">
+                  <div className="text-xs text-gray-600 pt-3 border-t border-gray-100">
                     <p className="leading-relaxed">
                       We use Brevo as our marketing platform. By submitting this form you agree that the personal data you provided will be transferred to Brevo for processing in accordance with{' '}
                       <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-[#1A56DB] underline hover:text-[#1440A0] transition-colors">
@@ -300,10 +315,10 @@ export default function HomePage() {
                     </p>
                   </div>
                   
-                  {/* Submit Button - Matches Book Now Button */}
+                  {/* Submit Button - Matches Book Now Button Height */}
                   <button 
                     type="submit" 
-                    className="w-full bg-[#1A56DB] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#1440A0] hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-['Inter',sans-serif] text-base"
+                    className="w-full bg-[#1A56DB] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#1440A0] hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-['Inter',sans-serif] text-base h-12"
                   >
                     JOIN NOW
                   </button>
@@ -312,9 +327,8 @@ export default function HomePage() {
                   <input type="text" name="email_address_check" style={{ display: 'none' }} />
                   <input type="hidden" name="locale" value="en" />
                 </form>
-              </div>
-
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
