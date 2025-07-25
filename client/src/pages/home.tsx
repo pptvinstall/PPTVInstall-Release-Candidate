@@ -128,7 +128,7 @@ export default function HomePage() {
       {/* Hero Section with position: relative for useScroll */}
       <section
         ref={heroRef}
-        className="min-h-screen flex items-center bg-white pt-16 pb-8"
+        className="min-h-screen flex items-center bg-white pt-8 pb-6"
         style={{ position: 'relative' }}
       >
         <div className="absolute inset-0 z-0 opacity-5">
@@ -147,15 +147,15 @@ export default function HomePage() {
                 <span className="text-sm text-blue-600">Available Now in Metro Atlanta</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-blue-600">
+              <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-blue-600">
                 Professional TV<br />Mounting & Smart<br />Home Installation
               </h1>
 
-              <p className="text-lg text-blue-600 mb-8">
+              <p className="text-lg text-blue-600 mb-6">
                 Expert installation services with flawless<br />results in Metro Atlanta
               </p>
 
-              <div className="flex flex-col gap-4 items-center">
+              <div className="flex flex-col gap-3 items-center">
                 <Link href="/booking" className="w-full max-w-xs">
                   <Button
                     size="lg"
@@ -177,7 +177,7 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-3 mt-8">
+              <div className="flex flex-wrap justify-center gap-3 mt-6">
                 <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
                   <Clock className="h-4 w-4 text-blue-500 mr-2" />
                   <span className="text-sm">Same-Day Available</span>
@@ -186,6 +186,26 @@ export default function HomePage() {
                   <Shield className="h-4 w-4 text-blue-500 mr-2" />
                   <span className="text-sm">License & Insured</span>
                 </div>
+              </div>
+
+              {/* Brevo Email Signup Form */}
+              <div className="mt-8 w-full max-w-2xl mx-auto">
+                <iframe
+                  width="540"
+                  height="305"
+                  src="https://227ffc5e.sibforms.com/serve/MUIFALhWNoyU9FNS0lzZ-DOzAYxZqtsjBF_QwAXzHJ2j3T8QZf0VIPmSWHcMXFsR4hUuPXtR2tyX55yZDMcefZx-m3O5aJj4zvUOGnF6AdVM6P1WnqG8NWYUiCf2ufoNrtLESlvtf3fk59CyfD1wI4L2Qf1kd5H1K8EjFYRg7yw2HJ8IOKzLrANDV-CysCjhfsxcda_p-D6-MYeZ"
+                  frameBorder="0"
+                  scrolling="auto"
+                  allowFullScreen
+                  className="block mx-auto max-w-full w-full h-auto"
+                  style={{
+                    display: 'block',
+                    margin: '0 auto',
+                    maxWidth: '100%',
+                    height: 'auto',
+                    minHeight: '305px'
+                  }}
+                />
               </div>
             </motion.div>
           </div>
