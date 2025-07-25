@@ -46,13 +46,15 @@ export default function HomePage() {
   // Using a ref with a container that has position: relative
   const { scrollYProgress: heroScrollProgress } = useScroll({
     target: heroRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
+    layoutEffect: false
   });
 
   // Add a scroll progress tracker for the showcase section
   const { scrollYProgress: showcaseScrollProgress } = useScroll({
     target: showcaseRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
+    layoutEffect: false
   });
 
   const showcaseOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0.7]);
@@ -63,6 +65,11 @@ export default function HomePage() {
     // Allow normal form submission to Brevo
     // Add tracking
     trackLead({ source: 'brevo_form_submit' });
+    
+    // Show success modal after a brief delay to allow form submission
+    setTimeout(() => {
+      setShowSuccessModal(true);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -274,7 +281,7 @@ export default function HomePage() {
                     JOIN NOW
                   </button>
 
-                  <input type="text" name="email_address_check" value="" className="hidden" />
+                  <input type="text" name="email_address_check" defaultValue="" className="hidden" />
                   <input type="hidden" name="locale" value="en" />
                 </form>
               </motion.div>
@@ -349,7 +356,97 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Rest of component continues... */}
+      {/* Key Features Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose Picture Perfect?</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Professional installation with premium service standards across Metro Atlanta
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Licensed & Insured</h3>
+              <p className="text-gray-600">
+                Fully licensed professionals with comprehensive insurance coverage for your peace of mind.
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Same-Day Service</h3>
+              <p className="text-gray-600">
+                Fast, reliable installation often available the same day you book.
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Trophy className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">#1 Rated Service</h3>
+              <p className="text-gray-600">
+                Top-rated TV mounting service in Metro Atlanta with hundreds of satisfied customers.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-700">
+        <div className="container mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto"
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+              Ready for Picture Perfect Installation?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Book your professional TV mounting service today and join hundreds of satisfied customers across Metro Atlanta.
+            </p>
+            <Link href="/booking">
+              <Button
+                size="lg"
+                className="bg-red-500 hover:bg-red-600 text-white font-bold h-14 px-12 text-lg shadow-lg"
+                onClick={() => trackLead({ source: 'cta_bottom' })}
+              >
+                <span>Book Your Installation</span>
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </>
   );
 }
