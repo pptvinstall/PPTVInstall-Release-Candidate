@@ -372,6 +372,86 @@ export default function HomePage() {
                     `
                   }}
                 />
+                  
+                  {/* Phone Number Field */}
+                  <div className="space-y-1">
+                    <label htmlFor="SMS" className="block text-sm font-semibold text-[#1A56DB]">
+                      Phone Number *
+                    </label>
+                    <div className="flex gap-2">
+                      <select 
+                        name="SMS__COUNTRY_CODE" 
+                        className="px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                        defaultValue="+1"
+                      >
+                        <option value="+1">+1 US</option>
+                        <option value="+1">+1 CA</option>
+                        <option value="+44">+44 GB</option>
+                      </select>
+                      <input 
+                        type="tel" 
+                        id="SMS" 
+                        name="SMS" 
+                        required 
+                        className="flex-1 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                        placeholder="(555) 123-4567"
+                      />
+                    </div>
+                    <p className="text-xs text-[#EF4444] text-right">For exclusive SMS deals & updates.</p>
+                  </div>
+                  
+                  {/* Email Field */}
+                  <div className="space-y-1">
+                    <label htmlFor="EMAIL" className="block text-sm font-semibold text-[#1A56DB]">
+                      Email *
+                    </label>
+                    <input 
+                      type="email" 
+                      id="EMAIL" 
+                      name="EMAIL" 
+                      required 
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                      placeholder="your@email.com"
+                    />
+                    <p className="text-xs text-[#EF4444] text-right">Stay in the loop with promos & insider tips.</p>
+                  </div>
+                  
+                  {/* Birthday Field */}
+                  <div className="space-y-1">
+                    <label htmlFor="BIRTHDAY" className="block text-sm font-semibold text-[#1A56DB]">
+                      Birthday (Optional)
+                    </label>
+                    <input 
+                      type="date" 
+                      id="BIRTHDAY" 
+                      name="BIRTHDAY" 
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A56DB] focus:border-[#1A56DB] transition-all duration-200 font-['Inter',sans-serif]"
+                    />
+                    <p className="text-xs text-[#EF4444] text-right">For special birthday offers</p>
+                  </div>
+                  
+                  {/* Privacy Notice */}
+                  <div className="text-xs text-gray-600 pt-3 border-t border-gray-100">
+                    <p className="leading-relaxed">
+                      We use Brevo as our marketing platform. By submitting this form you agree that the personal data you provided will be transferred to Brevo for processing in accordance with{' '}
+                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-[#1A56DB] underline hover:text-[#1440A0] transition-colors">
+                        Brevo's Privacy Policy
+                      </a>.
+                    </p>
+                  </div>
+                  
+                  {/* Submit Button - Matches Book Now Button Height */}
+                  <button 
+                    type="submit" 
+                    className="w-full bg-[#1A56DB] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#1440A0] hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 font-['Inter',sans-serif] text-base h-12"
+                  >
+                    JOIN NOW
+                  </button>
+                  
+                  {/* Hidden fields for Brevo */}
+                  <input type="text" name="email_address_check" style={{ display: 'none' }} />
+                  <input type="hidden" name="locale" value="en" />
+                </form>
               </motion.div>
             </div>
           </div>
