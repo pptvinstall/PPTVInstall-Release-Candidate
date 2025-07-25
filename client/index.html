@@ -242,9 +242,26 @@
       window.INVALID_DATE = "Please enter a valid date";
       
       function handleCaptchaResponse() {
-        console.log('Form submitted - Brevo will handle processing');
+        console.log('reCAPTCHA completed - Brevo will handle processing');
+        var event = new Event('captchaChange');
+        var captcha = document.getElementById('sib-captcha');
+        if (captcha) {
+          captcha.dispatchEvent(event);
+        }
         return true;
       }
+      
+      // Brevo form configuration and translation
+      window.translation = {
+        common: {
+          selectedList: '{quantity} list selected',
+          selectedLists: '{quantity} lists selected',
+          selectedOption: '{quantity} selected',
+          selectedOptions: '{quantity} selected',
+        }
+      };
+
+      window.AUTOHIDE = Boolean(0);
       
       // Enhanced success detection for Picture Perfect integration
       window.addEventListener('load', function() {
@@ -264,5 +281,9 @@
         }
       });
     </script>
+    
+    <!-- Brevo Form Scripts -->
+    <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+    <script async src="https://www.google.com/recaptcha/api.js?hl=en"></script>
   </body>
 </html>

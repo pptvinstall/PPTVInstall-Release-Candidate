@@ -66,7 +66,7 @@ export default function HomePage() {
     };
     
     // Listen for custom success message from Brevo form
-    const handleMessage = (event) => {
+    const handleMessage = (event: MessageEvent) => {
       if (event.origin === window.location.origin && event.data === 'brevo-form-success') {
         handleBrevoSuccess();
       }
@@ -262,7 +262,100 @@ export default function HomePage() {
                           </div>
                           <div></div>
                           <div id="sib-container" class="sib-container--large sib-container--horizontal" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:12px; border-width:0px; border-color:#C0CCD9; border-style:solid; direction:ltr">
-                            <form id="sib-form" method="POST" action="https://227ffc5e.sibforms.com/serve/MUIFAIUZllMksdwOm3Hq1eUSACUOZwEB7GjIVB5-YyHskSKw34Nh8fF1z1dT_Lw4XwUJUcOskAmS8EyPhs4dqAdMPEk2vXCMSUD5vkNegQ-trLlN-fUow9L3uGEz3A2kJW829-GqovrQcFB-4vh6u-k_3e2tq1Hqpmk-pTL0rA6_RYazDiFPNmfO91ol4t4oXaV5fLdk16-zZT_m" data-type="subscription">
+                            <form id="sib-form" method="POST" action="https://227ffc5e.sibforms.com/serve/MUIFAORX-sUxF1INXeVZ4MEHF-ZqHQq3Dp-NgpQnIa0ZVx4aM4kUizmV8L0Zjtwuc9IjCzNKbAKSdYmrp0rmAsoDex-umT2WtC8hSfft6fSybf-qhN3VmJFcOmiIunk7swUsf0Q4FpQYEsrXBMwxaEcunAcfAEZO9ymottARx6jsEnGnnCSIoVomhColDxPaIsnmFfW-U_WOSfjf" data-type="subscription">
+                              <div style="padding: 8px 0;">
+                                <div class="sib-form-block" style="font-size:28px; text-align:center; font-weight:700; font-family:'Inter', sans-serif; color:#1A56DB; background-color:transparent">
+                                  <p>Join the Picture Perfect Experience</p>
+                                </div>
+                              </div>
+                              <div style="padding: 8px 0;">
+                                <div class="sib-form-block" style="font-size:14px; text-align:center; font-family:'Inter', sans-serif; color:#EF4444; background-color:transparent">
+                                  <div class="sib-text-form-block">
+                                    <p>Unlock exclusive deals, early access to specials, and pro tips to elevate your home setup.</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div style="padding: 8px 0;">
+                                <div class="sib-input sib-form-block">
+                                  <div class="form__entry entry_block">
+                                    <div class="form__label-row form__label-row--horizontal">
+                                      <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:'Inter', sans-serif; color:#1A56DB;" for="FIRSTNAME" data-required="*">Name</label>
+                                      <div class="entry__field">
+                                        <input class="input" maxlength="200" type="text" id="FIRSTNAME" name="FIRSTNAME" autocomplete="off" placeholder="" data-required="true" required style="font-family:'Inter', sans-serif;" />
+                                      </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:'Inter', sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div style="padding: 8px 0;">
+                                <div class="sib-sms-field sib-form-block">
+                                  <div class="form__entry entry_block">
+                                    <div class="form__label-row">
+                                      <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:'Inter', sans-serif; color:#1A56DB;" for="SMS" data-required="*">Phone Number</label>
+                                      <div class="sib-sms-input-wrapper" style="direction:ltr">
+                                        <div class="sib-sms-input" data-placeholder="" data-required="1" data-country-code="US" data-whatsapp-country-code="US" data-value="" data-whatsappvalue="" data-attributename="SMS">
+                                          <div class="entry__field">
+                                            <select class="input" name="SMS__COUNTRY_CODE" data-required="true" style="font-family:'Inter', sans-serif;">
+                                              <option value="+1" selected>+1 US</option>
+                                            </select>
+                                          </div>
+                                          <div class="entry__field" style="width: 100%">
+                                            <input type="tel" class="input" id="SMS" name="SMS" autocomplete="off" placeholder="" data-required="true" required style="font-family:'Inter', sans-serif;" />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:'Inter', sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div style="padding: 8px 0;">
+                                <div class="sib-input sib-form-block">
+                                  <div class="form__entry entry_block">
+                                    <div class="form__label-row form__label-row--horizontal">
+                                      <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:'Inter', sans-serif; color:#1A56DB;" for="EMAIL" data-required="*">Email</label>
+                                      <div class="entry__field">
+                                        <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="" data-required="true" required style="font-family:'Inter', sans-serif;" />
+                                      </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:'Inter', sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div style="padding: 8px 0;">
+                                <div class="sib-input sib-form-block">
+                                  <div class="form__entry">
+                                    <div class="form__label-row form__label-row--horizontal">
+                                      <label class="entry__label" style="font-weight: 700; text-align:left; font-size:16px; font-family:'Inter', sans-serif; color:#1A56DB;" for="BIRTHDAY">Birthday</label>
+                                      <div class="entry__field">
+                                        <input maxlength="200" type="text" data-type="date" class="input" pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$" title="dd-mm-yyyy" data-format="dd-mm-yyyy" id="BIRTHDAY" name="BIRTHDAY" autocomplete="off" placeholder="dd-mm-yyyy" style="font-family:'Inter', sans-serif;" />
+                                      </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:'Inter', sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div style="padding: 8px 0;">
+                                <div class="sib-form__declaration" style="direction:ltr">
+                                  <div style="font-size:12px; text-align:left; font-family:'Inter', sans-serif; color:#687484; background-color:transparent;">
+                                    <p>We use Brevo as our marketing platform. By submitting this form you agree that the personal data you provided will be transferred to Brevo for processing in accordance with <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" style="color:#1A56DB;">Brevo's Privacy Policy.</a></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div style="padding: 8px 0;">
+                                <div class="g-recaptcha sib-visible-recaptcha" id="sib-captcha" data-sitekey="6LcYXY0rAAAAAFtZ5pblsWeJPowEER0rqUQbqtjM" data-callback="handleCaptchaResponse" style="direction:ltr"></div>
+                              </div>
+                              <div style="padding: 8px 0;">
+                                <div class="sib-form-block" style="text-align: left">
+                                  <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px; text-align:center; font-weight:700; font-family:'Inter', sans-serif; color:#ffffff; background-color:#1A56DB; border-radius:12px; border-width:0px; width: 100%; padding: 12px;" form="sib-form" type="submit">
+                                    JOIN NOW
+                                  </button>
+                                </div>
+                              </div>
+                              <input type="text" name="email_address_check" value="" class="input--hidden">
+                              <input type="hidden" name="locale" value="en">
+                            </form>
                               <div style="padding: 8px 0;">
                                 <div class="sib-form-block" style="font-size:28px; text-align:center; font-weight:700; font-family:'Inter', sans-serif; color:#1A56DB; background-color:transparent; text-align:center">
                                   <p>Join the Picture Perfect Experience</p>
