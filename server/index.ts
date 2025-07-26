@@ -120,13 +120,13 @@ const gracefulShutdown = (signal: string) => {
   if (serverInstance) {
     try {
       // Clean up monitoring intervals
-      if (global.monitoring && typeof global.monitoring.stopHealthMonitoring === 'function') {
-        global.monitoring.stopHealthMonitoring();
+      if ((global as any).monitoring && typeof (global as any).monitoring.stopHealthMonitoring === 'function') {
+        (global as any).monitoring.stopHealthMonitoring();
       }
       
       // Force garbage collection if available
-      if (global.gc) {
-        global.gc();
+      if ((global as any).gc) {
+        (global as any).gc();
       }
       
       // Set a handler for server close to track completion
@@ -249,7 +249,7 @@ const gracefulShutdown = (signal: string) => {
           })
           .catch(err => {
             clearTimeout(timeoutId);
-            if (process.env.NODE_ENV === 'development' && !err.name === 'AbortError') {
+            if (process.env.NODE_ENV === 'development' && err.name !== 'AbortError') {
               console.error('Keep-alive ping failed:', err.message);
             }
           });

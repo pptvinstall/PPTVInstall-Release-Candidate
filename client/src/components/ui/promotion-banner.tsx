@@ -167,7 +167,9 @@ export function PromotionBannerGroup() {
         }
       } catch (error) {
         // Network or parsing error, fallback to default
-        console.error('Error fetching promotions:', error);
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('Error fetching promotions:', error);
+        }
         setActivePromotions(defaultPromotions.filter(promo => promo.isActive));
       } finally {
         setLoading(false);
