@@ -115,26 +115,36 @@ export class MonitoringService {
     };
   }
 
+  private healthMonitoringInterval?: NodeJS.Timeout;
+
   private async startHealthMonitoring() {
+    // Clear existing interval if any
+    if (this.healthMonitoringInterval) {
+      clearInterval(this.healthMonitoringInterval);
+    }
+
     const interval = 30000; // 30 seconds
     
-    setInterval(async () => {
+    this.healthMonitoringInterval = setInterval(async () => {
       try {
         const health = await this.getSystemHealth();
         
+        // Only log warnings and critical issues to reduce memory usage
         if (health.status === 'unhealthy') {
           await this.sendAlert('CRITICAL', 'System unhealthy', health);
-        } else if (health.status === 'degraded') {
-          await this.sendAlert('WARNING', 'System degraded', health);
+        } else if (health.status === 'degraded' && health.memory.percentage > 95) {
+          await this.sendAlert('WARNING', 'High memory usage', { 
+            memory: health.memory.percentage,
+            responseTime: health.responseTime 
+          });
         }
 
-        if (this.launchConfig.realTimeMonitoring) {
+        // Reduce logging frequency for real-time monitoring
+        if (this.launchConfig.realTimeMonitoring && Math.random() < 0.1) { // Only 10% of the time
           logger.info('Health check:', {
             status: health.status,
-            uptime: health.uptime,
             memory: health.memory.percentage,
-            responseTime: health.responseTime,
-            activeBookings: health.activeBookings
+            responseTime: health.responseTime
           });
         }
       } catch (error) {
@@ -142,6 +152,13 @@ export class MonitoringService {
         await this.sendAlert('CRITICAL', 'Health monitoring failed', { error: (error as Error).message });
       }
     }, interval);
+  }
+
+  public stopHealthMonitoring() {
+    if (this.healthMonitoringInterval) {
+      clearInterval(this.healthMonitoringInterval);
+      this.healthMonitoringInterval = undefined;
+    }
   }
 
   private async sendAlert(level: 'INFO' | 'WARNING' | 'CRITICAL', message: string, data: any) {
@@ -207,3 +224,8 @@ export class MonitoringService {
 }
 
 export const monitoring = new MonitoringService();
+
+// Make monitoring available globally for cleanup
+if (typeof global !== 'undefined') {
+  global.monitoring = monitoring;
+}

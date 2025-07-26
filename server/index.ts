@@ -119,6 +119,16 @@ const gracefulShutdown = (signal: string) => {
   // Only shut down if server exists
   if (serverInstance) {
     try {
+      // Clean up monitoring intervals
+      if (global.monitoring && typeof global.monitoring.stopHealthMonitoring === 'function') {
+        global.monitoring.stopHealthMonitoring();
+      }
+      
+      // Force garbage collection if available
+      if (global.gc) {
+        global.gc();
+      }
+      
       // Set a handler for server close to track completion
       serverInstance.close((err?: Error) => {
         if (err) {
@@ -218,23 +228,35 @@ const gracefulShutdown = (signal: string) => {
         return;
       }
       
-      // Make a self-request to keep the server alive
+      // Make a self-request to keep the server alive with timeout and proper cleanup
       try {
-        fetch(`http://localhost:${port}/api/health`)
-          .then(() => {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
+        fetch(`http://localhost:${port}/api/health`, {
+          signal: controller.signal,
+          headers: { 'Connection': 'close' } // Ensure connection is closed
+        })
+          .then((response) => {
+            clearTimeout(timeoutId);
             if (process.env.NODE_ENV === 'development') {
               log('Keep-alive ping successful');
             }
+            // Explicitly close the response to free memory
+            if (response.body) {
+              response.body.cancel();
+            }
           })
           .catch(err => {
-            if (process.env.NODE_ENV === 'development') {
+            clearTimeout(timeoutId);
+            if (process.env.NODE_ENV === 'development' && !err.name === 'AbortError') {
               console.error('Keep-alive ping failed:', err.message);
             }
           });
       } catch (error) {
         // Ignore fetch errors during shutdown
       }
-    }, 240000); // Every 4 minutes
+    }, 300000); // Every 5 minutes (reduced frequency)
 
     server.listen({
       port,
