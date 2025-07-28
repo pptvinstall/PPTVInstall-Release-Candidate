@@ -36,12 +36,12 @@ export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(false);
-  
+
   // Memoized handlers for better performance
   const toggleMenu = useCallback(() => setIsOpen(prev => !prev), []);
   const openMenu = useCallback(() => setIsOpen(true), []);
   const closeMenu = useCallback(() => setIsOpen(false), []);
-  
+
   // Phone call handler
   const handlePhoneCall = useCallback(() => {
     window.location.href = "tel:404-702-4748";
@@ -74,12 +74,12 @@ export default function Nav() {
     setIsScrolled(scrollPosition > 10);
     setShowFloatingButton(scrollPosition > 300);
   }, []);
-  
+
   // Handle scroll effects with throttling for better performance
   useEffect(() => {
     // Initial check
     handleScroll();
-    
+
     // Throttled scroll event to improve performance
     let ticking = false;
     const onScroll = () => {
@@ -91,7 +91,7 @@ export default function Nav() {
         ticking = true;
       }
     };
-    
+
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, [handleScroll]);
@@ -146,7 +146,7 @@ export default function Nav() {
                       {link.name}
                       <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180" />
                     </Button>
-                    
+
                     {/* Dropdown */}
                     <div className="absolute left-0 mt-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="py-1">
@@ -179,7 +179,7 @@ export default function Nav() {
               <span className="hidden sm:inline">Call</span>
               <span className="sm:hidden">Call</span>
             </Button>
-            
+
             {/* Mobile menu button */}
             <Button 
               variant="ghost" 
@@ -193,7 +193,7 @@ export default function Nav() {
           </div>
         </div>
       </nav>
-      
+
       {/* Mobile menu dropdown */}
       {isOpen && (
         <div className="fixed inset-0 z-50 lg:hidden bg-black/50" onClick={closeMenu}>
@@ -209,7 +209,7 @@ export default function Nav() {
                   <X className="h-4 w-4" />
                 </Button>
               </div>
-              
+
               <div className="flex-1 overflow-y-auto py-4 px-2">
                 {navigationLinks.map((link) => (
                   <div key={link.href}>
@@ -261,7 +261,7 @@ export default function Nav() {
                   </div>
                 ))}
               </div>
-              
+
               <div className="mt-auto p-4 border-t">
                 <Button 
                   className="w-full bg-blue-600 hover:bg-blue-700"
@@ -275,7 +275,7 @@ export default function Nav() {
           </div>
         </div>
       )}
-      
+
       {/* Floating menu button - appears when scrolling down on mobile */}
       {showFloatingButton && (
         <div className="fixed bottom-6 right-6 z-40 lg:hidden animate-in fade-in duration-300">

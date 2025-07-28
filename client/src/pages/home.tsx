@@ -58,19 +58,19 @@ const Home: React.FC = () => {
       icon: <Calendar className="w-8 h-8" />,
       title: "TV Mounting",
       description: "Professional wall mounting for all TV sizes with cable management",
-      price: "Starting at $149"
+      price: "Starting at $175"
     },
     {
       icon: <Shield className="w-8 h-8" />,
       title: "Fireplace Installation",
       description: "Safe and secure mounting above fireplaces with proper heat protection",
-      price: "Starting at $199"
+      price: "Starting at $250"
     },
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Smart Home Setup",
       description: "Complete smart home integration and device configuration",
-      price: "Starting at $99"
+      price: "Starting at $125"
     }
   ];
 
@@ -166,24 +166,35 @@ const Home: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Brevo Form Iframe - Embedded as JSX */}
+                {/* Brevo Form Iframe - Fixed Implementation */}
                 <iframe
                   width="100%"
-                  height="400"
+                  height="440"
                   src="https://227ffc5e.sibforms.com/serve/MUIFAIvOdZJKQivVxIQglvAtaIigtxkEh2tq9PIWv01xvfP6mp3detDHXLbf_CG3Fpy0LnMIruRoETcJ5avgk7Gurzcu7ElEZnEWIeZwncRTnxGlZ5GZSeRA5zg9L9g25Dol6QoX7R8oN7q0efDeexgSGjqSkITx9xJ930lHB6bqa1dAWRLKn35tip3JmlCO_mEFJcHxznpuMkwg"
                   frameBorder="0"
                   scrolling="auto"
                   allowFullScreen
                   style={{
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    maxWidth: "100%",
-                    borderRadius: "12px",
-                    boxShadow: "0 2px 16px rgba(0,0,0,0.05)"
+                    border: "none",
+                    borderRadius: "1.5rem",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.09)",
+                    background: "#fff",
+                    maxWidth: "500px",
+                    margin: "auto",
+                    display: "block"
                   }}
                   title="Picture Perfect TV Install Sign Up Form"
                 />
+
+                {/* Mobile responsive styling */}
+                <style jsx>{`
+                  @media (max-width: 600px) {
+                    iframe {
+                      max-width: 98vw !important;
+                      height: 520px !important;
+                    }
+                  }
+                `}</style>
               </motion.div>
             </div>
           </div>

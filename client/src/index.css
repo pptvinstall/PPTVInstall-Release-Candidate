@@ -358,3 +358,55 @@ select,
 [data-radix-popper-content-wrapper] {
   z-index: 100 !important;
 }
+
+
+/* Mobile responsive improvements */
+@media (max-width: 600px) {
+  .call-btn {
+    opacity: 1 !important;
+    display: inline-block !important;
+    pointer-events: auto;
+    transition: background 0.2s;
+  }
+  
+  /* Improve mobile form styling */
+  iframe {
+    max-width: 98vw !important;
+    height: 520px !important;
+    border-radius: 1rem !important;
+  }
+  
+  /* Better mobile spacing */
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+  
+  .service-cards {
+    gap: 1rem;
+  }
+}
+
+/* Always visible call button */
+.call-btn {
+  opacity: 1 !important;
+  display: inline-block !important;
+  pointer-events: auto;
+  transition: background 0.2s;
+}
+
+/* Remove any hover-only behaviors */
+.best-value-badge {
+  display: none !important;
+}
+
+/* Enhanced CTA styling */
+.cta-button {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
