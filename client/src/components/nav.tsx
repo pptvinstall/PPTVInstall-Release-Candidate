@@ -62,7 +62,7 @@ export default function Nav() {
       ]
     },
 
-    { href: '/booking', name: 'Book Now', icon: Calendar, badge: 'Best Value' },
+    { href: '/booking', name: 'Book Now', icon: Calendar },
     { href: '/contact', name: 'Contact', icon: MessagesSquare },
     { href: '/faq', name: 'FAQ', icon: HelpCircle },
     { href: '/customer-login', name: 'Customer Portal', icon: User }
@@ -128,11 +128,7 @@ export default function Nav() {
                     >
                       <link.icon className="h-4 w-4 mr-1" />
                       {link.name}
-                      {link.badge && (
-                        <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] px-1.5 py-0.5 rounded-full">
-                          {link.badge}
-                        </span>
-                      )}
+                      
                     </Button>
                   </Link>
                 ) : (
@@ -222,11 +218,7 @@ export default function Nav() {
                         >
                           <link.icon className="h-4 w-4 mr-2" />
                           {link.name}
-                          {link.badge && (
-                            <span className="absolute top-0 right-1 bg-blue-600 text-white text-[10px] px-1.5 py-0.5 rounded-full">
-                              {link.badge}
-                            </span>
-                          )}
+                          
                         </Button>
                       </Link>
                     ) : (

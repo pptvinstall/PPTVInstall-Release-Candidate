@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import { Calendar, Shield, Zap, Clock, Star, ArrowRight, Phone, MapPin, CheckCircle, Award, Users, TrendingUp } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import { Calendar, Shield, Zap, Star, Phone, MapPin, CheckCircle } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
@@ -10,47 +10,26 @@ import { useToast } from '../hooks/use-toast';
 
 const Home: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { toast } = useToast();
 
   // Refs for scroll animations
   const heroRef = useRef<HTMLDivElement>(null);
-  const showcaseRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLDivElement>(null);
 
   // In-view detection
-  const showcaseInView = useInView(showcaseRef, { once: true, amount: 0.3 });
   const servicesInView = useInView(servicesRef, { once: true, amount: 0.2 });
   const testimonialsInView = useInView(testimonialsRef, { once: true, amount: 0.2 });
-
-  // Using a ref with a container that has position: relative
-  const { scrollYProgress: heroScrollProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-    layoutEffect: false
-  });
-
-  // Add a scroll progress tracker for the showcase section
-  const { scrollYProgress: showcaseScrollProgress } = useScroll({
-    target: showcaseRef,
-    offset: ["start start", "end start"],
-    layoutEffect: false
-  });
-
-  const showcaseOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0.7]);
-  const showcaseScale = useTransform(heroScrollProgress, [0, 0.5], [1, 1.05]);
 
   // Simulate loading
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 300);
-
     return () => clearTimeout(timer);
   }, []);
 
-  // Track page view
+  // Track page view  
   useEffect(() => {
     trackPageView();
   }, []);
@@ -128,14 +107,18 @@ const Home: React.FC = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button size="lg" className="bg-red-500 hover:bg-red-600 text-white px-8 py-4 text-lg font-semibold">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Book Installation
-                </Button>
-                <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold">
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Now
-                </Button>
+                <a href="/booking" className="inline-block">
+                  <Button size="lg" className="bg-red-500 hover:bg-red-600 text-white px-8 py-4 text-lg font-semibold w-full">
+                    <Calendar className="w-5 h-5 mr-2" />
+                    Book Installation
+                  </Button>
+                </a>
+                <a href="tel:4047024748" className="inline-block">
+                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold w-full">
+                    <Phone className="w-5 h-5 mr-2" />
+                    Call Now
+                  </Button>
+                </a>
               </div>
 
               <div className="flex flex-wrap gap-6 justify-center lg:justify-start text-sm">
@@ -229,9 +212,11 @@ const Home: React.FC = () => {
                         ))}
                       </ul>
                     )}
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                      Get Quote
-                    </Button>
+                    <a href="/booking" className="block">
+                      <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                        Get Quote
+                      </Button>
+                    </a>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -289,10 +274,12 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-4">Ready to Transform Your Home?</h2>
           <p className="text-xl mb-8 text-blue-100">Get your professional TV installation scheduled today</p>
-          <Button size="lg" className="bg-red-500 hover:bg-red-600 px-8 py-4 text-lg font-semibold">
-            <Calendar className="w-5 h-5 mr-2" />
-            Book Your Installation
-          </Button>
+          <a href="/booking">
+            <Button size="lg" className="bg-red-500 hover:bg-red-600 px-8 py-4 text-lg font-semibold">
+              <Calendar className="w-5 h-5 mr-2" />
+              Book Your Installation
+            </Button>
+          </a>
         </div>
       </section>
     </div>

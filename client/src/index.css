@@ -398,6 +398,8 @@ select,
   padding: 0.6rem 1.2rem !important;
   box-shadow: 0 2px 8px rgba(37,99,235,0.12) !important;
   transition: all 0.2s ease !important;
+  position: relative !important;
+  z-index: 100 !important;
 }
 
 .call-btn:hover {
@@ -408,6 +410,25 @@ select,
 /* Remove any hover-only behaviors */
 .best-value-badge {
   display: none !important;
+}
+
+/* Ensure navigation is always on top */
+nav {
+  z-index: 100 !important;
+  position: relative !important;
+}
+
+/* Fix button functionality */
+button, a[role="button"] {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* Ensure all interactive elements work */
+a, button, [role="button"], [tabindex="0"] {
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 10 !important;
 }
 
 /* Brevo form styling */

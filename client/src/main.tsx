@@ -77,42 +77,49 @@ console.error = (...args) => {
 
 // Additional DOM-based error overlay prevention
 const hideErrorOverlays = () => {
-  // Remove any existing error overlays with more comprehensive selectors
-  const overlays = document.querySelectorAll(
-    '#vite-error-overlay, [data-vite-error-overlay], .vite-error-overlay, div[style*="z-index: 9999"][style*="background: rgba(0, 0, 0, 0.66)"], div[style*="position: fixed"][style*="inset: 0px"], iframe[src*="__vite_ping"], div[style*="runtime-error"]'
-  );
-  overlays.forEach(overlay => {
-    if (overlay && overlay.parentNode) {
-      overlay.parentNode.removeChild(overlay);
+  try {
+    // Remove any existing error overlays with more comprehensive selectors
+    const overlays = document.querySelectorAll(
+      '#vite-error-overlay, [data-vite-error-overlay], .vite-error-overlay, div[style*="z-index: 9999"][style*="background: rgba(0, 0, 0, 0.66)"], div[style*="position: fixed"][style*="inset: 0px"], iframe[src*="__vite_ping"], div[style*="runtime-error"]'
+    );
+    overlays.forEach(overlay => {
+      if (overlay && overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+      }
+    });
+    
+    // Also hide any potential error overlays by CSS
+    const style = document.getElementById('vite-error-suppression-style') || document.createElement('style');
+    style.id = 'vite-error-suppression-style';
+    style.textContent = `
+      #vite-error-overlay,
+      [data-vite-error-overlay],
+      .vite-error-overlay,
+      div[style*="position: fixed"][style*="z-index: 9999"],
+      div[style*="position: fixed"][style*="inset: 0px"],
+      iframe[src*="__vite_ping"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        z-index: -9999 !important;
+      }
+    `;
+    if (!document.head.contains(style)) {
+      document.head.appendChild(style);
     }
-  });
-  
-  // Also hide any potential error overlays by CSS
-  const style = document.getElementById('vite-error-suppression-style') || document.createElement('style');
-  style.id = 'vite-error-suppression-style';
-  style.textContent = `
-    #vite-error-overlay,
-    [data-vite-error-overlay],
-    .vite-error-overlay,
-    div[style*="position: fixed"][style*="z-index: 9999"],
-    div[style*="position: fixed"][style*="inset: 0px"],
-    iframe[src*="__vite_ping"] {
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-      z-index: -9999 !important;
-    }
-  `;
-  if (!document.head.contains(style)) {
-    document.head.appendChild(style);
+  } catch (error) {
+    // Silently handle errors to prevent additional console noise
   }
 };
 
-// Run overlay removal immediately and more frequently
-hideErrorOverlays(); // Run immediately
+// Run overlay removal with better error handling
+hideErrorOverlays();
 document.addEventListener('DOMContentLoaded', hideErrorOverlays);
-setInterval(hideErrorOverlays, 500); // Check every 500ms for faster removal
+const intervalId = setInterval(hideErrorOverlays, 1000);
+
+// Clean up interval after 10 seconds to prevent memory leaks
+setTimeout(() => clearInterval(intervalId), 10000);
 
 // MutationObserver to catch dynamically added error overlays
 const observer = new MutationObserver((mutations) => {
