@@ -206,108 +206,128 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-                className="bg-white/98 backdrop-blur-md rounded-2xl border-2 border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.2)] p-6 lg:p-8 hover:shadow-[0_25px_70px_rgba(0,0,0,0.25)] transition-shadow duration-500"
+                className="bg-white rounded-3xl shadow-[0_4px_32px_rgba(0,0,0,0.07)] p-8 lg:p-10 hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] transition-all duration-500 backdrop-blur-sm border border-white/20"
+                style={{ 
+                  fontFamily: 'Inter, sans-serif',
+                  maxWidth: '430px',
+                  margin: 'auto'
+                }}
               >
                 <form 
                   method="POST" 
                   action="https://227ffc5e.sibforms.com/serve/MUIFAORX-sUxF1INXeVZ4MEHF-ZqHQq3Dp-NgpQnIa0ZVx4aM4kUizmV8L0Zjtwuc9IjCzNKbAKSdYmrp0rmAsoDex-umT2WtC8hSfft6fSybf-qhN3VmJFcOmiIunk7swUsf0Q4FpQYEsrXBMwxaEcunAcfAEZO9ymottARx6jsEnGnnCSIoVomhColDxPaIsnmFfW-U_WOSfjf"
-                  className="text-center max-w-md mx-auto space-y-4"
+                  className="space-y-6"
                   onSubmit={handleFormSubmit}
                 >
-                  <div className="mb-8 text-center">
+                  {/* Header Section */}
+                  <div className="text-center mb-8">
                     <div className="w-20 h-20 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                       <Star className="h-10 w-10 text-white" />
                     </div>
-                    <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-                      Join the Picture Perfect Experience
+                    <h3 className="text-3xl font-bold text-[#21316b] mb-4 leading-tight">
+                      🌟 Join the Picture Perfect Experience
                     </h3>
-                    <p className="text-gray-700 text-base leading-relaxed max-w-sm mx-auto">
+                    <p className="text-gray-600 text-base leading-relaxed">
                       Unlock exclusive deals, early access to specials, and pro tips to elevate your home setup.
                     </p>
+                    {/* Social Proof */}
+                    <div className="mt-4 flex items-center justify-center gap-2 text-sm text-gray-500">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                      <span>Trusted by 500+ Metro Atlanta clients</span>
+                    </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="FIRSTNAME" className="block text-left text-gray-900 font-semibold text-base mb-1">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="FIRSTNAME"
-                      name="FIRSTNAME"
-                      required
-                      placeholder="Enter your full name"
-                      className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500 text-base"
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="SMS" className="block text-left text-gray-900 font-semibold text-base mb-1">
-                      Phone Number *
-                    </label>
-                    <div className="flex rounded-xl overflow-hidden bg-white border-2 border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 hover:border-gray-400 transition-all duration-200">
-                      <select 
-                        name="SMS__COUNTRY_CODE" 
-                        className="px-4 py-4 bg-white border-0 focus:outline-none focus:ring-0 text-gray-900 font-medium text-base"
-                        style={{ fontFamily: 'Inter, sans-serif' }}
-                      >
-                        <option value="+1">🇺🇸 +1</option>
-                      </select>
+                  {/* Form Fields */}
+                  <div className="space-y-5">
+                    <div>
+                      <label htmlFor="FIRSTNAME" className="block text-left text-[#21316b] font-semibold text-base mb-3">
+                        Full Name *
+                      </label>
                       <input
-                        type="tel"
-                        id="SMS"
-                        name="SMS"
+                        type="text"
+                        id="FIRSTNAME"
+                        name="FIRSTNAME"
                         required
-                        placeholder="(555) 123-4567"
-                        className="flex-1 px-4 py-4 bg-white border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-500 text-base"
+                        placeholder="Enter your full name"
+                        className="w-full px-4 py-4 bg-[#f9fafe] border-2 border-[#dbeafe] rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base font-medium"
+                        style={{ fontFamily: 'Inter, sans-serif' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="SMS" className="block text-left text-[#21316b] font-semibold text-base mb-3">
+                        Phone Number *
+                      </label>
+                      <div className="flex rounded-2xl overflow-hidden bg-[#f9fafe] border-2 border-[#dbeafe] focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 hover:border-blue-300 transition-all duration-200">
+                        <select 
+                          name="SMS__COUNTRY_CODE" 
+                          className="px-4 py-4 bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-900 font-medium text-base"
+                          style={{ fontFamily: 'Inter, sans-serif' }}
+                        >
+                          <option value="+1">🇺🇸 +1</option>
+                        </select>
+                        <input
+                          type="tel"
+                          id="SMS"
+                          name="SMS"
+                          required
+                          placeholder="(555) 123-4567"
+                          className="flex-1 px-4 py-4 bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-400 text-base font-medium"
+                          style={{ fontFamily: 'Inter, sans-serif' }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="EMAIL" className="block text-left text-[#21316b] font-semibold text-base mb-3">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        id="EMAIL"
+                        name="EMAIL"
+                        required
+                        placeholder="your.email@example.com"
+                        className="w-full px-4 py-4 bg-[#f9fafe] border-2 border-[#dbeafe] rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base font-medium"
+                        style={{ fontFamily: 'Inter, sans-serif' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="BIRTHDAY" className="block text-left text-[#21316b] font-semibold text-base mb-3">
+                        Birthday <span className="text-gray-500 font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="BIRTHDAY"
+                        name="BIRTHDAY"
+                        placeholder="MM/DD/YYYY"
+                        pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$"
+                        title="dd-mm-yyyy"
+                        className="w-full px-4 py-4 bg-[#f9fafe] border-2 border-[#dbeafe] rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-300 transition-all duration-200 text-gray-900 placeholder-gray-400 text-base font-medium"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label htmlFor="EMAIL" className="block text-left text-gray-900 font-semibold text-base mb-1">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      id="EMAIL"
-                      name="EMAIL"
-                      required
-                      placeholder="your.email@example.com"
-                      className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500 text-base"
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label htmlFor="BIRTHDAY" className="block text-left text-gray-900 font-semibold text-base mb-1">
-                      Birthday <span className="text-gray-600 font-normal">(Optional)</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="BIRTHDAY"
-                      name="BIRTHDAY"
-                      placeholder="MM/DD/YYYY"
-                      pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$"
-                      title="dd-mm-yyyy"
-                      className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500 text-base"
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                    />
-                  </div>
-
+                  {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl mt-6 text-base shadow-lg"
+                    className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-[0_4px_20px_rgba(239,68,68,0.3)] text-lg shadow-[0_2px_12px_rgba(239,68,68,0.15)] mt-8"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     🚀 JOIN THE PICTURE PERFECT EXPERIENCE
                   </button>
 
-                  <div className="text-xs text-gray-700 text-center mt-4 leading-relaxed">
+                  {/* Privacy Notice */}
+                  <div className="text-xs text-gray-500 text-center mt-6 leading-relaxed">
                     <p>
                       By joining, you agree to receive exclusive offers and updates. We use Brevo for email marketing in accordance with{' '}
-                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-blue-700 hover:text-blue-800 underline font-medium">
+                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-blue-600 hover:text-blue-700 underline">
                         their Privacy Policy
                       </a>
                       . Unsubscribe anytime.
