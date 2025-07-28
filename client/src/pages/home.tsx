@@ -187,13 +187,13 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-6">
-                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-lg border-2 border-blue-100">
-                  <Clock className="h-4 w-4 text-blue-600 mr-2" />
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-8">
+                <div className="flex items-center px-5 py-3 bg-white/95 backdrop-blur-sm rounded-full shadow-xl border-2 border-white/50 hover:bg-white transition-all duration-300">
+                  <Clock className="h-5 w-5 text-blue-600 mr-3" />
                   <span className="text-sm font-bold text-gray-900">Same-Day Available</span>
                 </div>
-                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-lg border-2 border-blue-100">
-                  <Shield className="h-4 w-4 text-blue-600 mr-2" />
+                <div className="flex items-center px-5 py-3 bg-white/95 backdrop-blur-sm rounded-full shadow-xl border-2 border-white/50 hover:bg-white transition-all duration-300">
+                  <Shield className="h-5 w-5 text-blue-600 mr-3" />
                   <span className="text-sm font-bold text-gray-900">Licensed & Insured</span>
                 </div>
               </div>
@@ -206,7 +206,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-                className="bg-white/98 backdrop-blur-md rounded-2xl border border-white/30 shadow-[0_16px_48px_rgba(0,0,0,0.15)] p-6 lg:p-8"
+                className="bg-white/98 backdrop-blur-md rounded-2xl border-2 border-white/40 shadow-[0_20px_60px_rgba(0,0,0,0.2)] p-6 lg:p-8 hover:shadow-[0_25px_70px_rgba(0,0,0,0.25)] transition-shadow duration-500"
               >
                 <form 
                   method="POST" 
@@ -215,19 +215,19 @@ export default function HomePage() {
                   onSubmit={handleFormSubmit}
                 >
                   <div className="mb-8 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Star className="h-8 w-8 text-white" />
+                    <div className="w-20 h-20 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                      <Star className="h-10 w-10 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
                       Join the Picture Perfect Experience
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-gray-700 text-base leading-relaxed max-w-sm mx-auto">
                       Unlock exclusive deals, early access to specials, and pro tips to elevate your home setup.
                     </p>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="FIRSTNAME" className="block text-left text-gray-900 font-semibold text-sm">
+                    <label htmlFor="FIRSTNAME" className="block text-left text-gray-900 font-semibold text-base mb-1">
                       Full Name *
                     </label>
                     <input
@@ -236,19 +236,19 @@ export default function HomePage() {
                       name="FIRSTNAME"
                       required
                       placeholder="Enter your full name"
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
+                      className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500 text-base"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="SMS" className="block text-left text-gray-900 font-semibold text-sm">
+                    <label htmlFor="SMS" className="block text-left text-gray-900 font-semibold text-base mb-1">
                       Phone Number *
                     </label>
-                    <div className="flex rounded-xl overflow-hidden bg-white border-2 border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all duration-200">
+                    <div className="flex rounded-xl overflow-hidden bg-white border-2 border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 hover:border-gray-400 transition-all duration-200">
                       <select 
                         name="SMS__COUNTRY_CODE" 
-                        className="px-4 py-3 bg-white border-0 focus:outline-none focus:ring-0 text-gray-900 font-medium"
+                        className="px-4 py-4 bg-white border-0 focus:outline-none focus:ring-0 text-gray-900 font-medium text-base"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       >
                         <option value="+1">🇺🇸 +1</option>
@@ -259,14 +259,14 @@ export default function HomePage() {
                         name="SMS"
                         required
                         placeholder="(555) 123-4567"
-                        className="flex-1 px-4 py-3 bg-white border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-500"
+                        className="flex-1 px-4 py-4 bg-white border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-500 text-base"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="EMAIL" className="block text-left text-gray-900 font-semibold text-sm">
+                    <label htmlFor="EMAIL" className="block text-left text-gray-900 font-semibold text-base mb-1">
                       Email Address *
                     </label>
                     <input
@@ -275,14 +275,14 @@ export default function HomePage() {
                       name="EMAIL"
                       required
                       placeholder="your.email@example.com"
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
+                      className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500 text-base"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="BIRTHDAY" className="block text-left text-gray-900 font-semibold text-sm">
-                      Birthday <span className="text-gray-600">(Optional)</span>
+                    <label htmlFor="BIRTHDAY" className="block text-left text-gray-900 font-semibold text-base mb-1">
+                      Birthday <span className="text-gray-600 font-normal">(Optional)</span>
                     </label>
                     <input
                       type="text"
@@ -291,14 +291,14 @@ export default function HomePage() {
                       placeholder="MM/DD/YYYY"
                       pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$"
                       title="dd-mm-yyyy"
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
+                      className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500 text-base"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl mt-6 text-base"
+                    className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-2xl mt-6 text-base shadow-lg"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     🚀 JOIN THE PICTURE PERFECT EXPERIENCE
