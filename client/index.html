@@ -58,7 +58,7 @@
         font-display: fallback;
         font-family: Roboto;
         font-weight: 600;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
+        src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Robevo/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
       }
 
       @font-face {
@@ -71,46 +71,68 @@
       #sib-container input:-ms-input-placeholder {
         text-align: left;
         font-family: 'Inter', sans-serif;
-        color: #c0ccda;
+        color: #9ca3af;
       }
 
       #sib-container input::placeholder {
         text-align: left;
         font-family: 'Inter', sans-serif;
-        color: #c0ccda;
+        color: #9ca3af;
       }
 
       #sib-container textarea::placeholder {
         text-align: left;
         font-family: 'Inter', sans-serif;
-        color: #c0ccda;
+        color: #9ca3af;
       }
 
       #sib-container a {
         text-decoration: underline;
-        color: #1A56DB;
+        color: #2563eb;
       }
       
       /* Custom overrides for Picture Perfect styling */
       #sib-container .input {
         font-family: 'Inter', sans-serif !important;
-        border-color: #d1d5db !important;
-        border-radius: 8px !important;
+      }
+      
+      #sib-container .input:focus {
+        outline: none !important;
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+      }
+      
+      #sib-container .input:hover {
+        border-color: #93c5fd !important;
       }
       
       #sib-container .entry__label {
         font-family: 'Inter', sans-serif !important;
-        color: #1A56DB !important;
       }
       
-      #sib-container .sib-form-block__button {
-        background-color: #1A56DB !important;
-        font-family: 'Inter', sans-serif !important;
-        border-radius: 8px !important;
+      /* Hide default Brevo styling that conflicts */
+      .sib-form-message-panel {
+        margin: 10px 0 !important;
+        padding: 12px !important;
       }
       
-      #sib-container .sib-form-block__button:hover {
-        background-color: #1440A0 !important;
+      /* Ensure proper form spacing */
+      .sib-form-block {
+        margin-bottom: 0 !important;
+      }
+      
+      .form__entry {
+        margin-bottom: 0 !important;
+      }
+      
+      /* Style the country code dropdown */
+      .sib-sms-input-wrapper .entry__field select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 12px center;
+        background-repeat: no-repeat;
+        background-size: 16px;
+        padding-right: 40px;
       }
     </style>
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
