@@ -188,13 +188,13 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-6">
-                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-lg border border-gray-200">
+                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-lg border-2 border-blue-100">
                   <Clock className="h-4 w-4 text-blue-600 mr-2" />
-                  <span className="text-sm font-medium text-gray-900">Same-Day Available</span>
+                  <span className="text-sm font-bold text-gray-900">Same-Day Available</span>
                 </div>
-                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-lg border border-gray-200">
+                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-lg border-2 border-blue-100">
                   <Shield className="h-4 w-4 text-blue-600 mr-2" />
-                  <span className="text-sm font-medium text-gray-900">Licensed & Insured</span>
+                  <span className="text-sm font-bold text-gray-900">Licensed & Insured</span>
                 </div>
               </div>
             </motion.div>
@@ -227,7 +227,7 @@ export default function HomePage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="FIRSTNAME" className="block text-left text-gray-700 font-medium text-sm">
+                    <label htmlFor="FIRSTNAME" className="block text-left text-gray-900 font-semibold text-sm">
                       Full Name *
                     </label>
                     <input
@@ -236,19 +236,19 @@ export default function HomePage() {
                       name="FIRSTNAME"
                       required
                       placeholder="Enter your full name"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="SMS" className="block text-left text-gray-700 font-medium text-sm">
+                    <label htmlFor="SMS" className="block text-left text-gray-900 font-semibold text-sm">
                       Phone Number *
                     </label>
-                    <div className="flex rounded-xl overflow-hidden bg-gray-50 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 transition-all duration-200">
+                    <div className="flex rounded-xl overflow-hidden bg-white border-2 border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all duration-200">
                       <select 
                         name="SMS__COUNTRY_CODE" 
-                        className="px-4 py-3 bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-700"
+                        className="px-4 py-3 bg-white border-0 focus:outline-none focus:ring-0 text-gray-900 font-medium"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       >
                         <option value="+1">🇺🇸 +1</option>
@@ -259,14 +259,14 @@ export default function HomePage() {
                         name="SMS"
                         required
                         placeholder="(555) 123-4567"
-                        className="flex-1 px-4 py-3 bg-transparent border-0 focus:outline-none focus:ring-0"
+                        className="flex-1 px-4 py-3 bg-white border-0 focus:outline-none focus:ring-0 text-gray-900 placeholder-gray-500"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="EMAIL" className="block text-left text-gray-700 font-medium text-sm">
+                    <label htmlFor="EMAIL" className="block text-left text-gray-900 font-semibold text-sm">
                       Email Address *
                     </label>
                     <input
@@ -275,14 +275,14 @@ export default function HomePage() {
                       name="EMAIL"
                       required
                       placeholder="your.email@example.com"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="BIRTHDAY" className="block text-left text-gray-700 font-medium text-sm">
-                      Birthday <span className="text-gray-400">(Optional)</span>
+                    <label htmlFor="BIRTHDAY" className="block text-left text-gray-900 font-semibold text-sm">
+                      Birthday <span className="text-gray-600">(Optional)</span>
                     </label>
                     <input
                       type="text"
@@ -291,7 +291,7 @@ export default function HomePage() {
                       placeholder="MM/DD/YYYY"
                       pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$"
                       title="dd-mm-yyyy"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
@@ -304,10 +304,10 @@ export default function HomePage() {
                     🚀 JOIN THE PICTURE PERFECT EXPERIENCE
                   </button>
 
-                  <div className="text-xs text-gray-500 text-center mt-4 leading-relaxed">
+                  <div className="text-xs text-gray-700 text-center mt-4 leading-relaxed">
                     <p>
                       By joining, you agree to receive exclusive offers and updates. We use Brevo for email marketing in accordance with{' '}
-                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-blue-600 hover:underline">
+                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-blue-700 hover:text-blue-800 underline font-medium">
                         their Privacy Policy
                       </a>
                       . Unsubscribe anytime.
