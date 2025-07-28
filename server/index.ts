@@ -15,7 +15,7 @@ const app = express();
 app.use(responseOptimization());
 app.use(memoryMonitoring());
 app.use(requestDeduplication());
-app.use(rateLimiting(200, 15 * 60 * 1000)); // 200 requests per 15 minutes
+app.use(rateLimiting(500, 15 * 60 * 1000)); // 500 requests per 15 minutes (increased limit)
 
 // Optimize compression for better performance
 app.use(compression({ 

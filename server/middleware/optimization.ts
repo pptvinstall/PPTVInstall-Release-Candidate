@@ -47,8 +47,8 @@ export function memoryMonitoring() {
   return (req: Request, res: Response, next: NextFunction) => {
     const memUsage = process.memoryUsage();
     
-    // Log memory warnings
-    if (memUsage.heapUsed > 100 * 1024 * 1024) { // 100MB
+    // Log memory warnings (increased threshold to reduce noise)
+    if (memUsage.heapUsed > 150 * 1024 * 1024) { // 150MB (increased from 100MB)
       logger.warn('High memory usage detected', {
         heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024) + ' MB',
         heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024) + ' MB',
@@ -122,7 +122,9 @@ export function queryOptimization() {
         // Limit cache size
         if (queryCache.size > 100) {
           const oldestKey = queryCache.keys().next().value;
-          queryCache.delete(oldestKey);
+          if (oldestKey) {
+            queryCache.delete(oldestKey);
+          }
         }
       }
 
@@ -173,7 +175,7 @@ setInterval(() => {
   const now = Date.now();
   
   // Clean up request counts
-  for (const [key, data] of requestCounts.entries()) {
+  for (const [key, data] of Array.from(requestCounts.entries())) {
     if (now > data.resetTime) {
       requestCounts.delete(key);
     }

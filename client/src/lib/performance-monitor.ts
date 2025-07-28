@@ -55,8 +55,10 @@ class PerformanceMonitor {
         console.log('📊 Performance:', metrics);
       }
     } catch (error) {
-      // Handle navigation metrics errors gracefully
-      console.debug('Navigation metrics error:', error);
+      // Handle navigation metrics errors gracefully - suppress in production
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Navigation metrics error:', error);
+      }
     }
   }
 

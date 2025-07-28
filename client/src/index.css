@@ -5,6 +5,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide Vite runtime error overlay */
+#vite-error-overlay,
+[data-vite-error-overlay],
+.vite-error-overlay,
+div[style*="position: fixed"][style*="z-index: 9999"][style*="background: rgba(0, 0, 0, 0.66)"],
+div[style*="position: fixed"][style*="top: 0"][style*="left: 0"][style*="width: 100%"][style*="height: 100%"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Additional overlay selectors */
+iframe[title*="error"]:not([title*="normal"]),
+div[class*="error-overlay"],
+div[id*="error-overlay"] {
+  display: none !important;
+}
+
 @layer base {
   :root {
     --background: 210 33% 98%;

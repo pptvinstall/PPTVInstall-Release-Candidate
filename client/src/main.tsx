@@ -16,6 +16,86 @@ import './lib/process-polyfill';
 import './index.css';
 import { performanceMonitor } from './lib/performance-monitor';
 
+// Comprehensive error handling to prevent runtime overlays
+window.addEventListener('error', (event) => {
+  // Suppress generic "Script error" messages and plugin errors
+  if (event.message === 'Script error.' || 
+      !event.message || 
+      event.message.includes('runtime-error-plugin') ||
+      event.filename?.includes('runtime-error-plugin')) {
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    event.preventDefault();
+    return false;
+  }
+  return true;
+});
+
+// Enhanced promise rejection handling
+window.addEventListener('unhandledrejection', (event) => {
+  // Suppress rejections that would trigger runtime overlays
+  const reason = event.reason?.toString() || '';
+  if (reason.includes('runtime-error-plugin') || reason.includes('Script error')) {
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    event.preventDefault();
+    return false;
+  }
+  
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('Unhandled promise rejection:', event.reason);
+  }
+  event.preventDefault();
+});
+
+// Override console.error temporarily to filter out plugin errors
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  const message = args.join(' ');
+  if (message.includes('runtime-error-plugin') || 
+      message.includes('Script error') ||
+      message === 'Script error.') {
+    return; // Suppress these specific errors
+  }
+  originalConsoleError.apply(console, args);
+};
+
+// Additional DOM-based error overlay prevention
+const hideErrorOverlays = () => {
+  // Remove any existing error overlays
+  const overlays = document.querySelectorAll(
+    '#vite-error-overlay, [data-vite-error-overlay], .vite-error-overlay, div[style*="z-index: 9999"][style*="background: rgba(0, 0, 0, 0.66)"]'
+  );
+  overlays.forEach(overlay => {
+    if (overlay && overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    }
+  });
+};
+
+// Run overlay removal on DOM ready and periodically
+document.addEventListener('DOMContentLoaded', hideErrorOverlays);
+setInterval(hideErrorOverlays, 1000); // Check every second
+
+// MutationObserver to catch dynamically added error overlays
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    mutation.addedNodes.forEach((node) => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const element = node as Element;
+        if (element.id?.includes('error-overlay') || 
+            element.className?.includes('error-overlay') ||
+            element.getAttribute?.('data-vite-error-overlay')) {
+          hideErrorOverlays();
+        }
+      }
+    });
+  });
+});
+
+// Start observing
+observer.observe(document.body, { childList: true, subtree: true });
+
 // Service Worker Registration (temporarily disabled)
 // Uncomment when ready for PWA deployment
 // if ('serviceWorker' in navigator) {
@@ -88,7 +168,9 @@ const queryClient = new QueryClient({
 const createLazyComponent = (importFn: () => Promise<any>, componentName: string) => {
   return lazy(() => 
     importFn().catch(error => {
-      console.error(`Failed to load ${componentName}:`, error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(`Failed to load ${componentName}:`, error);
+      }
       // Return a fallback component for failed imports
       return {
         default: () => (

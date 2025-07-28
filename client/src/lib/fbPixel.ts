@@ -21,7 +21,7 @@ export const trackEvent = (event: string, params?: object): void => {
       (window as any).fbq('track', event);
     }
     if (process.env.NODE_ENV === 'development') {
-      console.debug(`Meta Pixel: Tracked "${event}" event`, params || '');
+      console.log(`Meta Pixel: Tracked "${event}" event`, params || '');
     }
   } catch (error) {
     // Only log pixel errors in development to reduce script errors in production
