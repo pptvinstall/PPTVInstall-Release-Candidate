@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 export default defineConfig({
   plugins: [
     react(),
-    runtimeErrorOverlay(),
+    // runtimeErrorOverlay(), // Disabled to prevent disruptive error overlays
     themePlugin(),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
@@ -32,5 +32,10 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
+  },
+  server: {
+    hmr: {
+      overlay: false, // Disable error overlay completely
+    },
   },
 });
