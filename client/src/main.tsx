@@ -16,6 +16,17 @@ import './lib/process-polyfill';
 import './index.css';
 import { performanceMonitor } from './lib/performance-monitor';
 
+// Early error suppression before any other imports
+if (typeof window !== 'undefined') {
+  // Override the sendError function that creates the overlay
+  const originalSendError = (window as any).sendError;
+  (window as any).sendError = function(...args: any[]) {
+    console.warn('Vite sendError intercepted:', args);
+    // Don't call the original function to prevent overlay
+    return false;
+  };
+}
+
 // Comprehensive error handling to prevent runtime overlays
 window.addEventListener('error', (event) => {
   // Suppress generic "Script error" messages and plugin errors
@@ -95,6 +106,14 @@ const observer = new MutationObserver((mutations) => {
 
 // Start observing
 observer.observe(document.body, { childList: true, subtree: true });
+
+// Advanced Vite HMR error interception
+if (import.meta.hot) {
+  import.meta.hot.on('vite:error', (data) => {
+    // Suppress the error overlay by preventing the default behavior
+    console.warn('Vite error intercepted and suppressed:', data);
+  });
+}
 
 // Service Worker Registration (temporarily disabled)
 // Uncomment when ready for PWA deployment

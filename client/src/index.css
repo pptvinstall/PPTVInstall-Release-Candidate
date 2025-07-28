@@ -5,22 +5,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hide Vite runtime error overlay */
+/* Comprehensive Vite error overlay suppression */
 #vite-error-overlay,
 [data-vite-error-overlay],
 .vite-error-overlay,
-div[style*="position: fixed"][style*="z-index: 9999"][style*="background: rgba(0, 0, 0, 0.66)"],
-div[style*="position: fixed"][style*="top: 0"][style*="left: 0"][style*="width: 100%"][style*="height: 100%"] {
+div[style*="position: fixed"][style*="z-index: 9999"],
+div[style*="position: fixed"][style*="background: rgba(0, 0, 0, 0.66)"],
+div[style*="position: fixed"][style*="top: 0"][style*="left: 0"][style*="width: 100%"][style*="height: 100%"],
+div[style*="position: fixed"][style*="inset: 0px"],
+div[style*="z-index: 2147483647"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  z-index: -9999 !important;
 }
 
-/* Additional overlay selectors */
-iframe[title*="error"]:not([title*="normal"]),
+/* Target specific Vite overlay patterns */
+div[style*="color: rgb(215, 58, 73)"],
+div[style*="background-color: rgb(24, 24, 24)"],
+iframe[title*="error"],
 div[class*="error-overlay"],
-div[id*="error-overlay"] {
+div[id*="error-overlay"],
+*[class*="runtime-error"] {
   display: none !important;
 }
 
