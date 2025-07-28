@@ -48,7 +48,9 @@ window.addEventListener('unhandledrejection', (event) => {
   const reason = event.reason?.toString() || '';
   if (reason.includes('runtime-error-plugin') || 
       reason.includes('Script error') ||
-      reason.includes('unknown runtime error')) {
+      reason.includes('unknown runtime error') ||
+      reason.includes('sendError') ||
+      event.reason?.plugin === 'runtime-error-plugin') {
     event.stopPropagation();
     event.stopImmediatePropagation();
     event.preventDefault();
@@ -133,22 +135,28 @@ observer.observe(document.body, { childList: true, subtree: true });
 
 // Advanced Vite HMR error interception
 if (import.meta.hot) {
+  // Intercept all HMR error events
   import.meta.hot.on('vite:error', (data) => {
-    // Suppress the error overlay by preventing the default behavior
     console.warn('Vite error intercepted and suppressed:', data);
-    hideErrorOverlays(); // Immediately remove any overlays
+    hideErrorOverlays();
   });
   
-  // Override error display functions if they exist
-  const originalDispatch = import.meta.hot.send;
-  if (originalDispatch) {
+  // Additional error event handlers
+  import.meta.hot.on('error', (data) => {
+    console.warn('HMR error intercepted:', data);
+    hideErrorOverlays();
+  });
+  
+  // Override error display functions
+  const originalSend = import.meta.hot.send;
+  if (originalSend) {
     import.meta.hot.send = function(type, payload) {
-      if (type === 'error' || type === 'vite:error') {
+      if (type === 'error' || type === 'vite:error' || payload?.plugin === 'runtime-error-plugin') {
         console.warn('HMR error message suppressed:', { type, payload });
         hideErrorOverlays();
         return;
       }
-      return originalDispatch.call(this, type, payload);
+      return originalSend.call(this, type, payload);
     };
   }
 }

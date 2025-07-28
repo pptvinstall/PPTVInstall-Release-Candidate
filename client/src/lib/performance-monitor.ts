@@ -52,7 +52,10 @@ class PerformanceMonitor {
       }
 
       if (process.env.NODE_ENV === 'development') {
-        console.log('📊 Performance:', metrics);
+        // Only log performance metrics every 10th measurement to reduce noise
+        if (this.metrics.length % 10 === 0) {
+          console.log('📊 Performance:', metrics);
+        }
       }
     } catch (error) {
       // Handle navigation metrics errors gracefully - suppress in production

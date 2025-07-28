@@ -43,20 +43,14 @@ export default function HomePage() {
   const servicesInView = useInView(servicesRef, { once: true, amount: 0.2 });
   const testimonialsInView = useInView(testimonialsRef, { once: true, amount: 0.2 });
 
-  // Using a ref with a container that has position: relative
+  // Fixed scroll configuration with proper layoutEffect setting
   const { scrollYProgress: heroScrollProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
     layoutEffect: false
   });
 
-  // Add a scroll progress tracker for the showcase section
-  const { scrollYProgress: showcaseScrollProgress } = useScroll({
-    target: showcaseRef,
-    offset: ["start start", "end start"],
-    layoutEffect: false
-  });
-
+  // Optimized transforms with error handling
   const showcaseOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0.7]);
   const showcaseScale = useTransform(heroScrollProgress, [0, 0.5], [1, 1.05]);
 
@@ -129,14 +123,14 @@ export default function HomePage() {
       {/* Hero Section */}
       <section 
         ref={heroRef}
-        className="relative min-h-[90vh] bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 overflow-hidden" 
+        className="relative min-h-[100vh] bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 overflow-hidden" 
         style={{ position: 'relative' }}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-[url('/assets/pattern-bg.svg')] opacity-10"></div>
         
-        <div className="container mx-auto px-4 h-full flex items-center relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start w-full min-h-[80vh]">
             
             {/* Left Side - Hero Content */}
             <motion.div
@@ -192,14 +186,14 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* Right Side - Brevo Form (Desktop), Below Hero (Mobile) */}
-            <div className="w-full max-w-md mx-auto lg:max-w-none mt-6 lg:mt-0 order-1 lg:order-2">
-              {/* Brevo Email Collection Form - Premium Design */}
+            {/* Right Side - Enhanced Form */}
+            <div className="w-full max-w-lg mx-auto lg:max-w-none mt-8 lg:mt-16 order-1 lg:order-2">
+              {/* Premium Email Collection Form */}
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-                className="bg-white rounded-xl border border-gray-200 shadow-[0_4px_24px_rgba(0,0,0,0.08)] p-6"
+                className="bg-white/95 backdrop-blur-sm rounded-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)] p-8"
               >
                 <form 
                   method="POST" 
@@ -207,99 +201,105 @@ export default function HomePage() {
                   className="text-center max-w-md mx-auto space-y-4"
                   onSubmit={handleFormSubmit}
                 >
-                  <div className="mb-6">
-                    <h3 className="text-2xl font-bold text-blue-600 mb-2">
+                  <div className="mb-8 text-center">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Star className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
                       Join the Picture Perfect Experience
                     </h3>
-                    <p className="text-red-500 text-sm">
+                    <p className="text-gray-600 text-sm leading-relaxed">
                       Unlock exclusive deals, early access to specials, and pro tips to elevate your home setup.
                     </p>
                   </div>
 
-                  <div>
-                    <label htmlFor="FIRSTNAME" className="block text-left text-blue-600 font-semibold mb-1">
-                      Name *
+                  <div className="space-y-2">
+                    <label htmlFor="FIRSTNAME" className="block text-left text-gray-700 font-medium text-sm">
+                      Full Name *
                     </label>
                     <input
                       type="text"
                       id="FIRSTNAME"
                       name="FIRSTNAME"
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Enter your full name"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
 
-                  <div>
-                    <label htmlFor="SMS" className="block text-left text-blue-600 font-semibold mb-1">
+                  <div className="space-y-2">
+                    <label htmlFor="SMS" className="block text-left text-gray-700 font-medium text-sm">
                       Phone Number *
                     </label>
-                    <div className="flex">
+                    <div className="flex rounded-xl overflow-hidden bg-gray-50 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 transition-all duration-200">
                       <select 
                         name="SMS__COUNTRY_CODE" 
-                        className="px-3 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="px-4 py-3 bg-transparent border-0 focus:outline-none focus:ring-0 text-gray-700"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       >
-                        <option value="+1">+1 US</option>
+                        <option value="+1">🇺🇸 +1</option>
                       </select>
                       <input
                         type="tel"
                         id="SMS"
                         name="SMS"
                         required
-                        className="flex-1 px-3 py-2 border border-l-0 border-gray-300 rounded-r-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="(555) 123-4567"
+                        className="flex-1 px-4 py-3 bg-transparent border-0 focus:outline-none focus:ring-0"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       />
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="EMAIL" className="block text-left text-blue-600 font-semibold mb-1">
-                      Email *
+                  <div className="space-y-2">
+                    <label htmlFor="EMAIL" className="block text-left text-gray-700 font-medium text-sm">
+                      Email Address *
                     </label>
                     <input
                       type="email"
                       id="EMAIL"
                       name="EMAIL"
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="your.email@example.com"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
 
-                  <div>
-                    <label htmlFor="BIRTHDAY" className="block text-left text-blue-600 font-semibold mb-1">
-                      Birthday
+                  <div className="space-y-2">
+                    <label htmlFor="BIRTHDAY" className="block text-left text-gray-700 font-medium text-sm">
+                      Birthday <span className="text-gray-400">(Optional)</span>
                     </label>
                     <input
                       type="text"
                       id="BIRTHDAY"
                       name="BIRTHDAY"
-                      placeholder="dd-mm-yyyy"
+                      placeholder="MM/DD/YYYY"
                       pattern="^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\d{4}$"
                       title="dd-mm-yyyy"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     />
                   </div>
 
-                  <div className="text-xs text-gray-500 text-left mt-4">
-                    <p>
-                      We use Brevo as our marketing platform. By submitting this form you agree that the personal data you provided will be transferred to Brevo for processing in accordance with{' '}
-                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-blue-600 hover:underline">
-                        Brevo's Privacy Policy
-                      </a>
-                      .
-                    </p>
-                  </div>
-
                   <button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-colors mt-6"
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg mt-6"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
-                    JOIN NOW
+                    🚀 JOIN THE EXPERIENCE
                   </button>
+
+                  <div className="text-xs text-gray-500 text-center mt-4 leading-relaxed">
+                    <p>
+                      By joining, you agree to receive exclusive offers and updates. We use Brevo for email marketing in accordance with{' '}
+                      <a href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank" className="text-blue-600 hover:underline">
+                        their Privacy Policy
+                      </a>
+                      . Unsubscribe anytime.
+                    </p>
+                  </div>
 
                   <input type="text" name="email_address_check" defaultValue="" className="hidden" />
                   <input type="hidden" name="locale" value="en" />

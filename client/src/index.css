@@ -206,6 +206,19 @@ div[style*="plugin:runtime-error"] {
   pointer-events: auto !important;
 }
 
+/* Framer Motion scroll target fixes */
+section[data-framer-motion-scroll-target],
+div[data-framer-motion-scroll-target] {
+  position: relative !important;
+}
+
+/* Additional container fixes for hero sections */
+.hero-container,
+.hero-section {
+  position: relative !important;
+  contain: layout style paint;
+}
+
 /* Ensure proper overflow handling */
 .scroll-area-viewport {
   overflow: auto !important;
