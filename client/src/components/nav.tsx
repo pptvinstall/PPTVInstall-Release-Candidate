@@ -165,16 +165,17 @@ export default function Nav() {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="default" 
-              size="sm"
-              className="call-btn bg-blue-600 hover:bg-blue-700 mr-2"
-              onClick={handlePhoneCall}
-            >
-              <PhoneCall className="mr-2 h-4 w-4" />
-              <span className="hidden sm:inline">Call Now</span>
-              <span className="sm:hidden">Call</span>
-            </Button>
+            <a href="tel:404-702-4748" className="call-btn">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="call-btn"
+              >
+                <PhoneCall className="mr-2 h-4 w-4" />
+                <span className="hidden sm:inline">Call Now</span>
+                <span className="sm:hidden">Call</span>
+              </Button>
+            </a>
 
             {/* Mobile menu button */}
             <Button 

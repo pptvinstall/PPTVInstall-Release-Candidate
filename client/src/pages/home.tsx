@@ -12,16 +12,16 @@ const Home: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { toast } = useToast();
 
-  // Refs for scroll animations
+  // Refs for scroll animations - all refs declared first
   const heroRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLDivElement>(null);
 
-  // In-view detection
-  const servicesInView = useInView(servicesRef, { once: true, amount: 0.2 });
-  const testimonialsInView = useInView(testimonialsRef, { once: true, amount: 0.2 });
+  // In-view detection - all hooks called in same order every render
+  const servicesInView = useInView(servicesRef, { once: true, amount: 0.2, layoutEffect: false });
+  const testimonialsInView = useInView(testimonialsRef, { once: true, amount: 0.2, layoutEffect: false });
 
-  // Simulate loading
+  // Effects - always in same order
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -29,7 +29,6 @@ const Home: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Track page view  
   useEffect(() => {
     trackPageView();
   }, []);
@@ -108,13 +107,13 @@ const Home: React.FC = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a href="/booking" className="inline-block">
-                  <Button size="lg" className="bg-red-500 hover:bg-red-600 text-white px-8 py-4 text-lg font-semibold w-full">
+                  <Button size="lg" className="bg-red-500 hover:bg-red-600 text-white px-8 py-4 text-lg font-semibold w-full transition-all duration-200 hover:scale-105">
                     <Calendar className="w-5 h-5 mr-2" />
                     Book Installation
                   </Button>
                 </a>
-                <a href="tel:4047024748" className="inline-block">
-                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold w-full">
+                <a href="tel:404-702-4748" className="inline-block">
+                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold w-full transition-all duration-200 hover:scale-105">
                     <Phone className="w-5 h-5 mr-2" />
                     Call Now
                   </Button>
@@ -154,16 +153,24 @@ const Home: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Brevo Form Iframe - Fixed Implementation */}
+                {/* Brevo Form Iframe - Updated with latest code */}
                 <iframe
                   width="100%"
-                  height="520"
-                  src="https://227ffc5e.sibforms.com/serve/MUIFAIvOdZJKQivVxIQglvAtaIigtxkEh2tq9PIWv01xvfP6mp3detDHXLbf_CG3Fpy0LnMIruRoETcJ5avgk7Gurzcu7ElEZnEWIeZwncRTnxGlZ5GZSeRA5zg9L9g25Dol6QoX7R8oN7q0efDeexgSGjqSkITx9xJ930lHB6bqa1dAWRLKn35tip3JmlCO_mEFJcHxznpuMkwg"
+                  height="380"
+                  src="https://227ffc5e.sibforms.com/serve/MUIFANwEDngTc_1Up0XJWJKXHk8Yiw3V8JRVm5VJI4FrHmo_rvGEB8zPxWcdqP3KCC9z58P6bbXM4cX1KrQ3PvUrM5CqNpsfPtwMoL-sa4khU7v5_XT2gJHFS7qbTj9vm_dCDK5RYz-s373YVn2EXhf1c1QYE4XHbj-KFxKcSaj_YHN9cJal_ESbEL_3iyX411B_XisnPnbJtoiV"
                   frameBorder={0}
                   scrolling="auto"
                   allowFullScreen={true}
-                  className="brevo-form-iframe"
-                  title="Picture Perfect TV Install Sign Up Form"
+                  style={{
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    maxWidth: "500px",
+                    minWidth: "0",
+                    borderRadius: "1.5rem",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.08)"
+                  }}
+                  title="Sign up for Picture Perfect TV"
                 />
               </motion.div>
             </div>

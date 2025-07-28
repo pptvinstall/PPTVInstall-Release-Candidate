@@ -391,20 +391,23 @@ select,
   opacity: 1 !important;
   display: inline-flex !important;
   pointer-events: auto !important;
-  background: #2563eb !important;
-  color: #fff !important;
-  font-weight: 600 !important;
-  border-radius: 1rem !important;
-  padding: 0.6rem 1.2rem !important;
-  box-shadow: 0 2px 8px rgba(37,99,235,0.12) !important;
+  background: #fff !important;
+  color: #2563eb !important;
+  font-weight: 700 !important;
+  border: 2px solid #2563eb !important;
+  border-radius: 1.2rem !important;
+  padding: 0.6rem 1.4rem !important;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.15) !important;
   transition: all 0.2s ease !important;
   position: relative !important;
   z-index: 100 !important;
 }
 
 .call-btn:hover {
-  background: #1d4ed8 !important;
+  background: #2563eb !important;
+  color: #fff !important;
   transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.25) !important;
 }
 
 /* Remove any hover-only behaviors */
