@@ -26,6 +26,7 @@ import { InstallationSlideshow } from "@/components/ui/installation-gallery";
 import { PWAInstallBanner } from "@/components/ui/pwa-install-banner";
 import { trackViewContent, trackLead } from "@/lib/fbPixel";
 import { MetaTags, META_CONFIGS } from "@/components/ui/meta-tags";
+import { debounce, monitorMemoryUsage } from "@/lib/performance-optimizations";
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,16 +44,16 @@ export default function HomePage() {
   const servicesInView = useInView(servicesRef, { once: true, amount: 0.2 });
   const testimonialsInView = useInView(testimonialsRef, { once: true, amount: 0.2 });
 
-  // Fixed scroll configuration with proper layoutEffect setting
-  const { scrollYProgress: heroScrollProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-    layoutEffect: false
-  });
+  // Remove problematic scroll animations that cause errors
+  // const { scrollYProgress: heroScrollProgress } = useScroll({
+  //   target: heroRef,
+  //   offset: ["start start", "end start"],
+  //   layoutEffect: false
+  // });
 
-  // Optimized transforms with error handling
-  const showcaseOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0.7]);
-  const showcaseScale = useTransform(heroScrollProgress, [0, 0.5], [1, 1.05]);
+  // // Optimized transforms with error handling
+  // const showcaseOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0.7]);
+  // const showcaseScale = useTransform(heroScrollProgress, [0, 0.5], [1, 1.05]);
 
   // Handle Brevo form success - Prevent redirect and submit via fetch
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -88,6 +89,18 @@ export default function HomePage() {
 
   useEffect(() => {
     setIsLoaded(true);
+    
+    // Monitor memory usage in development
+    if (process.env.NODE_ENV === 'development') {
+      const memoryCheck = debounce(monitorMemoryUsage, 5000);
+      memoryCheck();
+    }
+    
+    // Cleanup function
+    return () => {
+      // Cleanup any subscriptions or timers
+      setShowSuccessModal(false);
+    };
   }, []);
 
   return (
@@ -129,8 +142,8 @@ export default function HomePage() {
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-[url('/assets/pattern-bg.svg')] opacity-10"></div>
         
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start w-full min-h-[80vh]">
+        <div className="container mx-auto px-4 py-16 lg:py-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center w-full min-h-[80vh]">
             
             {/* Left Side - Hero Content */}
             <motion.div
@@ -175,25 +188,25 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-6">
-                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
-                  <Clock className="h-4 w-4 text-blue-500 mr-2" />
-                  <span className="text-sm">Same-Day Available</span>
+                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-lg border border-gray-200">
+                  <Clock className="h-4 w-4 text-blue-600 mr-2" />
+                  <span className="text-sm font-medium text-gray-900">Same-Day Available</span>
                 </div>
-                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-sm">
-                  <Shield className="h-4 w-4 text-blue-500 mr-2" />
-                  <span className="text-sm">License & Insured</span>
+                <div className="flex items-center px-4 py-2 bg-white rounded-full shadow-lg border border-gray-200">
+                  <Shield className="h-4 w-4 text-blue-600 mr-2" />
+                  <span className="text-sm font-medium text-gray-900">Licensed & Insured</span>
                 </div>
               </div>
             </motion.div>
 
             {/* Right Side - Enhanced Form */}
-            <div className="w-full max-w-lg mx-auto lg:max-w-none mt-8 lg:mt-16 order-1 lg:order-2">
+            <div className="w-full max-w-lg mx-auto lg:max-w-none mt-4 lg:mt-0 order-1 lg:order-2">
               {/* Premium Email Collection Form */}
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-                className="bg-white/95 backdrop-blur-sm rounded-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.12)] p-8"
+                className="bg-white/98 backdrop-blur-md rounded-2xl border border-white/30 shadow-[0_16px_48px_rgba(0,0,0,0.15)] p-6 lg:p-8"
               >
                 <form 
                   method="POST" 
@@ -285,10 +298,10 @@ export default function HomePage() {
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg mt-6"
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl mt-6 text-base"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
-                    🚀 JOIN THE EXPERIENCE
+                    🚀 JOIN THE PICTURE PERFECT EXPERIENCE
                   </button>
 
                   <div className="text-xs text-gray-500 text-center mt-4 leading-relaxed">
@@ -377,29 +390,30 @@ export default function HomePage() {
       </section>
 
       {/* Key Features Section */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose Picture Perfect?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <Badge className="bg-blue-100 text-blue-700 mb-4">Why Choose Us</Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Why Choose Picture Perfect?</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Professional installation with premium service standards across Metro Atlanta
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-blue-600" />
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Shield className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Licensed & Insured</h3>
-              <p className="text-gray-600">
-                Fully licensed professionals with comprehensive insurance coverage for your peace of mind.
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Licensed & Insured</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Fully licensed professionals with comprehensive insurance coverage for your complete peace of mind.
               </p>
             </motion.div>
             
@@ -408,14 +422,14 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="h-8 w-8 text-blue-600" />
+              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Clock className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Same-Day Service</h3>
-              <p className="text-gray-600">
-                Fast, reliable installation often available the same day you book.
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Same-Day Available</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Fast, reliable installation often available the same day you book. No waiting weeks for service.
               </p>
             </motion.div>
             
@@ -424,46 +438,153 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Trophy className="h-8 w-8 text-blue-600" />
+              <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Trophy className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">#1 Rated Service</h3>
-              <p className="text-gray-600">
-                Top-rated TV mounting service in Metro Atlanta with hundreds of satisfied customers.
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">#1 Rated Service</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Top-rated TV mounting service in Metro Atlanta with hundreds of five-star reviews from satisfied customers.
               </p>
             </motion.div>
           </div>
         </div>
       </section>
 
+      {/* Customer Testimonials */}
+      <section 
+        ref={testimonialsRef}
+        className="py-20 bg-white"
+      >
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <Badge className="bg-green-100 text-green-700 mb-4">Customer Love</Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">What Our Customers Say</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Don't just take our word for it - hear from Atlanta homeowners who chose Picture Perfect
+            </p>
+          </div>
+
+          {testimonialsInView && (
+            <div className="grid md:grid-cols-3 gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="bg-gray-50 p-8 rounded-2xl"
+              >
+                <div className="flex mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-6 italic">
+                  "Amazing service! They mounted our 75" TV over the fireplace perfectly. Same-day service and extremely professional. Highly recommend!"
+                </p>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-600 font-bold">JS</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">Jennifer S.</p>
+                    <p className="text-gray-600 text-sm">Buckhead, Atlanta</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-gray-50 p-8 rounded-2xl"
+              >
+                <div className="flex mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-6 italic">
+                  "Picture Perfect exceeded our expectations. Clean work, fair pricing, and they even helped set up our Apple TV. Will use again!"
+                </p>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-600 font-bold">MR</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">Mike R.</p>
+                    <p className="text-gray-600 text-sm">Midtown, Atlanta</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-gray-50 p-8 rounded-2xl"
+              >
+                <div className="flex mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-6 italic">
+                  "Fast, professional, and reasonably priced. They mounted 3 TVs and installed smart cameras. Couldn't be happier with the service!"
+                </p>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <span className="text-blue-600 font-bold">AL</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">Amanda L.</p>
+                    <p className="text-gray-600 text-sm">Decatur, Atlanta</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-700">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-20 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/assets/pattern-bg.svg')] opacity-5"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="max-w-3xl mx-auto"
+            className="max-w-4xl mx-auto"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
               Ready for Picture Perfect Installation?
             </h2>
-            <p className="text-xl text-blue-100 mb-8">
+            <p className="text-xl lg:text-2xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed">
               Book your professional TV mounting service today and join hundreds of satisfied customers across Metro Atlanta.
             </p>
-            <Link href="/booking">
-              <Button
-                size="lg"
-                className="bg-red-500 hover:bg-red-600 text-white font-bold h-14 px-12 text-lg shadow-lg"
-                onClick={() => trackLead({ source: 'cta_bottom' })}
-              >
-                <span>Book Your Installation</span>
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/booking">
+                <Button
+                  size="lg"
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold h-16 px-12 text-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  onClick={() => trackLead({ source: 'cta_bottom' })}
+                >
+                  <span>Book Your Installation</span>
+                  <ArrowRight className="h-6 w-6 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/services">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="bg-white hover:bg-gray-50 border-2 border-white text-blue-700 font-bold h-16 px-12 text-xl"
+                >
+                  View All Services
+                </Button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
