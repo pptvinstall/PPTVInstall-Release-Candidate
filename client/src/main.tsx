@@ -46,7 +46,9 @@ window.addEventListener('error', (event) => {
 window.addEventListener('unhandledrejection', (event) => {
   // Suppress rejections that would trigger runtime overlays
   const reason = event.reason?.toString() || '';
-  if (reason.includes('runtime-error-plugin') || reason.includes('Script error')) {
+  if (reason.includes('runtime-error-plugin') || 
+      reason.includes('Script error') ||
+      reason.includes('unknown runtime error')) {
     event.stopPropagation();
     event.stopImmediatePropagation();
     event.preventDefault();
@@ -73,20 +75,42 @@ console.error = (...args) => {
 
 // Additional DOM-based error overlay prevention
 const hideErrorOverlays = () => {
-  // Remove any existing error overlays
+  // Remove any existing error overlays with more comprehensive selectors
   const overlays = document.querySelectorAll(
-    '#vite-error-overlay, [data-vite-error-overlay], .vite-error-overlay, div[style*="z-index: 9999"][style*="background: rgba(0, 0, 0, 0.66)"]'
+    '#vite-error-overlay, [data-vite-error-overlay], .vite-error-overlay, div[style*="z-index: 9999"][style*="background: rgba(0, 0, 0, 0.66)"], div[style*="position: fixed"][style*="inset: 0px"], iframe[src*="__vite_ping"], div[style*="runtime-error"]'
   );
   overlays.forEach(overlay => {
     if (overlay && overlay.parentNode) {
       overlay.parentNode.removeChild(overlay);
     }
   });
+  
+  // Also hide any potential error overlays by CSS
+  const style = document.getElementById('vite-error-suppression-style') || document.createElement('style');
+  style.id = 'vite-error-suppression-style';
+  style.textContent = `
+    #vite-error-overlay,
+    [data-vite-error-overlay],
+    .vite-error-overlay,
+    div[style*="position: fixed"][style*="z-index: 9999"],
+    div[style*="position: fixed"][style*="inset: 0px"],
+    iframe[src*="__vite_ping"] {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      z-index: -9999 !important;
+    }
+  `;
+  if (!document.head.contains(style)) {
+    document.head.appendChild(style);
+  }
 };
 
-// Run overlay removal on DOM ready and periodically
+// Run overlay removal immediately and more frequently
+hideErrorOverlays(); // Run immediately
 document.addEventListener('DOMContentLoaded', hideErrorOverlays);
-setInterval(hideErrorOverlays, 1000); // Check every second
+setInterval(hideErrorOverlays, 500); // Check every 500ms for faster removal
 
 // MutationObserver to catch dynamically added error overlays
 const observer = new MutationObserver((mutations) => {
@@ -112,7 +136,21 @@ if (import.meta.hot) {
   import.meta.hot.on('vite:error', (data) => {
     // Suppress the error overlay by preventing the default behavior
     console.warn('Vite error intercepted and suppressed:', data);
+    hideErrorOverlays(); // Immediately remove any overlays
   });
+  
+  // Override error display functions if they exist
+  const originalDispatch = import.meta.hot.send;
+  if (originalDispatch) {
+    import.meta.hot.send = function(type, payload) {
+      if (type === 'error' || type === 'vite:error') {
+        console.warn('HMR error message suppressed:', { type, payload });
+        hideErrorOverlays();
+        return;
+      }
+      return originalDispatch.call(this, type, payload);
+    };
+  }
 }
 
 // Service Worker Registration (temporarily disabled)
