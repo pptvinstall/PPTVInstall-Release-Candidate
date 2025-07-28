@@ -4,8 +4,8 @@ import { debounce } from './optimized-utils';
 // Performance metrics collection
 interface PerformanceMetrics {
   route: string;
-  loadTime: number;
-  renderTime: number;
+  loadTime: number | null;
+  renderTime: number | null;
   memoryUsage: number;
   timestamp: number;
 }
@@ -35,23 +35,28 @@ class PerformanceMonitor {
   }
 
   private recordNavigationMetrics(entry: PerformanceNavigationTiming) {
-    const metrics: PerformanceMetrics = {
-      route: window.location.pathname,
-      loadTime: entry.loadEventEnd - entry.navigationStart,
-      renderTime: entry.domContentLoadedEventEnd - entry.navigationStart,
-      memoryUsage: this.getMemoryUsage(),
-      timestamp: Date.now()
-    };
+    try {
+      const metrics: PerformanceMetrics = {
+        route: window.location.pathname,
+        loadTime: Math.max(0, entry.loadEventEnd - entry.fetchStart) || null,
+        renderTime: Math.max(0, entry.domContentLoadedEventEnd - entry.fetchStart) || null,
+        memoryUsage: this.getMemoryUsage(),
+        timestamp: Date.now()
+      };
 
-    this.metrics.push(metrics);
-    
-    // Keep only last 50 metrics to prevent memory leaks
-    if (this.metrics.length > 50) {
-      this.metrics = this.metrics.slice(-50);
-    }
+      this.metrics.push(metrics);
+      
+      // Keep only last 30 metrics to prevent memory leaks (reduced from 50)
+      if (this.metrics.length > 30) {
+        this.metrics = this.metrics.slice(-30);
+      }
 
-    if (process.env.NODE_ENV === 'development') {
-      console.log('📊 Performance:', metrics);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('📊 Performance:', metrics);
+      }
+    } catch (error) {
+      // Handle navigation metrics errors gracefully
+      console.debug('Navigation metrics error:', error);
     }
   }
 
@@ -63,9 +68,18 @@ class PerformanceMonitor {
   }
 
   private startMemoryMonitoring = debounce(() => {
-    const memUsage = this.getMemoryUsage();
-    if (memUsage > 100) { // Alert if memory usage > 100MB
-      console.warn('🚨 High memory usage detected:', memUsage.toFixed(2), 'MB');
+    try {
+      const memUsage = this.getMemoryUsage();
+      if (memUsage > 100) { // Alert if memory usage > 100MB
+        console.warn('🚨 High memory usage detected:', memUsage.toFixed(2), 'MB');
+        // Trigger garbage collection if available
+        if ((window as any).gc) {
+          (window as any).gc();
+        }
+      }
+    } catch (error) {
+      // Silently handle memory monitoring errors to prevent script errors
+      console.debug('Memory monitoring error:', error);
     }
   }, 10000);
 
@@ -87,8 +101,10 @@ class PerformanceMonitor {
 
   getAverageLoadTime(): number {
     if (this.metrics.length === 0) return 0;
-    const total = this.metrics.reduce((sum, metric) => sum + metric.loadTime, 0);
-    return total / this.metrics.length;
+    const validMetrics = this.metrics.filter(metric => metric.loadTime !== null);
+    if (validMetrics.length === 0) return 0;
+    const total = validMetrics.reduce((sum, metric) => sum + (metric.loadTime || 0), 0);
+    return total / validMetrics.length;
   }
 
   getMetrics() {

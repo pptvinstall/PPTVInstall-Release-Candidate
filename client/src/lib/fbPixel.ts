@@ -20,9 +20,14 @@ export const trackEvent = (event: string, params?: object): void => {
     } else {
       (window as any).fbq('track', event);
     }
-    console.debug(`Meta Pixel: Tracked "${event}" event`, params || '');
+    if (process.env.NODE_ENV === 'development') {
+      console.debug(`Meta Pixel: Tracked "${event}" event`, params || '');
+    }
   } catch (error) {
-    console.error('Meta Pixel tracking error:', error);
+    // Only log pixel errors in development to reduce script errors in production
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Meta Pixel tracking error:', error);
+    }
   }
 };
 

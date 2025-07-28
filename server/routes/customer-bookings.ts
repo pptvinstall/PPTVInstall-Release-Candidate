@@ -59,11 +59,12 @@ export async function updateCustomerBooking(req: Request, res: Response) {
     if (preferredDate) updates.preferredDate = preferredDate;
     if (appointmentTime) updates.appointmentTime = appointmentTime;
     if (notes !== undefined) updates.notes = notes;
-    if (updates.pricingBreakdown) {
+    // Check if pricingBreakdown was passed in the request body, not in the updates object
+    if (req.body.pricingBreakdown) {
       try {
-        updates.pricingBreakdown = typeof updates.pricingBreakdown === 'string' 
-          ? JSON.parse(updates.pricingBreakdown)
-          : updates.pricingBreakdown;
+        updates.pricingBreakdown = typeof req.body.pricingBreakdown === 'string' 
+          ? JSON.parse(req.body.pricingBreakdown)
+          : req.body.pricingBreakdown;
       } catch (e) {
         return res.status(400).json({
           success: false,
@@ -90,8 +91,24 @@ export async function updateCustomerBooking(req: Request, res: Response) {
       // Import the email service function
       const { sendBookingUpdateEmail } = await import('../services/emailService');
       
-      // Send the email
-      await sendBookingUpdateEmail(result[0], updates);
+      // Send the email - ensure booking object has proper types
+      const bookingData = {
+        ...result[0],
+        id: result[0].id.toString(), // Convert number ID to string
+        status: (result[0].status || 'active') as 'active' | 'cancelled' | 'completed' | 'scheduled',
+        notes: result[0].notes || undefined, // Convert null to undefined
+        addressLine2: result[0].addressLine2 || undefined,
+        pricingTotal: result[0].pricingTotal || undefined,
+        pricingBreakdown: result[0].pricingBreakdown || undefined,
+        tvSize: result[0].tvSize || undefined,
+        mountType: result[0].mountType || undefined,
+        wallMaterial: result[0].wallMaterial || undefined,
+        specialInstructions: result[0].specialInstructions || undefined,
+        cancellationReason: result[0].cancellationReason || undefined,
+        createdAt: result[0].createdAt?.toISOString() || undefined,
+        consentToContact: result[0].consentToContact || undefined
+      };
+      await sendBookingUpdateEmail(bookingData, updates);
       logger.info(`Customer booking update email sent for booking ID ${id}`);
     } catch (emailError) {
       logger.error("Error sending customer booking update email:", emailError);
