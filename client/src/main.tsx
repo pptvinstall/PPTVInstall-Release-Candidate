@@ -84,25 +84,48 @@ const queryClient = new QueryClient({
   },
 });
 
-// Lazy load components
-const Home = lazy(() => import('@/pages/home'));
-const Services = lazy(() => import('@/pages/services'));
-const Booking = lazy(() => import('@/pages/booking'));
-const BookingConfirmation = lazy(() => import('@/pages/booking-confirmation'));
-const Contact = lazy(() => import('@/pages/contact'));
-const FAQ = lazy(() => import('@/pages/faq'));
-const Dashboard = lazy(() => import('@/pages/dashboard'));
-const Admin = lazy(() => import('@/pages/admin'));
-const NotFound = lazy(() => import('@/pages/not-found'));
-const PricingEditor = lazy(() => import('@/pages/admin/pricing-editor')); // Added import
-const CustomerLogin = lazy(() => import('@/pages/customer-login'));
-const CustomerPortal = lazy(() => import('@/pages/customer-portal'));
-const CustomerProfile = lazy(() => import('@/pages/customer-profile'));
-const EmailPreviews = lazy(() => import('@/pages/email-previews')); // Added email previews page
-const SendTestEmails = lazy(() => import('@/pages/send-test-emails')); // Added test emails page
-const ForgotPassword = lazy(() => import('@/pages/forgot-password')); // Added forgot password page
-const ResetPassword = lazy(() => import('@/pages/reset-password')); // Added reset password page
-const AdminBookings = lazy(() => import('@/pages/admin-bookings')); // Added admin bookings page
+// Lazy load components with retry logic for failed imports
+const createLazyComponent = (importFn: () => Promise<any>, componentName: string) => {
+  return lazy(() => 
+    importFn().catch(error => {
+      console.error(`Failed to load ${componentName}:`, error);
+      // Return a fallback component for failed imports
+      return {
+        default: () => (
+          <div className="flex flex-col items-center justify-center min-h-[400px] p-8">
+            <h2 className="text-xl font-semibold mb-4">Loading Error</h2>
+            <p className="text-gray-600 mb-4">Failed to load {componentName}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Reload Page
+            </button>
+          </div>
+        )
+      };
+    })
+  );
+};
+
+const Home = createLazyComponent(() => import('@/pages/home'), 'Home');
+const Services = createLazyComponent(() => import('@/pages/services'), 'Services');
+const Booking = createLazyComponent(() => import('@/pages/booking'), 'Booking');
+const BookingConfirmation = createLazyComponent(() => import('@/pages/booking-confirmation'), 'Booking Confirmation');
+const Contact = createLazyComponent(() => import('@/pages/contact'), 'Contact');
+const FAQ = createLazyComponent(() => import('@/pages/faq'), 'FAQ');
+const Dashboard = createLazyComponent(() => import('@/pages/dashboard'), 'Dashboard');
+const Admin = createLazyComponent(() => import('@/pages/admin'), 'Admin');
+const NotFound = createLazyComponent(() => import('@/pages/not-found'), 'Not Found');
+const PricingEditor = createLazyComponent(() => import('@/pages/admin/pricing-editor'), 'Pricing Editor');
+const CustomerLogin = createLazyComponent(() => import('@/pages/customer-login'), 'Customer Login');
+const CustomerPortal = createLazyComponent(() => import('@/pages/customer-portal'), 'Customer Portal');
+const CustomerProfile = createLazyComponent(() => import('@/pages/customer-profile'), 'Customer Profile');
+const EmailPreviews = createLazyComponent(() => import('@/pages/email-previews'), 'Email Previews');
+const SendTestEmails = createLazyComponent(() => import('@/pages/send-test-emails'), 'Send Test Emails');
+const ForgotPassword = createLazyComponent(() => import('@/pages/forgot-password'), 'Forgot Password');
+const ResetPassword = createLazyComponent(() => import('@/pages/reset-password'), 'Reset Password');
+const AdminBookings = createLazyComponent(() => import('@/pages/admin-bookings'), 'Admin Bookings');
 
 
 
@@ -145,7 +168,11 @@ createRoot(document.getElementById('root')!).render(
           <Nav />
           <PWAInstallBanner />
           <main className="flex-grow pt-16">
-            <Suspense fallback={<div className="flex justify-center items-center h-64"><LoadingSpinner size="lg" /></div>}>
+            <Suspense fallback={
+              <div className="flex justify-center items-center h-64">
+                <LoadingSpinner size="lg" />
+              </div>
+            }>
               <Router>
                 <ScrollToTop />
                 <Switch>

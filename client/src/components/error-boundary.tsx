@@ -23,7 +23,10 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    // Only log errors in development to reduce console noise in production
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Uncaught error:", error, errorInfo);
+    }
     logComponentError(error, errorInfo, 'ErrorBoundary');
   }
 
