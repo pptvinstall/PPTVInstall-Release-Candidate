@@ -46,96 +46,7 @@
     <!-- Load optimized fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Brevo Form Styles -->
-    <style>
-      @font-face {
-        font-display: block;
-        font-family: Roboto;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
-      }
-
-      @font-face {
-        font-display: fallback;
-        font-family: Roboto;
-        font-weight: 600;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Robevo/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
-      }
-
-      @font-face {
-        font-display: fallback;
-        font-family: Roboto;
-        font-weight: 700;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
-      }
-
-      #sib-container input:-ms-input-placeholder {
-        text-align: left;
-        font-family: 'Inter', sans-serif;
-        color: #9ca3af;
-      }
-
-      #sib-container input::placeholder {
-        text-align: left;
-        font-family: 'Inter', sans-serif;
-        color: #9ca3af;
-      }
-
-      #sib-container textarea::placeholder {
-        text-align: left;
-        font-family: 'Inter', sans-serif;
-        color: #9ca3af;
-      }
-
-      #sib-container a {
-        text-decoration: underline;
-        color: #2563eb;
-      }
-      
-      /* Custom overrides for Picture Perfect styling */
-      #sib-container .input {
-        font-family: 'Inter', sans-serif !important;
-      }
-      
-      #sib-container .input:focus {
-        outline: none !important;
-        border-color: #3b82f6 !important;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
-      }
-      
-      #sib-container .input:hover {
-        border-color: #93c5fd !important;
-      }
-      
-      #sib-container .entry__label {
-        font-family: 'Inter', sans-serif !important;
-      }
-      
-      /* Hide default Brevo styling that conflicts */
-      .sib-form-message-panel {
-        margin: 10px 0 !important;
-        padding: 12px !important;
-      }
-      
-      /* Ensure proper form spacing */
-      .sib-form-block {
-        margin-bottom: 0 !important;
-      }
-      
-      .form__entry {
-        margin-bottom: 0 !important;
-      }
-      
-      /* Style the country code dropdown */
-      .sib-sms-input-wrapper .entry__field select {
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-        background-position: right 12px center;
-        background-repeat: no-repeat;
-        background-size: 16px;
-        padding-right: 40px;
-      }
-    </style>
-    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+    
 
     <!-- Preload critical assets -->
     <link rel="preload" href="/images/logo.png" as="image" fetchpriority="high" />
@@ -189,57 +100,7 @@
       html { visibility: visible; opacity: 1; }
     </style>
 
-    <!-- Brevo Form Styles -->
-    <style>
-      @font-face {
-        font-display: block;
-        font-family: Roboto;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
-      }
-
-      @font-face {
-        font-display: fallback;
-        font-family: Roboto;
-        font-weight: 600;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
-      }
-
-      @font-face {
-        font-display: fallback;
-        font-family: Roboto;
-        font-weight: 700;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
-      }
-
-      #sib-container input:-ms-input-placeholder {
-        text-align: left;
-        font-family: Helvetica, sans-serif;
-        color: #c0ccda;
-      }
-
-      #sib-container input::placeholder {
-        text-align: left;
-        font-family: Helvetica, sans-serif;
-        color: #c0ccda;
-      }
-
-      #sib-container textarea::placeholder {
-        text-align: left;
-        font-family: Helvetica, sans-serif;
-        color: #c0ccda;
-      }
-
-      #sib-container a {
-        text-decoration: underline;
-        color: #2BB2FC;
-      }
-
-      /* Override Brevo fonts to match site font family */
-      .sib-form-block, .entry__label, .entry__specification, .sib-form-block__button {
-        font-family: 'Inter', system-ui, sans-serif !important;
-      }
-    </style>
-    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+    
 
     <meta name="theme-color" content="#1e40af" />
     <title>Picture Perfect TV Install | Professional TV Mounting in Atlanta</title>
@@ -253,59 +114,6 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Brevo Form Configuration -->
-    <script>
-      // Basic form configuration without external scripts
-      window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-      window.LOCALE = 'en';
-      window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Hmm… something's not quite right. Double-check your info and try again.";
-      window.REQUIRED_ERROR_MESSAGE = "Looks like you missed a spot — this field is required. ";
-      window.GENERIC_INVALID_MESSAGE = "Hmm… something's not quite right. Double-check your info and try again.";
-      window.INVALID_DATE = "Please enter a valid date";
-      
-      function handleCaptchaResponse() {
-        console.log('reCAPTCHA completed - Brevo will handle processing');
-        var event = new Event('captchaChange');
-        var captcha = document.getElementById('sib-captcha');
-        if (captcha) {
-          captcha.dispatchEvent(event);
-        }
-        return true;
-      }
-      
-      // Brevo form configuration and translation
-      window.translation = {
-        common: {
-          selectedList: '{quantity} list selected',
-          selectedLists: '{quantity} lists selected',
-          selectedOption: '{quantity} selected',
-          selectedOptions: '{quantity} selected',
-        }
-      };
-
-      window.AUTOHIDE = Boolean(0);
-      
-      // Enhanced success detection for Picture Perfect integration
-      window.addEventListener('load', function() {
-        const form = document.getElementById('sib-form');
-        if (form) {
-          form.addEventListener('submit', function() {
-            setTimeout(function() {
-              const successMsg = document.getElementById('success-message');
-              if (successMsg && successMsg.style.display !== 'none') {
-                // Trigger custom success modal
-                window.postMessage('brevo-form-success', window.location.origin);
-                // Hide Brevo's default success message
-                successMsg.style.display = 'none';
-              }
-            }, 1500);
-          });
-        }
-      });
-    </script>
     
-    <!-- Brevo Form Scripts -->
-    <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-    <script async src="https://www.google.com/recaptcha/api.js?hl=en"></script>
   </body>
 </html>
