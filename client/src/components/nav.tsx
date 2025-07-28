@@ -172,11 +172,11 @@ export default function Nav() {
             <Button 
               variant="default" 
               size="sm"
-              className="bg-blue-600 hover:bg-blue-700 mr-2"
+              className="call-btn bg-blue-600 hover:bg-blue-700 mr-2"
               onClick={handlePhoneCall}
             >
               <PhoneCall className="mr-2 h-4 w-4" />
-              <span className="hidden sm:inline">Call</span>
+              <span className="hidden sm:inline">Call Now</span>
               <span className="sm:hidden">Call</span>
             </Button>
 

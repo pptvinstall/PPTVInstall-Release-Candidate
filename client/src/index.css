@@ -389,14 +389,55 @@ select,
 /* Always visible call button */
 .call-btn {
   opacity: 1 !important;
-  display: inline-block !important;
-  pointer-events: auto;
-  transition: background 0.2s;
+  display: inline-flex !important;
+  pointer-events: auto !important;
+  background: #2563eb !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  border-radius: 1rem !important;
+  padding: 0.6rem 1.2rem !important;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.12) !important;
+  transition: all 0.2s ease !important;
+}
+
+.call-btn:hover {
+  background: #1d4ed8 !important;
+  transform: translateY(-1px) !important;
 }
 
 /* Remove any hover-only behaviors */
 .best-value-badge {
   display: none !important;
+}
+
+/* Brevo form styling */
+.brevo-form-iframe {
+  border: none !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.09) !important;
+  background: #fff !important;
+  max-width: 500px !important;
+  margin: auto !important;
+  display: block !important;
+}
+
+/* Mobile responsive form */
+@media (max-width: 600px) {
+  .brevo-form-iframe {
+    max-width: 98vw !important;
+    height: 520px !important;
+    border-radius: 1rem !important;
+  }
+  
+  /* Ensure hero section has proper padding on mobile */
+  .hero-section {
+    padding: 2rem 1rem !important;
+  }
+  
+  /* Better mobile spacing for service cards */
+  .service-cards {
+    gap: 1rem !important;
+  }
 }
 
 /* Enhanced CTA styling */

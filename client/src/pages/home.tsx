@@ -27,13 +27,15 @@ const Home: React.FC = () => {
   // Using a ref with a container that has position: relative
   const { scrollYProgress: heroScrollProgress } = useScroll({
     target: heroRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
+    layoutEffect: false
   });
 
   // Add a scroll progress tracker for the showcase section
   const { scrollYProgress: showcaseScrollProgress } = useScroll({
     target: showcaseRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end start"],
+    layoutEffect: false
   });
 
   const showcaseOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0.7]);
@@ -57,20 +59,23 @@ const Home: React.FC = () => {
     {
       icon: <Calendar className="w-8 h-8" />,
       title: "TV Mounting",
-      description: "Professional wall mounting for all TV sizes with cable management",
-      price: "Starting at $175"
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Fireplace Installation",
-      description: "Safe and secure mounting above fireplaces with proper heat protection",
-      price: "Starting at $250"
+      description: "Professional wall mounting for all TV sizes with custom options for wall type, mount, and wire concealment",
+      price: "Starting at $100 per TV",
+      details: ["Fireplace install: +$100", "Brick/stone wall: +$50", "Wire concealment & outlet: +$100"]
     },
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Smart Home Setup",
-      description: "Complete smart home integration and device configuration",
-      price: "Starting at $125"
+      description: "Setup for all major smart devices and integrations",
+      price: "Starting at $99",
+      details: ["Complete device configuration", "Network optimization", "User training included"]
+    },
+    {
+      icon: <Shield className="w-8 h-8" />,
+      title: "TV De-Installation",
+      description: "Quick, professional removal of mounted TVs",
+      price: "Starting at $49",
+      details: ["Safe removal process", "Wall repair available", "Equipment recycling options"]
     }
   ];
 
@@ -169,32 +174,14 @@ const Home: React.FC = () => {
                 {/* Brevo Form Iframe - Fixed Implementation */}
                 <iframe
                   width="100%"
-                  height="440"
+                  height="520"
                   src="https://227ffc5e.sibforms.com/serve/MUIFAIvOdZJKQivVxIQglvAtaIigtxkEh2tq9PIWv01xvfP6mp3detDHXLbf_CG3Fpy0LnMIruRoETcJ5avgk7Gurzcu7ElEZnEWIeZwncRTnxGlZ5GZSeRA5zg9L9g25Dol6QoX7R8oN7q0efDeexgSGjqSkITx9xJ930lHB6bqa1dAWRLKn35tip3JmlCO_mEFJcHxznpuMkwg"
-                  frameBorder="0"
+                  frameBorder={0}
                   scrolling="auto"
-                  allowFullScreen
-                  style={{
-                    border: "none",
-                    borderRadius: "1.5rem",
-                    boxShadow: "0 4px 24px rgba(0,0,0,0.09)",
-                    background: "#fff",
-                    maxWidth: "500px",
-                    margin: "auto",
-                    display: "block"
-                  }}
+                  allowFullScreen={true}
+                  className="brevo-form-iframe"
                   title="Picture Perfect TV Install Sign Up Form"
                 />
-
-                {/* Mobile responsive styling */}
-                <style jsx>{`
-                  @media (max-width: 600px) {
-                    iframe {
-                      max-width: 98vw !important;
-                      height: 520px !important;
-                    }
-                  }
-                `}</style>
               </motion.div>
             </div>
           </div>
@@ -230,8 +217,18 @@ const Home: React.FC = () => {
                       {service.icon}
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-                    <p className="text-gray-600 mb-6">{service.description}</p>
+                    <p className="text-gray-600 mb-4">{service.description}</p>
                     <div className="text-2xl font-bold text-blue-600 mb-4">{service.price}</div>
+                    {service.details && (
+                      <ul className="text-sm text-gray-600 mb-6 text-left space-y-1">
+                        {service.details.map((detail, i) => (
+                          <li key={i} className="flex items-center">
+                            <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                     <Button className="w-full bg-blue-600 hover:bg-blue-700">
                       Get Quote
                     </Button>
