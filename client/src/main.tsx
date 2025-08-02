@@ -14,159 +14,6 @@ import ErrorBoundary from './components/error-boundary';
 
 import './lib/process-polyfill';
 import './index.css';
-import { performanceMonitor } from './lib/performance-monitor';
-
-// Early error suppression before any other imports
-if (typeof window !== 'undefined') {
-  // Override the sendError function that creates the overlay
-  const originalSendError = (window as any).sendError;
-  (window as any).sendError = function(...args: any[]) {
-    console.warn('Vite sendError intercepted:', args);
-    // Don't call the original function to prevent overlay
-    return false;
-  };
-}
-
-// Comprehensive error handling to prevent runtime overlays
-window.addEventListener('error', (event) => {
-  // Suppress generic "Script error" messages and plugin errors
-  if (event.message === 'Script error.' || 
-      !event.message || 
-      event.message.includes('runtime-error-plugin') ||
-      event.filename?.includes('runtime-error-plugin')) {
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    event.preventDefault();
-    return false;
-  }
-  return true;
-});
-
-// Enhanced promise rejection handling
-window.addEventListener('unhandledrejection', (event) => {
-  // Suppress rejections that would trigger runtime overlays
-  const reason = event.reason?.toString() || '';
-  if (reason.includes('runtime-error-plugin') || 
-      reason.includes('Script error') ||
-      reason.includes('unknown runtime error') ||
-      reason.includes('sendError') ||
-      event.reason?.plugin === 'runtime-error-plugin') {
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    event.preventDefault();
-    return false;
-  }
-  
-  if (process.env.NODE_ENV === 'development') {
-    console.warn('Unhandled promise rejection:', event.reason);
-  }
-  event.preventDefault();
-});
-
-// Override console.error temporarily to filter out plugin errors
-const originalConsoleError = console.error;
-console.error = (...args) => {
-  const message = args.join(' ');
-  if (message.includes('runtime-error-plugin') || 
-      message.includes('Script error') ||
-      message === 'Script error.') {
-    return; // Suppress these specific errors
-  }
-  originalConsoleError.apply(console, args);
-};
-
-// Additional DOM-based error overlay prevention
-const hideErrorOverlays = () => {
-  try {
-    // Remove any existing error overlays with more comprehensive selectors
-    const overlays = document.querySelectorAll(
-      '#vite-error-overlay, [data-vite-error-overlay], .vite-error-overlay, div[style*="z-index: 9999"][style*="background: rgba(0, 0, 0, 0.66)"], div[style*="position: fixed"][style*="inset: 0px"], iframe[src*="__vite_ping"], div[style*="runtime-error"]'
-    );
-    overlays.forEach(overlay => {
-      if (overlay && overlay.parentNode) {
-        overlay.parentNode.removeChild(overlay);
-      }
-    });
-    
-    // Also hide any potential error overlays by CSS
-    const style = document.getElementById('vite-error-suppression-style') || document.createElement('style');
-    style.id = 'vite-error-suppression-style';
-    style.textContent = `
-      #vite-error-overlay,
-      [data-vite-error-overlay],
-      .vite-error-overlay,
-      div[style*="position: fixed"][style*="z-index: 9999"],
-      div[style*="position: fixed"][style*="inset: 0px"],
-      iframe[src*="__vite_ping"] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        z-index: -9999 !important;
-      }
-    `;
-    if (!document.head.contains(style)) {
-      document.head.appendChild(style);
-    }
-  } catch (error) {
-    // Silently handle errors to prevent additional console noise
-  }
-};
-
-// Run overlay removal with better error handling
-hideErrorOverlays();
-document.addEventListener('DOMContentLoaded', hideErrorOverlays);
-const intervalId = setInterval(hideErrorOverlays, 1000);
-
-// Clean up interval after 10 seconds to prevent memory leaks
-setTimeout(() => clearInterval(intervalId), 10000);
-
-// MutationObserver to catch dynamically added error overlays
-const observer = new MutationObserver((mutations) => {
-  mutations.forEach((mutation) => {
-    mutation.addedNodes.forEach((node) => {
-      if (node.nodeType === Node.ELEMENT_NODE) {
-        const element = node as Element;
-        if (element.id?.includes('error-overlay') || 
-            element.className?.includes('error-overlay') ||
-            element.getAttribute?.('data-vite-error-overlay')) {
-          hideErrorOverlays();
-        }
-      }
-    });
-  });
-});
-
-// Start observing
-observer.observe(document.body, { childList: true, subtree: true });
-
-// Advanced Vite HMR error interception
-if (import.meta.hot) {
-  // Intercept all HMR error events
-  import.meta.hot.on('vite:error', (data) => {
-    console.warn('Vite error intercepted and suppressed:', data);
-    hideErrorOverlays();
-  });
-  
-  // Additional error event handlers
-  import.meta.hot.on('error', (data) => {
-    console.warn('HMR error intercepted:', data);
-    hideErrorOverlays();
-  });
-  
-  // Override error display functions
-  const originalSend = import.meta.hot.send;
-  if (originalSend) {
-    import.meta.hot.send = function(type, payload) {
-      if (type === 'error' || type === 'vite:error' || payload?.plugin === 'runtime-error-plugin') {
-        console.warn('HMR error message suppressed:', { type, payload });
-        hideErrorOverlays();
-        return;
-      }
-      return originalSend.call(this, type, payload);
-    };
-  }
-}
 
 // Service Worker Registration (temporarily disabled)
 // Uncomment when ready for PWA deployment
@@ -236,50 +83,25 @@ const queryClient = new QueryClient({
   },
 });
 
-// Lazy load components with retry logic for failed imports
-const createLazyComponent = (importFn: () => Promise<any>, componentName: string) => {
-  return lazy(() => 
-    importFn().catch(error => {
-      if (process.env.NODE_ENV === 'development') {
-        console.error(`Failed to load ${componentName}:`, error);
-      }
-      // Return a fallback component for failed imports
-      return {
-        default: () => (
-          <div className="flex flex-col items-center justify-center min-h-[400px] p-8">
-            <h2 className="text-xl font-semibold mb-4">Loading Error</h2>
-            <p className="text-gray-600 mb-4">Failed to load {componentName}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Reload Page
-            </button>
-          </div>
-        )
-      };
-    })
-  );
-};
-
-const Home = createLazyComponent(() => import('@/pages/home'), 'Home');
-const Services = createLazyComponent(() => import('@/pages/services'), 'Services');
-const Booking = createLazyComponent(() => import('@/pages/booking'), 'Booking');
-const BookingConfirmation = createLazyComponent(() => import('@/pages/booking-confirmation'), 'Booking Confirmation');
-const Contact = createLazyComponent(() => import('@/pages/contact'), 'Contact');
-const FAQ = createLazyComponent(() => import('@/pages/faq'), 'FAQ');
-const Dashboard = createLazyComponent(() => import('@/pages/dashboard'), 'Dashboard');
-const Admin = createLazyComponent(() => import('@/pages/admin'), 'Admin');
-const NotFound = createLazyComponent(() => import('@/pages/not-found'), 'Not Found');
-const PricingEditor = createLazyComponent(() => import('@/pages/admin/pricing-editor'), 'Pricing Editor');
-const CustomerLogin = createLazyComponent(() => import('@/pages/customer-login'), 'Customer Login');
-const CustomerPortal = createLazyComponent(() => import('@/pages/customer-portal'), 'Customer Portal');
-const CustomerProfile = createLazyComponent(() => import('@/pages/customer-profile'), 'Customer Profile');
-const EmailPreviews = createLazyComponent(() => import('@/pages/email-previews'), 'Email Previews');
-const SendTestEmails = createLazyComponent(() => import('@/pages/send-test-emails'), 'Send Test Emails');
-const ForgotPassword = createLazyComponent(() => import('@/pages/forgot-password'), 'Forgot Password');
-const ResetPassword = createLazyComponent(() => import('@/pages/reset-password'), 'Reset Password');
-const AdminBookings = createLazyComponent(() => import('@/pages/admin-bookings'), 'Admin Bookings');
+// Lazy load components
+const Home = lazy(() => import('@/pages/home'));
+const Services = lazy(() => import('@/pages/services'));
+const Booking = lazy(() => import('@/pages/booking'));
+const BookingConfirmation = lazy(() => import('@/pages/booking-confirmation'));
+const Contact = lazy(() => import('@/pages/contact'));
+const FAQ = lazy(() => import('@/pages/faq'));
+const Dashboard = lazy(() => import('@/pages/dashboard'));
+const Admin = lazy(() => import('@/pages/admin'));
+const NotFound = lazy(() => import('@/pages/not-found'));
+const PricingEditor = lazy(() => import('@/pages/admin/pricing-editor')); // Added import
+const CustomerLogin = lazy(() => import('@/pages/customer-login'));
+const CustomerPortal = lazy(() => import('@/pages/customer-portal'));
+const CustomerProfile = lazy(() => import('@/pages/customer-profile'));
+const EmailPreviews = lazy(() => import('@/pages/email-previews')); // Added email previews page
+const SendTestEmails = lazy(() => import('@/pages/send-test-emails')); // Added test emails page
+const ForgotPassword = lazy(() => import('@/pages/forgot-password')); // Added forgot password page
+const ResetPassword = lazy(() => import('@/pages/reset-password')); // Added reset password page
+const AdminBookings = lazy(() => import('@/pages/admin-bookings')); // Added admin bookings page
 
 
 
@@ -288,14 +110,9 @@ const ScrollToTop = () => {
   const [location] = useLocation();
 
   useEffect(() => {
-    // Start performance monitoring for route changes
-    performanceMonitor.startRouteTimer(location);
-    
     // Use requestAnimationFrame for better performance
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // End performance monitoring after scroll
-      setTimeout(() => performanceMonitor.endRouteTimer(location), 100);
     });
   }, [location]);
 
@@ -322,11 +139,7 @@ createRoot(document.getElementById('root')!).render(
           <Nav />
           <PWAInstallBanner />
           <main className="flex-grow pt-16">
-            <Suspense fallback={
-              <div className="flex justify-center items-center h-64">
-                <LoadingSpinner size="lg" />
-              </div>
-            }>
+            <Suspense fallback={<div className="flex justify-center items-center h-64"><LoadingSpinner size="lg" /></div>}>
               <Router>
                 <ScrollToTop />
                 <Switch>

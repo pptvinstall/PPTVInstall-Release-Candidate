@@ -941,7 +941,7 @@ export function BookingWizard({
                   <ReviewBookingStep
                     tvInstallations={tvInstallations}
                     smartHomeInstallations={smartHomeInstallations}
-                    tvDeinstallations={[]}
+                    tvRemovalService={null}
                     handymanService={null}
                     selectedDate={selectedDate}
                     selectedTime={selectedTime}

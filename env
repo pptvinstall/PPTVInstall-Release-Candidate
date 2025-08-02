@@ -1,0 +1,14 @@
+# Admin authentication
+ADMIN_PASSWORD=PictureP3rfectTV2025
+
+# Email configuration (Gmail SMTP - Primary)
+ADMIN_EMAIL=pptvinstall@gmail.com
+EMAIL_FROM=Picture Perfect TV Install <pptvinstall@gmail.com>
+GMAIL_USER=pptvinstall@gmail.com
+GMAIL_APP_PASSWORD=xsjlfjpqderocpyh
+
+# PostgreSQL database (Production)
+DATABASE_URL=postgresql://neondb_owner:npg_qS8yKnEpV3tr@ep-wispy-tooth-a61ij4qd.us-west-2.aws.neon.tech/neondb?sslmode=require
+
+# Environment indicator
+NODE_ENV=PRODUCTION

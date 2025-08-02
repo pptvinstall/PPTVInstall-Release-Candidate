@@ -1,4 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import compression from 'compression';
@@ -9,13 +12,19 @@ import {
   rateLimiting 
 } from './middleware/optimization';
 
+// Load environment variables
+import 'dotenv/config';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 
 // Apply optimization middleware
 app.use(responseOptimization());
 app.use(memoryMonitoring());
 app.use(requestDeduplication());
-app.use(rateLimiting(500, 15 * 60 * 1000)); // 500 requests per 15 minutes (increased limit)
+app.use(rateLimiting(200, 15 * 60 * 1000)); // 200 requests per 15 minutes
 
 // Optimize compression for better performance
 app.use(compression({ 
@@ -119,16 +128,6 @@ const gracefulShutdown = (signal: string) => {
   // Only shut down if server exists
   if (serverInstance) {
     try {
-      // Clean up monitoring intervals
-      if ((global as any).monitoring && typeof (global as any).monitoring.stopHealthMonitoring === 'function') {
-        (global as any).monitoring.stopHealthMonitoring();
-      }
-      
-      // Force garbage collection if available
-      if ((global as any).gc) {
-        (global as any).gc();
-      }
-      
       // Set a handler for server close to track completion
       serverInstance.close((err?: Error) => {
         if (err) {
@@ -196,6 +195,9 @@ const gracefulShutdown = (signal: string) => {
       });
     });
 
+    // Serve static files from public directory (for manifest.json, icons, etc.)
+    app.use(express.static(path.resolve(__dirname, '../public')));
+
     // importantly only setup vite in development and after
     // setting up all the other routes so the catch-all route
     // doesn't interfere with the other routes
@@ -228,40 +230,28 @@ const gracefulShutdown = (signal: string) => {
         return;
       }
       
-      // Make a self-request to keep the server alive with timeout and proper cleanup
+      // Make a self-request to keep the server alive
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-        
-        fetch(`http://localhost:${port}/api/health`, {
-          signal: controller.signal,
-          headers: { 'Connection': 'close' } // Ensure connection is closed
-        })
-          .then((response) => {
-            clearTimeout(timeoutId);
+        fetch(`http://localhost:${port}/api/health`)
+          .then(() => {
             if (process.env.NODE_ENV === 'development') {
               log('Keep-alive ping successful');
             }
-            // Explicitly close the response to free memory
-            if (response.body) {
-              response.body.cancel();
-            }
           })
           .catch(err => {
-            clearTimeout(timeoutId);
-            if (process.env.NODE_ENV === 'development' && err.name !== 'AbortError') {
+            if (process.env.NODE_ENV === 'development') {
               console.error('Keep-alive ping failed:', err.message);
             }
           });
       } catch (error) {
         // Ignore fetch errors during shutdown
       }
-    }, 300000); // Every 5 minutes (reduced frequency)
+    }, 240000); // Every 4 minutes
 
     server.listen({
       port,
-      host: "0.0.0.0",
-      reusePort: true,
+      host: "localhost",
+      reusePort: false,
     }, () => {
       log(`Server started successfully, serving on port ${port}`);
     });

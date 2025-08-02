@@ -19,16 +19,6 @@ import {
   sendBookingCancellationEmail,
   emailTemplates
 } from "./services/gmailEmailService";
-import { handleGetAnalytics } from "./analytics";
-import { 
-  sendEnhancedEmail, 
-  EmailType, 
-  sendEnhancedBookingConfirmation,
-  sendRescheduleConfirmation,
-  sendEnhancedCancellationEmail,
-  sendServiceEditNotification
-} from "./services/enhancedEmailService";
-import { pushNotificationService } from "./services/pushNotificationService";
 
 // Extend Express Request type to include requestId
 interface Request extends ExpressRequest {

@@ -54,16 +54,11 @@ export function ResponsiveImage({
   };
 
   const handleError = () => {
-    // Reduce console noise - only log in development
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(`Image load failed: ${optimizedSrc}`);
-    }
+    console.error(`Failed to load image: ${optimizedSrc}`);
 
     // If optimized image fails, try original source as fallback
     if (optimizedSrc !== src && src) {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`Falling back to original source: ${src}`);
-      }
+      console.log(`Falling back to original source: ${src}`);
       setOptimizedSrc(src);
     } else {
       setError(true);
