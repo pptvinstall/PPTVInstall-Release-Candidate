@@ -394,3 +394,361 @@
 [2025-08-02T19:40:44.601Z] INFO: Request completed {"requestId":"f2d11h5","method":"GET","path":"/src/data/pricing-data.ts","statusCode":304,"duration":"0ms"}
 [2025-08-02T19:40:44.767Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/manifest.json"}
 [2025-08-02T19:40:44.768Z] INFO: Request completed {"requestId":"ly11hm","method":"GET","path":"/manifest.json","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:57.528Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/"}
+[2025-08-02T19:40:57.553Z] INFO: Request completed {"requestId":"6wczb","method":"GET","path":"/","statusCode":200,"duration":"25ms"}
+[2025-08-02T19:40:57.568Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/main.tsx"}
+[2025-08-02T19:40:57.569Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/@vite/client"}
+[2025-08-02T19:40:57.570Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/@react-refresh"}
+[2025-08-02T19:40:57.572Z] INFO: Request completed {"requestId":"hrrtep","method":"GET","path":"/@vite/client","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.572Z] INFO: Request completed {"requestId":"4bws","method":"GET","path":"/@react-refresh","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:57.574Z] INFO: Request completed {"requestId":"jjeruf","method":"GET","path":"/src/main.tsx","statusCode":200,"duration":"6ms"}
+[2025-08-02T19:40:57.581Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"116 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs"}
+[2025-08-02T19:40:57.582Z] INFO: Request completed {"requestId":"knuh6r","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:57.584Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"116 MB","path":"/src/components/error-boundary.tsx"}
+[2025-08-02T19:40:57.585Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"116 MB","path":"/src/lib/process-polyfill.ts"}
+[2025-08-02T19:40:57.586Z] INFO: Request completed {"requestId":"3rhsj","method":"GET","path":"/src/lib/process-polyfill.ts","statusCode":200,"duration":"1ms"}
+[2025-08-02T19:40:57.587Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"116 MB","path":"/src/index.css"}
+[2025-08-02T19:40:57.588Z] INFO: Request completed {"requestId":"3kahvo","method":"GET","path":"/src/components/error-boundary.tsx","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:40:57.588Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"116 MB","path":"/src/components/ui/toaster.tsx"}
+[2025-08-02T19:40:57.589Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"116 MB","path":"/src/components/ui/loading-spinner.tsx"}
+[2025-08-02T19:40:57.590Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"116 MB","path":"/src/components/nav.tsx"}
+[2025-08-02T19:40:57.590Z] INFO: Request completed {"requestId":"t7drvh","method":"GET","path":"/src/components/ui/toaster.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:57.591Z] INFO: Request completed {"requestId":"ir1l5b","method":"GET","path":"/src/components/ui/loading-spinner.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:57.591Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"116 MB","path":"/src/components/footer.tsx"}
+[2025-08-02T19:40:57.592Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"116 MB","path":"/src/components/ui/promotion-banner.tsx"}
+[2025-08-02T19:40:57.593Z] INFO: Request completed {"requestId":"l4rqv6","method":"GET","path":"/src/components/nav.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.594Z] INFO: Request completed {"requestId":"yrcunv","method":"GET","path":"/src/components/footer.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.595Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"116 MB","path":"/src/components/ui/pwa-install-banner.tsx"}
+[2025-08-02T19:40:57.595Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"116 MB","path":"/src/components/ui/environment-indicator.tsx"}
+[2025-08-02T19:40:57.597Z] INFO: Request completed {"requestId":"h8ir7p","method":"GET","path":"/src/components/ui/promotion-banner.tsx","statusCode":304,"duration":"5ms"}
+[2025-08-02T19:40:57.598Z] INFO: Request completed {"requestId":"ec7xyp","method":"GET","path":"/src/index.css","statusCode":200,"duration":"11ms"}
+[2025-08-02T19:40:57.598Z] INFO: Request completed {"requestId":"e6opy","method":"GET","path":"/src/components/ui/pwa-install-banner.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.599Z] INFO: Request completed {"requestId":"b355l","method":"GET","path":"/src/components/ui/environment-indicator.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.616Z] INFO: WARNING: High memory usage detected {"heapUsed":"103 MB","heapTotal":"116 MB","path":"/src/lib/errorLogger.ts"}
+[2025-08-02T19:40:57.617Z] INFO: Request completed {"requestId":"not9d","method":"GET","path":"/src/lib/errorLogger.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:57.617Z] INFO: WARNING: High memory usage detected {"heapUsed":"103 MB","heapTotal":"116 MB","path":"/src/hooks/use-toast.ts"}
+[2025-08-02T19:40:57.618Z] INFO: WARNING: High memory usage detected {"heapUsed":"103 MB","heapTotal":"116 MB","path":"/src/components/ui/toast.tsx"}
+[2025-08-02T19:40:57.619Z] INFO: Request completed {"requestId":"w23oxd","method":"GET","path":"/src/hooks/use-toast.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:57.619Z] INFO: WARNING: High memory usage detected {"heapUsed":"103 MB","heapTotal":"116 MB","path":"/src/lib/utils.ts"}
+[2025-08-02T19:40:57.620Z] INFO: WARNING: High memory usage detected {"heapUsed":"103 MB","heapTotal":"116 MB","path":"/src/components/ui/button.tsx"}
+[2025-08-02T19:40:57.620Z] INFO: WARNING: High memory usage detected {"heapUsed":"103 MB","heapTotal":"116 MB","path":"/src/components/logo.tsx"}
+[2025-08-02T19:40:57.621Z] INFO: Request completed {"requestId":"3h3b3k","method":"GET","path":"/src/components/ui/toast.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.622Z] INFO: Request completed {"requestId":"zn4nme","method":"GET","path":"/src/lib/utils.ts","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.622Z] INFO: Request completed {"requestId":"r8gy6m","method":"GET","path":"/src/components/ui/button.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:57.622Z] INFO: WARNING: High memory usage detected {"heapUsed":"103 MB","heapTotal":"116 MB","path":"/src/components/ui/accordion.tsx"}
+[2025-08-02T19:40:57.623Z] INFO: Request completed {"requestId":"mv5rn","method":"GET","path":"/src/components/logo.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.624Z] INFO: Request completed {"requestId":"acwe1m","method":"GET","path":"/src/components/ui/accordion.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:57.633Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"116 MB","path":"/src/components/ui/badge.tsx"}
+[2025-08-02T19:40:57.635Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"116 MB","path":"/src/hooks/use-media-query.ts"}
+[2025-08-02T19:40:57.636Z] INFO: Request completed {"requestId":"3v3ob","method":"GET","path":"/src/components/ui/badge.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:57.636Z] INFO: Request completed {"requestId":"1sn79e","method":"GET","path":"/src/hooks/use-media-query.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:57.701Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"116 MB","path":"/src/pages/home.tsx"}
+[2025-08-02T19:40:57.740Z] INFO: Request completed {"requestId":"6z5pz19","method":"GET","path":"/src/pages/home.tsx","statusCode":200,"duration":"39ms"}
+[2025-08-02T19:40:57.750Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"120 MB","path":"/src/components/ui/card.tsx"}
+[2025-08-02T19:40:57.751Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"120 MB","path":"/src/components/ui/installation-gallery.tsx"}
+[2025-08-02T19:40:57.752Z] INFO: Request completed {"requestId":"81ij3","method":"GET","path":"/src/components/ui/card.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:57.752Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"120 MB","path":"/src/lib/fbPixel.ts"}
+[2025-08-02T19:40:57.753Z] INFO: Request completed {"requestId":"yszvl","method":"GET","path":"/src/components/ui/installation-gallery.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:57.754Z] INFO: Request completed {"requestId":"iilrn8","method":"GET","path":"/src/lib/fbPixel.ts","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:57.789Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"120 MB","path":"/src/components/ui/carousel.tsx"}
+[2025-08-02T19:40:57.790Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"120 MB","path":"/manifest.json"}
+[2025-08-02T19:40:57.790Z] INFO: Request completed {"requestId":"g2hr6r","method":"GET","path":"/src/components/ui/carousel.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:57.791Z] INFO: Request completed {"requestId":"tppfts","method":"GET","path":"/manifest.json","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:41:10.163Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"120 MB","path":"/api/health"}
+[2025-08-02T19:41:10.369Z] INFO: Request completed {"requestId":"zkacr","method":"GET","path":"/api/health","statusCode":200,"duration":"206ms"}
+[2025-08-02T19:42:15.342Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"113 MB","path":"/src/pages/booking.tsx"}
+[2025-08-02T19:42:15.360Z] INFO: Request completed {"requestId":"b0wyi","method":"GET","path":"/src/pages/booking.tsx","statusCode":200,"duration":"17ms"}
+[2025-08-02T19:42:15.362Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"113 MB","path":"/src/components/ui/integrated-booking-wizard.tsx"}
+[2025-08-02T19:42:15.363Z] INFO: Request completed {"requestId":"sxecj3","method":"GET","path":"/src/components/ui/integrated-booking-wizard.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:42:15.371Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"114 MB","path":"/src/components/ui/calendar.tsx"}
+[2025-08-02T19:42:15.372Z] INFO: Request completed {"requestId":"s4lfc7","method":"GET","path":"/src/components/ui/calendar.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:42:15.373Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"114 MB","path":"/src/lib/pricing.ts"}
+[2025-08-02T19:42:15.374Z] INFO: Request completed {"requestId":"7yspmq","method":"GET","path":"/src/lib/pricing.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:42:15.374Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"114 MB","path":"/src/components/ui/separator.tsx"}
+[2025-08-02T19:42:15.375Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"114 MB","path":"/src/hooks/use-business-hours.ts"}
+[2025-08-02T19:42:15.375Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"114 MB","path":"/src/components/ui/select.tsx"}
+[2025-08-02T19:42:15.376Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"114 MB","path":"/src/components/ui/tabs.tsx"}
+[2025-08-02T19:42:15.376Z] INFO: Request completed {"requestId":"5jhls","method":"GET","path":"/src/components/ui/separator.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:42:15.377Z] INFO: Request completed {"requestId":"hp0xx","method":"GET","path":"/src/hooks/use-business-hours.ts","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:42:15.378Z] INFO: Request completed {"requestId":"gg1uj","method":"GET","path":"/src/components/ui/select.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:42:15.379Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/input.tsx"}
+[2025-08-02T19:42:15.380Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/textarea.tsx"}
+[2025-08-02T19:42:15.381Z] INFO: Request completed {"requestId":"wlg89w","method":"GET","path":"/src/components/ui/tabs.tsx","statusCode":304,"duration":"5ms"}
+[2025-08-02T19:42:15.382Z] INFO: Request completed {"requestId":"9z00r","method":"GET","path":"/src/components/ui/input.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:42:15.383Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/label.tsx"}
+[2025-08-02T19:42:15.384Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/checkbox.tsx"}
+[2025-08-02T19:42:15.384Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/radio-group.tsx"}
+[2025-08-02T19:42:15.386Z] INFO: Request completed {"requestId":"rrub0s","method":"GET","path":"/src/components/ui/textarea.tsx","statusCode":304,"duration":"6ms"}
+[2025-08-02T19:42:15.386Z] INFO: Request completed {"requestId":"he542","method":"GET","path":"/src/components/ui/label.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:42:15.388Z] INFO: Request completed {"requestId":"g91e6","method":"GET","path":"/src/components/ui/checkbox.tsx","statusCode":304,"duration":"4ms"}
+[2025-08-02T19:42:15.388Z] INFO: Request completed {"requestId":"vcqo1yc","method":"GET","path":"/src/components/ui/radio-group.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:42:15.389Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/icons.tsx"}
+[2025-08-02T19:42:15.390Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/booking-assistant.tsx"}
+[2025-08-02T19:42:15.391Z] INFO: Request completed {"requestId":"na4lfu","method":"GET","path":"/src/components/icons.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:42:15.392Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"113 MB","path":"/src/components/ui/booking-tutorial.tsx"}
+[2025-08-02T19:42:15.392Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"113 MB","path":"/src/components/ui/booking-step-guide.tsx"}
+[2025-08-02T19:42:15.393Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"113 MB","path":"/src/components/ui/booking-autofill.tsx"}
+[2025-08-02T19:42:15.394Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"113 MB","path":"/src/components/ui/tooltip.tsx"}
+[2025-08-02T19:42:15.395Z] INFO: Request completed {"requestId":"mybg2","method":"GET","path":"/src/components/ui/booking-assistant.tsx","statusCode":304,"duration":"5ms"}
+[2025-08-02T19:42:15.396Z] INFO: Request completed {"requestId":"cakxp","method":"GET","path":"/src/components/ui/booking-tutorial.tsx","statusCode":304,"duration":"4ms"}
+[2025-08-02T19:42:15.396Z] INFO: Request completed {"requestId":"zta2ht","method":"GET","path":"/src/components/ui/booking-step-guide.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:42:15.397Z] INFO: Request completed {"requestId":"1bmtb","method":"GET","path":"/src/components/ui/booking-autofill.tsx","statusCode":304,"duration":"4ms"}
+[2025-08-02T19:42:15.397Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"113 MB","path":"/src/components/steps/review-booking-step.tsx"}
+[2025-08-02T19:42:15.398Z] INFO: Request completed {"requestId":"78v03","method":"GET","path":"/src/components/ui/tooltip.tsx","statusCode":304,"duration":"4ms"}
+[2025-08-02T19:42:15.398Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"113 MB","path":"/src/components/ui/booking-confirmation-modal.tsx"}
+[2025-08-02T19:42:15.399Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"113 MB","path":"/src/data/pricing-data.ts"}
+[2025-08-02T19:42:15.400Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"113 MB","path":"/src/lib/queryClient.ts"}
+[2025-08-02T19:42:15.400Z] INFO: Request completed {"requestId":"cysn1p","method":"GET","path":"/src/components/steps/review-booking-step.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:42:15.401Z] INFO: Request completed {"requestId":"sarygn","method":"GET","path":"/src/components/ui/booking-confirmation-modal.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:42:15.401Z] INFO: Request completed {"requestId":"hysghf","method":"GET","path":"/src/data/pricing-data.ts","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:42:15.402Z] INFO: Request completed {"requestId":"iibhlxh","method":"GET","path":"/src/lib/queryClient.ts","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:42:15.404Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/alert-dialog.tsx"}
+[2025-08-02T19:42:15.405Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/reschedule-dialog.tsx"}
+[2025-08-02T19:42:15.405Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/dialog.tsx"}
+[2025-08-02T19:42:15.406Z] INFO: Request completed {"requestId":"j1e0gv","method":"GET","path":"/src/components/ui/alert-dialog.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:42:15.406Z] INFO: Request completed {"requestId":"d7rsln","method":"GET","path":"/src/components/ui/reschedule-dialog.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:42:15.407Z] INFO: Request completed {"requestId":"avjx09","method":"GET","path":"/src/components/ui/dialog.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:42:15.409Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/components/ui/popover.tsx"}
+[2025-08-02T19:42:15.410Z] INFO: Request completed {"requestId":"8t271","method":"GET","path":"/src/components/ui/popover.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:42:15.456Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/api/business-hours"}
+[2025-08-02T19:42:15.458Z] INFO: Request completed {"requestId":"rpsjk","method":"GET","path":"/api/business-hours","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:42:15.466Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/api/system-settings/booking-buffer"}
+[2025-08-02T19:42:15.467Z] INFO: Request completed {"requestId":"2m3jju","method":"GET","path":"/api/system-settings/booking-buffer","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:42:15.468Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/api/bookings"}
+[2025-08-02T19:42:15.470Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/api/system-settings/booking-buffer"}
+[2025-08-02T19:42:15.472Z] INFO: Request completed {"requestId":"rlq7c","method":"GET","path":"/api/system-settings/booking-buffer","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:42:15.756Z] INFO: Request completed {"requestId":"95wo37","method":"GET","path":"/api/bookings","statusCode":200,"duration":"288ms"}
+[2025-08-02T19:45:10.168Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/api/health"}
+[2025-08-02T19:45:10.301Z] INFO: Request completed {"requestId":"dlxn2b","method":"GET","path":"/api/health","statusCode":200,"duration":"133ms"}
+[2025-08-02T19:49:10.178Z] INFO: WARNING: High memory usage detected {"heapUsed":"110 MB","heapTotal":"114 MB","path":"/api/health"}
+[2025-08-02T19:49:10.401Z] INFO: Request completed {"requestId":"0koes","method":"GET","path":"/api/health","statusCode":200,"duration":"222ms"}
+[2025-08-02T19:52:42.287Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"115 MB","path":"/booking"}
+[2025-08-02T19:52:42.307Z] INFO: Request completed {"requestId":"qckr07","method":"GET","path":"/","statusCode":200,"duration":"20ms"}
+[2025-08-02T19:52:42.318Z] INFO: WARNING: High memory usage detected {"heapUsed":"111 MB","heapTotal":"116 MB","path":"/@vite/client"}
+[2025-08-02T19:52:42.319Z] INFO: WARNING: High memory usage detected {"heapUsed":"111 MB","heapTotal":"116 MB","path":"/src/main.tsx"}
+[2025-08-02T19:52:42.320Z] INFO: Request completed {"requestId":"ckhmk","method":"GET","path":"/@vite/client","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.324Z] INFO: Request completed {"requestId":"b6ecs9","method":"GET","path":"/src/main.tsx","statusCode":200,"duration":"5ms"}
+[2025-08-02T19:52:42.324Z] INFO: WARNING: High memory usage detected {"heapUsed":"111 MB","heapTotal":"117 MB","path":"/@react-refresh"}
+[2025-08-02T19:52:42.325Z] INFO: Request completed {"requestId":"eai1nm","method":"GET","path":"/@react-refresh","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.467Z] INFO: WARNING: High memory usage detected {"heapUsed":"115 MB","heapTotal":"126 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs"}
+[2025-08-02T19:52:42.468Z] INFO: Request completed {"requestId":"edss2","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.493Z] INFO: WARNING: High memory usage detected {"heapUsed":"115 MB","heapTotal":"126 MB","path":"/src/components/ui/toaster.tsx"}
+[2025-08-02T19:52:42.494Z] INFO: Request completed {"requestId":"c8xwfc","method":"GET","path":"/src/components/ui/toaster.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.497Z] INFO: WARNING: High memory usage detected {"heapUsed":"115 MB","heapTotal":"126 MB","path":"/src/components/ui/loading-spinner.tsx"}
+[2025-08-02T19:52:42.498Z] INFO: Request completed {"requestId":"69jua","method":"GET","path":"/src/components/ui/loading-spinner.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.500Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/nav.tsx"}
+[2025-08-02T19:52:42.501Z] INFO: Request completed {"requestId":"qvagfo","method":"GET","path":"/src/components/nav.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.501Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/footer.tsx"}
+[2025-08-02T19:52:42.501Z] INFO: Request completed {"requestId":"y0lvyi","method":"GET","path":"/src/components/footer.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:42.504Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/ui/promotion-banner.tsx"}
+[2025-08-02T19:52:42.505Z] INFO: Request completed {"requestId":"znf518","method":"GET","path":"/src/components/ui/promotion-banner.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:42.527Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/ui/pwa-install-banner.tsx"}
+[2025-08-02T19:52:42.527Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/ui/environment-indicator.tsx"}
+[2025-08-02T19:52:42.528Z] INFO: Request completed {"requestId":"h3ufv","method":"GET","path":"/src/components/ui/pwa-install-banner.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.528Z] INFO: Request completed {"requestId":"3xwp9i","method":"GET","path":"/src/components/ui/environment-indicator.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:42.536Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/error-boundary.tsx"}
+[2025-08-02T19:52:42.537Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/lib/process-polyfill.ts"}
+[2025-08-02T19:52:42.539Z] INFO: Request completed {"requestId":"w980ka","method":"GET","path":"/src/lib/process-polyfill.ts","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:52:42.539Z] INFO: Request completed {"requestId":"75uaif","method":"GET","path":"/src/components/error-boundary.tsx","statusCode":200,"duration":"3ms"}
+[2025-08-02T19:52:42.540Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/index.css"}
+[2025-08-02T19:52:42.542Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/hooks/use-toast.ts"}
+[2025-08-02T19:52:42.543Z] INFO: Request completed {"requestId":"e5umxr","method":"GET","path":"/src/hooks/use-toast.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.544Z] INFO: Request completed {"requestId":"0l3iar","method":"GET","path":"/src/index.css","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:52:42.547Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/ui/toast.tsx"}
+[2025-08-02T19:52:42.548Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/lib/utils.ts"}
+[2025-08-02T19:52:42.549Z] INFO: Request completed {"requestId":"uc4b7d","method":"GET","path":"/src/components/ui/toast.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:42.549Z] INFO: Request completed {"requestId":"so56e0g","method":"GET","path":"/src/lib/utils.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.552Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/ui/button.tsx"}
+[2025-08-02T19:52:42.552Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"126 MB","path":"/src/components/logo.tsx"}
+[2025-08-02T19:52:42.553Z] INFO: Request completed {"requestId":"hpkesd","method":"GET","path":"/src/components/ui/button.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.555Z] INFO: Request completed {"requestId":"2ned8g","method":"GET","path":"/src/components/logo.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:42.558Z] INFO: WARNING: High memory usage detected {"heapUsed":"117 MB","heapTotal":"126 MB","path":"/src/components/ui/accordion.tsx"}
+[2025-08-02T19:52:42.559Z] INFO: WARNING: High memory usage detected {"heapUsed":"117 MB","heapTotal":"126 MB","path":"/src/hooks/use-media-query.ts"}
+[2025-08-02T19:52:42.560Z] INFO: Request completed {"requestId":"unwzv","method":"GET","path":"/src/components/ui/accordion.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.560Z] INFO: Request completed {"requestId":"1ev78u","method":"GET","path":"/src/hooks/use-media-query.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.563Z] INFO: WARNING: High memory usage detected {"heapUsed":"117 MB","heapTotal":"126 MB","path":"/src/components/ui/badge.tsx"}
+[2025-08-02T19:52:42.565Z] INFO: Request completed {"requestId":"qloqtd","method":"GET","path":"/src/components/ui/badge.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.565Z] INFO: WARNING: High memory usage detected {"heapUsed":"115 MB","heapTotal":"127 MB","path":"/src/lib/errorLogger.ts"}
+[2025-08-02T19:52:42.567Z] INFO: Request completed {"requestId":"j5wcio","method":"GET","path":"/src/lib/errorLogger.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.710Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"126 MB","path":"/src/pages/booking.tsx"}
+[2025-08-02T19:52:42.711Z] INFO: Request completed {"requestId":"lf21zf","method":"GET","path":"/src/pages/booking.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.727Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"126 MB","path":"/api/promotions"}
+[2025-08-02T19:52:42.736Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/integrated-booking-wizard.tsx"}
+[2025-08-02T19:52:42.737Z] INFO: Request completed {"requestId":"94nq3","method":"GET","path":"/src/components/ui/integrated-booking-wizard.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.757Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/calendar.tsx"}
+[2025-08-02T19:52:42.757Z] INFO: Request completed {"requestId":"rqyymv","method":"GET","path":"/src/components/ui/calendar.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:42.761Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/card.tsx"}
+[2025-08-02T19:52:42.762Z] INFO: Request completed {"requestId":"kdap4g","method":"GET","path":"/src/components/ui/card.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.784Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/lib/pricing.ts"}
+[2025-08-02T19:52:42.785Z] INFO: Request completed {"requestId":"6nnau6","method":"GET","path":"/src/lib/pricing.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.793Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/separator.tsx"}
+[2025-08-02T19:52:42.793Z] INFO: Request completed {"requestId":"pn98j","method":"GET","path":"/src/components/ui/separator.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:42.796Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/hooks/use-business-hours.ts"}
+[2025-08-02T19:52:42.797Z] INFO: Request completed {"requestId":"49qaqo","method":"GET","path":"/src/hooks/use-business-hours.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.803Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/select.tsx"}
+[2025-08-02T19:52:42.804Z] INFO: Request completed {"requestId":"9y983b","method":"GET","path":"/src/components/ui/select.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.808Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/tabs.tsx"}
+[2025-08-02T19:52:42.809Z] INFO: Request completed {"requestId":"6qogn","method":"GET","path":"/src/components/ui/tabs.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:42.817Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/input.tsx"}
+[2025-08-02T19:52:42.818Z] INFO: Request completed {"requestId":"kitayl","method":"GET","path":"/src/components/ui/input.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.825Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/textarea.tsx"}
+[2025-08-02T19:52:42.826Z] INFO: Request completed {"requestId":"wh7qqk","method":"GET","path":"/src/components/ui/textarea.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.826Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/label.tsx"}
+[2025-08-02T19:52:42.827Z] INFO: Request completed {"requestId":"mz2gxit","method":"GET","path":"/src/components/ui/label.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.864Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"126 MB","path":"/src/components/ui/checkbox.tsx"}
+[2025-08-02T19:52:42.865Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/radio-group.tsx"}
+[2025-08-02T19:52:42.865Z] INFO: Request completed {"requestId":"d6995r","method":"GET","path":"/src/components/ui/checkbox.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.866Z] INFO: Request completed {"requestId":"8o6qt","method":"GET","path":"/src/components/ui/radio-group.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.870Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/icons.tsx"}
+[2025-08-02T19:52:42.871Z] INFO: Request completed {"requestId":"5x6mz9","method":"GET","path":"/src/components/icons.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.871Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/booking-assistant.tsx"}
+[2025-08-02T19:52:42.872Z] INFO: Request completed {"requestId":"80r068","method":"GET","path":"/src/components/ui/booking-assistant.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.883Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/booking-tutorial.tsx"}
+[2025-08-02T19:52:42.884Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/booking-step-guide.tsx"}
+[2025-08-02T19:52:42.885Z] INFO: Request completed {"requestId":"xzxt7n","method":"GET","path":"/src/components/ui/booking-tutorial.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.885Z] INFO: Request completed {"requestId":"ahm5n","method":"GET","path":"/src/components/ui/booking-step-guide.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.888Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/booking-autofill.tsx"}
+[2025-08-02T19:52:42.888Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/tooltip.tsx"}
+[2025-08-02T19:52:42.889Z] INFO: Request completed {"requestId":"k1dqp","method":"GET","path":"/src/components/ui/booking-autofill.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.889Z] INFO: Request completed {"requestId":"19f7d","method":"GET","path":"/src/components/ui/tooltip.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.892Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/steps/review-booking-step.tsx"}
+[2025-08-02T19:52:42.893Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/booking-confirmation-modal.tsx"}
+[2025-08-02T19:52:42.893Z] INFO: Request completed {"requestId":"p2u1ff","method":"GET","path":"/src/components/steps/review-booking-step.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.894Z] INFO: Request completed {"requestId":"96c6mnt","method":"GET","path":"/src/components/ui/booking-confirmation-modal.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.898Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/data/pricing-data.ts"}
+[2025-08-02T19:52:42.899Z] INFO: Request completed {"requestId":"b7qsi","method":"GET","path":"/src/data/pricing-data.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.899Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/lib/queryClient.ts"}
+[2025-08-02T19:52:42.900Z] INFO: Request completed {"requestId":"13wvfm","method":"GET","path":"/src/lib/queryClient.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.901Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/alert-dialog.tsx"}
+[2025-08-02T19:52:42.902Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"126 MB","path":"/src/components/ui/reschedule-dialog.tsx"}
+[2025-08-02T19:52:42.903Z] INFO: Request completed {"requestId":"bffx5i","method":"GET","path":"/src/components/ui/alert-dialog.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.903Z] INFO: Request completed {"requestId":"2k4kgx","method":"GET","path":"/src/components/ui/reschedule-dialog.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.906Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"126 MB","path":"/src/components/ui/dialog.tsx"}
+[2025-08-02T19:52:42.907Z] INFO: Request completed {"requestId":"i7m86","method":"GET","path":"/src/components/ui/dialog.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.908Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"126 MB","path":"/src/components/ui/popover.tsx"}
+[2025-08-02T19:52:42.909Z] INFO: Request completed {"requestId":"wdc2h","method":"GET","path":"/src/components/ui/popover.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:42.937Z] INFO: Request completed {"requestId":"bd0eo","method":"GET","path":"/api/promotions","statusCode":304,"duration":"210ms"}
+[2025-08-02T19:52:42.984Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"126 MB","path":"/manifest.json"}
+[2025-08-02T19:52:42.985Z] INFO: Request completed {"requestId":"sxck5","method":"GET","path":"/manifest.json","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:43.033Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"126 MB","path":"/api/business-hours"}
+[2025-08-02T19:52:43.035Z] INFO: Request completed {"requestId":"0tqgyt","method":"GET","path":"/api/business-hours","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:43.038Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"126 MB","path":"/api/system-settings/booking-buffer"}
+[2025-08-02T19:52:43.040Z] INFO: Request completed {"requestId":"9k9pt","method":"GET","path":"/api/system-settings/booking-buffer","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:43.040Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"126 MB","path":"/api/bookings"}
+[2025-08-02T19:52:43.041Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"126 MB","path":"/api/system-settings/booking-buffer"}
+[2025-08-02T19:52:43.042Z] INFO: Request completed {"requestId":"01eml","method":"GET","path":"/api/system-settings/booking-buffer","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:43.064Z] INFO: Request completed {"requestId":"qiens","method":"GET","path":"/api/bookings","statusCode":304,"duration":"24ms"}
+[2025-08-02T19:52:51.277Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"120 MB","path":"/booking"}
+[2025-08-02T19:52:51.295Z] INFO: Request completed {"requestId":"2v353t","method":"GET","path":"/","statusCode":200,"duration":"18ms"}
+[2025-08-02T19:52:51.309Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"122 MB","path":"/@vite/client"}
+[2025-08-02T19:52:51.310Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"122 MB","path":"/src/main.tsx"}
+[2025-08-02T19:52:51.311Z] INFO: Request completed {"requestId":"h46zk","method":"GET","path":"/@vite/client","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:51.313Z] INFO: Request completed {"requestId":"f1l63i","method":"GET","path":"/src/main.tsx","statusCode":200,"duration":"3ms"}
+[2025-08-02T19:52:51.368Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"126 MB","path":"/@react-refresh"}
+[2025-08-02T19:52:51.369Z] INFO: Request completed {"requestId":"7ch4ho","method":"GET","path":"/@react-refresh","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.369Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"126 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs"}
+[2025-08-02T19:52:51.370Z] INFO: Request completed {"requestId":"l3jvxk","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:51.373Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"126 MB","path":"/src/components/ui/toaster.tsx"}
+[2025-08-02T19:52:51.374Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"126 MB","path":"/src/components/ui/loading-spinner.tsx"}
+[2025-08-02T19:52:51.374Z] INFO: Request completed {"requestId":"mgyl6o","method":"GET","path":"/src/components/ui/toaster.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.375Z] INFO: Request completed {"requestId":"ud6qpj","method":"GET","path":"/src/components/ui/loading-spinner.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.377Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"126 MB","path":"/src/components/nav.tsx"}
+[2025-08-02T19:52:51.378Z] INFO: Request completed {"requestId":"8pgrji","method":"GET","path":"/src/components/nav.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:51.378Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"126 MB","path":"/src/components/footer.tsx"}
+[2025-08-02T19:52:51.380Z] INFO: Request completed {"requestId":"lhbbi","method":"GET","path":"/src/components/footer.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.384Z] INFO: WARNING: High memory usage detected {"heapUsed":"110 MB","heapTotal":"134 MB","path":"/src/components/ui/promotion-banner.tsx"}
+[2025-08-02T19:52:51.385Z] INFO: WARNING: High memory usage detected {"heapUsed":"110 MB","heapTotal":"134 MB","path":"/src/components/ui/pwa-install-banner.tsx"}
+[2025-08-02T19:52:51.386Z] INFO: Request completed {"requestId":"5j5sbxg","method":"GET","path":"/src/components/ui/promotion-banner.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:51.386Z] INFO: Request completed {"requestId":"4x7d14","method":"GET","path":"/src/components/ui/pwa-install-banner.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.391Z] INFO: WARNING: High memory usage detected {"heapUsed":"111 MB","heapTotal":"134 MB","path":"/src/components/ui/environment-indicator.tsx"}
+[2025-08-02T19:52:51.391Z] INFO: WARNING: High memory usage detected {"heapUsed":"111 MB","heapTotal":"134 MB","path":"/src/components/error-boundary.tsx"}
+[2025-08-02T19:52:51.392Z] INFO: Request completed {"requestId":"3yasx","method":"GET","path":"/src/components/ui/environment-indicator.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.397Z] INFO: Request completed {"requestId":"bcybev","method":"GET","path":"/src/components/error-boundary.tsx","statusCode":200,"duration":"5ms"}
+[2025-08-02T19:52:51.397Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"129 MB","path":"/src/lib/process-polyfill.ts"}
+[2025-08-02T19:52:51.399Z] INFO: Request completed {"requestId":"7oi3nk","method":"GET","path":"/src/lib/process-polyfill.ts","statusCode":200,"duration":"1ms"}
+[2025-08-02T19:52:51.405Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"129 MB","path":"/src/index.css"}
+[2025-08-02T19:52:51.406Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"129 MB","path":"/src/hooks/use-toast.ts"}
+[2025-08-02T19:52:51.407Z] INFO: Request completed {"requestId":"mpnzl3","method":"GET","path":"/src/hooks/use-toast.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.409Z] INFO: Request completed {"requestId":"3h3gbj","method":"GET","path":"/src/index.css","statusCode":200,"duration":"3ms"}
+[2025-08-02T19:52:51.411Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/components/ui/toast.tsx"}
+[2025-08-02T19:52:51.412Z] INFO: Request completed {"requestId":"fo7w5g","method":"GET","path":"/src/components/ui/toast.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:51.414Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/lib/utils.ts"}
+[2025-08-02T19:52:51.415Z] INFO: Request completed {"requestId":"9lkb4j","method":"GET","path":"/src/lib/utils.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.416Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/components/ui/button.tsx"}
+[2025-08-02T19:52:51.417Z] INFO: Request completed {"requestId":"h1j5b","method":"GET","path":"/src/components/ui/button.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.417Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/components/logo.tsx"}
+[2025-08-02T19:52:51.418Z] INFO: Request completed {"requestId":"30zh5","method":"GET","path":"/src/components/logo.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.420Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/components/ui/accordion.tsx"}
+[2025-08-02T19:52:51.421Z] INFO: Request completed {"requestId":"8grlgt","method":"GET","path":"/src/components/ui/accordion.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.421Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/hooks/use-media-query.ts"}
+[2025-08-02T19:52:51.422Z] INFO: Request completed {"requestId":"3us1ft","method":"GET","path":"/src/hooks/use-media-query.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.422Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/components/ui/badge.tsx"}
+[2025-08-02T19:52:51.423Z] INFO: Request completed {"requestId":"p2bavl","method":"GET","path":"/src/components/ui/badge.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.427Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/lib/errorLogger.ts"}
+[2025-08-02T19:52:51.428Z] INFO: Request completed {"requestId":"yudxsw","method":"GET","path":"/src/lib/errorLogger.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.511Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/pages/booking.tsx"}
+[2025-08-02T19:52:51.512Z] INFO: Request completed {"requestId":"tdia4m","method":"GET","path":"/src/pages/booking.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.525Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/components/ui/integrated-booking-wizard.tsx"}
+[2025-08-02T19:52:51.526Z] INFO: Request completed {"requestId":"nufbdu","method":"GET","path":"/src/components/ui/integrated-booking-wizard.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.535Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/components/ui/calendar.tsx"}
+[2025-08-02T19:52:51.536Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/components/ui/card.tsx"}
+[2025-08-02T19:52:51.536Z] INFO: Request completed {"requestId":"l2g20h","method":"GET","path":"/src/components/ui/calendar.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.537Z] INFO: Request completed {"requestId":"y6gmwf","method":"GET","path":"/src/components/ui/card.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.539Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"129 MB","path":"/src/lib/pricing.ts"}
+[2025-08-02T19:52:51.540Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/separator.tsx"}
+[2025-08-02T19:52:51.540Z] INFO: Request completed {"requestId":"g3vock","method":"GET","path":"/src/lib/pricing.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.541Z] INFO: Request completed {"requestId":"4mvq7c","method":"GET","path":"/src/components/ui/separator.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.543Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/hooks/use-business-hours.ts"}
+[2025-08-02T19:52:51.544Z] INFO: Request completed {"requestId":"31bn7u","method":"GET","path":"/src/hooks/use-business-hours.ts","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:51.544Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/select.tsx"}
+[2025-08-02T19:52:51.545Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/tabs.tsx"}
+[2025-08-02T19:52:51.546Z] INFO: Request completed {"requestId":"lgibzo","method":"GET","path":"/src/components/ui/select.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.546Z] INFO: Request completed {"requestId":"retbyr","method":"GET","path":"/src/components/ui/tabs.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.547Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/input.tsx"}
+[2025-08-02T19:52:51.548Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/textarea.tsx"}
+[2025-08-02T19:52:51.549Z] INFO: Request completed {"requestId":"z01shk","method":"GET","path":"/src/components/ui/input.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.549Z] INFO: Request completed {"requestId":"ax8rr","method":"GET","path":"/src/components/ui/textarea.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.549Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/label.tsx"}
+[2025-08-02T19:52:51.550Z] INFO: Request completed {"requestId":"sk3ro8","method":"GET","path":"/src/components/ui/label.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.552Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/checkbox.tsx"}
+[2025-08-02T19:52:51.553Z] INFO: Request completed {"requestId":"1xvg38","method":"GET","path":"/src/components/ui/checkbox.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.553Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/radio-group.tsx"}
+[2025-08-02T19:52:51.554Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/icons.tsx"}
+[2025-08-02T19:52:51.554Z] INFO: Request completed {"requestId":"ppn53gk","method":"GET","path":"/src/components/ui/radio-group.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.555Z] INFO: Request completed {"requestId":"2mvpw","method":"GET","path":"/src/components/icons.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.556Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/booking-assistant.tsx"}
+[2025-08-02T19:52:51.556Z] INFO: Request completed {"requestId":"ev0h6","method":"GET","path":"/src/components/ui/booking-assistant.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:52:51.558Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/booking-tutorial.tsx"}
+[2025-08-02T19:52:51.558Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"129 MB","path":"/src/components/ui/booking-step-guide.tsx"}
+[2025-08-02T19:52:51.559Z] INFO: Request completed {"requestId":"wa0h2s","method":"GET","path":"/src/components/ui/booking-tutorial.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.560Z] INFO: Request completed {"requestId":"8dpruf","method":"GET","path":"/src/components/ui/booking-step-guide.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.560Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/components/ui/booking-autofill.tsx"}
+[2025-08-02T19:52:51.561Z] INFO: Request completed {"requestId":"18fai6","method":"GET","path":"/src/components/ui/booking-autofill.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.562Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/components/ui/tooltip.tsx"}
+[2025-08-02T19:52:51.562Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/components/steps/review-booking-step.tsx"}
+[2025-08-02T19:52:51.563Z] INFO: Request completed {"requestId":"7oe1ky","method":"GET","path":"/src/components/ui/tooltip.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.563Z] INFO: Request completed {"requestId":"0hygoq","method":"GET","path":"/src/components/steps/review-booking-step.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.571Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/components/ui/booking-confirmation-modal.tsx"}
+[2025-08-02T19:52:51.572Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/data/pricing-data.ts"}
+[2025-08-02T19:52:51.573Z] INFO: Request completed {"requestId":"6vbzdf","method":"GET","path":"/src/components/ui/booking-confirmation-modal.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:51.573Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/lib/queryClient.ts"}
+[2025-08-02T19:52:51.574Z] INFO: Request completed {"requestId":"nrkdu8","method":"GET","path":"/src/data/pricing-data.ts","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:51.574Z] INFO: Request completed {"requestId":"ujeevf","method":"GET","path":"/src/lib/queryClient.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.576Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/components/ui/alert-dialog.tsx"}
+[2025-08-02T19:52:51.576Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/components/ui/reschedule-dialog.tsx"}
+[2025-08-02T19:52:51.577Z] INFO: Request completed {"requestId":"nu55wu","method":"GET","path":"/src/components/ui/alert-dialog.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.577Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/components/ui/dialog.tsx"}
+[2025-08-02T19:52:51.578Z] INFO: Request completed {"requestId":"licghb","method":"GET","path":"/src/components/ui/reschedule-dialog.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:52:51.578Z] INFO: Request completed {"requestId":"yi396","method":"GET","path":"/src/components/ui/dialog.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.581Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/src/components/ui/popover.tsx"}
+[2025-08-02T19:52:51.582Z] INFO: Request completed {"requestId":"4kb2fa","method":"GET","path":"/src/components/ui/popover.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.687Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/api/business-hours"}
+[2025-08-02T19:52:51.688Z] INFO: Request completed {"requestId":"q4k8jl","method":"GET","path":"/api/business-hours","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.691Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/api/system-settings/booking-buffer"}
+[2025-08-02T19:52:51.693Z] INFO: Request completed {"requestId":"zx9ni","method":"GET","path":"/api/system-settings/booking-buffer","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.693Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"129 MB","path":"/api/bookings"}
+[2025-08-02T19:52:51.694Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"129 MB","path":"/api/system-settings/booking-buffer"}
+[2025-08-02T19:52:51.695Z] INFO: Request completed {"requestId":"zw41k5","method":"GET","path":"/api/system-settings/booking-buffer","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:52:51.721Z] INFO: Request completed {"requestId":"ai5khj","method":"GET","path":"/api/bookings","statusCode":304,"duration":"28ms"}
+[2025-08-02T19:52:51.725Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"129 MB","path":"/manifest.json"}
+[2025-08-02T19:52:51.726Z] INFO: Request completed {"requestId":"l3wnc","method":"GET","path":"/manifest.json","statusCode":304,"duration":"1ms"}
