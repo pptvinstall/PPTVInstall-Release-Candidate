@@ -1595,6 +1595,7 @@
 [2025-07-23T23:37:40.945Z] DEBUG: Availability data loaded successfully 
 [2025-07-23T23:41:41.294Z] DEBUG: Incoming request {"requestId":"tnicfk","method":"GET","path":"/api/health","query":{},"body":{},"headers":{"host":"localhost:5000","connection":"keep-alive","accept":"*/*","accept-language":"*","sec-fetch-mode":"cors","user-agent":"node","accept-encoding":"gzip, deflate"}}
 [2025-07-23T23:45:41.297Z] DEBUG: Incoming request {"requestId":"rof5h","method":"GET","path":"/api/health","query":{},"body":{},"headers":{"host":"localhost:5000","connection":"keep-alive","accept":"*/*","accept-language":"*","sec-fetch-mode":"cors","user-agent":"node","accept-encoding":"gzip, deflate"}}
+<<<<<<< HEAD
 [2025-08-02T13:11:12.097Z] DEBUG: Availability data loaded successfully 
 [2025-08-02T13:11:50.004Z] DEBUG: Availability data loaded successfully 
 [2025-08-02T13:12:00.646Z] DEBUG: Incoming request {"requestId":"adhmz2","method":"GET","path":"/","query":{"id":"a1dea7a0-3f78-48be-b023-7f2d892470aa","vscodeBrowserReqId":"1754140320640"},"body":{},"headers":{"host":"localhost:5000","connection":"keep-alive","upgrade-insecure-requests":"1","user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.102.3 Chrome/134.0.6998.205 Electron/35.6.0 Safari/537.36","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","sec-fetch-site":"cross-site","sec-fetch-mode":"navigate","sec-fetch-dest":"iframe","sec-fetch-storage-access":"active","accept-encoding":"gzip, deflate, br, zstd","accept-language":"en-US"}}
@@ -2001,3 +2002,5 @@
 [2025-08-02T13:55:02.786Z] DEBUG: Incoming request {"requestId":"ixh6ih","method":"GET","path":"/api/health","query":{},"body":{},"headers":{"host":"localhost:5000","connection":"keep-alive","accept":"*/*","accept-language":"*","sec-fetch-mode":"cors","user-agent":"node","accept-encoding":"gzip, deflate"}}
 [2025-08-02T13:59:02.798Z] DEBUG: Incoming request {"requestId":"7qp9rqf","method":"GET","path":"/api/health","query":{},"body":{},"headers":{"host":"localhost:5000","connection":"keep-alive","accept":"*/*","accept-language":"*","sec-fetch-mode":"cors","user-agent":"node","accept-encoding":"gzip, deflate"}}
 [2025-08-02T14:03:02.805Z] DEBUG: Incoming request {"requestId":"el27g9","method":"GET","path":"/api/health","query":{},"body":{},"headers":{"host":"localhost:5000","connection":"keep-alive","accept":"*/*","accept-language":"*","sec-fetch-mode":"cors","user-agent":"node","accept-encoding":"gzip, deflate"}}
+=======
+>>>>>>> 061ffe2aa68be99f5de7736257afad6f2089d0a9

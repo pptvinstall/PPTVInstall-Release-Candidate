@@ -2162,6 +2162,7 @@
 [2025-07-23T23:35:58.682Z] INFO: Request completed {"requestId":"5iragi","method":"GET","path":"/api/health","statusCode":200,"duration":"747ms"}
 [2025-07-23T23:41:42.066Z] INFO: Request completed {"requestId":"tnicfk","method":"GET","path":"/api/health","statusCode":200,"duration":"772ms"}
 [2025-07-23T23:45:44.010Z] INFO: Request completed {"requestId":"rof5h","method":"GET","path":"/api/health","statusCode":200,"duration":"2713ms"}
+<<<<<<< HEAD
 [2025-08-02T13:12:00.651Z] INFO: Request completed {"requestId":"adhmz2","method":"GET","path":"/","statusCode":404,"duration":"5ms"}
 [2025-08-02T13:12:07.572Z] INFO: Request completed {"requestId":"zybi2o","method":"GET","path":"/booking","statusCode":404,"duration":"2ms"}
 [2025-08-02T13:12:27.139Z] INFO: Request completed {"requestId":"hrmsju","method":"GET","path":"/booking","statusCode":404,"duration":"2ms"}
@@ -2829,3 +2830,5 @@
 [2025-08-02T13:59:02.996Z] INFO: Request completed {"requestId":"7qp9rqf","method":"GET","path":"/api/health","statusCode":200,"duration":"198ms"}
 [2025-08-02T14:03:02.805Z] INFO: WARNING: High memory usage detected {"heapUsed":"116 MB","heapTotal":"137 MB","path":"/api/health"}
 [2025-08-02T14:03:02.963Z] INFO: Request completed {"requestId":"el27g9","method":"GET","path":"/api/health","statusCode":200,"duration":"158ms"}
+=======
+>>>>>>> 061ffe2aa68be99f5de7736257afad6f2089d0a9
