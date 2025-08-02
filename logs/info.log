@@ -1,0 +1,396 @@
+[2025-08-02T19:21:22.959Z] INFO: Request completed {"requestId":"4fiol","method":"GET","path":"/","statusCode":200,"duration":"613ms"}
+[2025-08-02T19:21:25.148Z] INFO: WARNING: High memory usage detected {"heapUsed":"147 MB","heapTotal":"171 MB","path":"/"}
+[2025-08-02T19:21:25.168Z] INFO: Request completed {"requestId":"afv8kg","method":"GET","path":"/","statusCode":200,"duration":"20ms"}
+[2025-08-02T19:21:25.182Z] INFO: WARNING: High memory usage detected {"heapUsed":"141 MB","heapTotal":"173 MB","path":"/src/main.tsx"}
+[2025-08-02T19:21:25.185Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"173 MB","path":"/@vite/client"}
+[2025-08-02T19:21:25.187Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"173 MB","path":"/@react-refresh"}
+[2025-08-02T19:21:25.188Z] INFO: Request completed {"requestId":"cd2dp","method":"GET","path":"/src/main.tsx","statusCode":200,"duration":"5ms"}
+[2025-08-02T19:21:25.195Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"173 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/react_jsx-dev-runtime.js"}
+[2025-08-02T19:21:25.196Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"173 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/react.js"}
+[2025-08-02T19:21:25.197Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"173 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/react-dom_client.js"}
+[2025-08-02T19:21:25.198Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"173 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@tanstack_react-query.js"}
+[2025-08-02T19:21:25.210Z] INFO: Request completed {"requestId":"ev4cgs","method":"GET","path":"/@react-refresh","statusCode":200,"duration":"23ms"}
+[2025-08-02T19:21:25.213Z] INFO: Request completed {"requestId":"p2efto","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/react.js","statusCode":200,"duration":"17ms"}
+[2025-08-02T19:21:25.214Z] INFO: Request completed {"requestId":"ntqztf","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/react-dom_client.js","statusCode":200,"duration":"17ms"}
+[2025-08-02T19:21:25.215Z] INFO: Request completed {"requestId":"qddqm","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/react_jsx-dev-runtime.js","statusCode":200,"duration":"19ms"}
+[2025-08-02T19:21:25.217Z] INFO: WARNING: High memory usage detected {"heapUsed":"140 MB","heapTotal":"175 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/wouter.js"}
+[2025-08-02T19:21:25.219Z] INFO: Request completed {"requestId":"2fxhg","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@tanstack_react-query.js","statusCode":200,"duration":"21ms"}
+[2025-08-02T19:21:25.221Z] INFO: WARNING: High memory usage detected {"heapUsed":"141 MB","heapTotal":"175 MB","path":"/src/components/error-boundary.tsx"}
+[2025-08-02T19:21:25.221Z] INFO: WARNING: High memory usage detected {"heapUsed":"141 MB","heapTotal":"175 MB","path":"/src/lib/process-polyfill.ts"}
+[2025-08-02T19:21:25.222Z] INFO: WARNING: High memory usage detected {"heapUsed":"141 MB","heapTotal":"175 MB","path":"/src/index.css"}
+[2025-08-02T19:21:25.224Z] INFO: Request completed {"requestId":"u7zp3","method":"GET","path":"/@vite/client","statusCode":200,"duration":"39ms"}
+[2025-08-02T19:21:25.225Z] INFO: WARNING: High memory usage detected {"heapUsed":"141 MB","heapTotal":"176 MB","path":"/src/components/ui/toaster.tsx"}
+[2025-08-02T19:21:25.227Z] INFO: WARNING: High memory usage detected {"heapUsed":"141 MB","heapTotal":"176 MB","path":"/src/components/ui/loading-spinner.tsx"}
+[2025-08-02T19:21:25.228Z] INFO: Request completed {"requestId":"oml4je","method":"GET","path":"/src/lib/process-polyfill.ts","statusCode":200,"duration":"7ms"}
+[2025-08-02T19:21:25.228Z] INFO: Request completed {"requestId":"2m9i7p","method":"GET","path":"/src/components/error-boundary.tsx","statusCode":200,"duration":"7ms"}
+[2025-08-02T19:21:25.229Z] INFO: Request completed {"requestId":"apt9yr","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/wouter.js","statusCode":200,"duration":"11ms"}
+[2025-08-02T19:21:25.230Z] INFO: Request completed {"requestId":"f3995m","method":"GET","path":"/src/components/ui/toaster.tsx","statusCode":200,"duration":"5ms"}
+[2025-08-02T19:21:25.231Z] INFO: WARNING: High memory usage detected {"heapUsed":"141 MB","heapTotal":"176 MB","path":"/src/components/nav.tsx"}
+[2025-08-02T19:21:25.232Z] INFO: WARNING: High memory usage detected {"heapUsed":"141 MB","heapTotal":"176 MB","path":"/src/components/footer.tsx"}
+[2025-08-02T19:21:25.234Z] INFO: Request completed {"requestId":"jnixx","method":"GET","path":"/src/index.css","statusCode":200,"duration":"12ms"}
+[2025-08-02T19:21:25.235Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"176 MB","path":"/src/components/ui/promotion-banner.tsx"}
+[2025-08-02T19:21:25.235Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"176 MB","path":"/src/components/ui/pwa-install-banner.tsx"}
+[2025-08-02T19:21:25.237Z] INFO: Request completed {"requestId":"ahu8o","method":"GET","path":"/src/components/ui/loading-spinner.tsx","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:25.238Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"176 MB","path":"/src/components/ui/environment-indicator.tsx"}
+[2025-08-02T19:21:25.239Z] INFO: Request completed {"requestId":"wnsmuh","method":"GET","path":"/src/components/footer.tsx","statusCode":200,"duration":"7ms"}
+[2025-08-02T19:21:25.241Z] INFO: Request completed {"requestId":"jajnc","method":"GET","path":"/src/components/nav.tsx","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:25.241Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-DRWLMN53.js"}
+[2025-08-02T19:21:25.243Z] INFO: Request completed {"requestId":"8g1wy9","method":"GET","path":"/src/components/ui/promotion-banner.tsx","statusCode":200,"duration":"8ms"}
+[2025-08-02T19:21:25.243Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-G3PMV62Z.js"}
+[2025-08-02T19:21:25.244Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-NXESFFTV.js"}
+[2025-08-02T19:21:25.246Z] INFO: Request completed {"requestId":"7wc90ntd","method":"GET","path":"/src/components/ui/pwa-install-banner.tsx","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:25.247Z] INFO: WARNING: High memory usage detected {"heapUsed":"142 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-6PXSGDAH.js"}
+[2025-08-02T19:21:25.250Z] INFO: Request completed {"requestId":"dfvs7s","method":"GET","path":"/src/components/ui/environment-indicator.tsx","statusCode":200,"duration":"12ms"}
+[2025-08-02T19:21:25.251Z] INFO: WARNING: High memory usage detected {"heapUsed":"143 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs"}
+[2025-08-02T19:21:25.253Z] INFO: Request completed {"requestId":"27mvr8","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-G3PMV62Z.js","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:25.254Z] INFO: WARNING: High memory usage detected {"heapUsed":"143 MB","heapTotal":"176 MB","path":"/src/lib/errorLogger.ts"}
+[2025-08-02T19:21:25.256Z] INFO: Request completed {"requestId":"y9466","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-DRWLMN53.js","statusCode":200,"duration":"15ms"}
+[2025-08-02T19:21:25.257Z] INFO: Request completed {"requestId":"e8co79","method":"GET","path":"/src/lib/errorLogger.ts","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:21:25.257Z] INFO: WARNING: High memory usage detected {"heapUsed":"143 MB","heapTotal":"176 MB","path":"/src/hooks/use-toast.ts"}
+[2025-08-02T19:21:25.259Z] INFO: Request completed {"requestId":"2yddv","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-6PXSGDAH.js","statusCode":200,"duration":"12ms"}
+[2025-08-02T19:21:25.260Z] INFO: Request completed {"requestId":"a8651k","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:25.261Z] INFO: WARNING: High memory usage detected {"heapUsed":"143 MB","heapTotal":"176 MB","path":"/src/components/ui/toast.tsx"}
+[2025-08-02T19:21:25.263Z] INFO: WARNING: High memory usage detected {"heapUsed":"143 MB","heapTotal":"176 MB","path":"/src/lib/utils.ts"}
+[2025-08-02T19:21:25.264Z] INFO: WARNING: High memory usage detected {"heapUsed":"143 MB","heapTotal":"176 MB","path":"/src/components/logo.tsx"}
+[2025-08-02T19:21:25.265Z] INFO: WARNING: High memory usage detected {"heapUsed":"143 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/lucide-react.js"}
+[2025-08-02T19:21:25.267Z] INFO: Request completed {"requestId":"mvaeb","method":"GET","path":"/src/lib/utils.ts","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:21:25.272Z] INFO: Request completed {"requestId":"t62o6","method":"GET","path":"/src/hooks/use-toast.ts","statusCode":200,"duration":"15ms"}
+[2025-08-02T19:21:25.272Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/src/components/ui/button.tsx"}
+[2025-08-02T19:21:25.274Z] INFO: Request completed {"requestId":"gflzzm","method":"GET","path":"/src/components/ui/toast.tsx","statusCode":200,"duration":"12ms"}
+[2025-08-02T19:21:25.275Z] INFO: Request completed {"requestId":"nipyt","method":"GET","path":"/src/components/logo.tsx","statusCode":200,"duration":"11ms"}
+[2025-08-02T19:21:25.275Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/src/components/ui/accordion.tsx"}
+[2025-08-02T19:21:25.277Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/framer-motion.js"}
+[2025-08-02T19:21:25.278Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/src/hooks/use-media-query.ts"}
+[2025-08-02T19:21:25.279Z] INFO: Request completed {"requestId":"4abslk","method":"GET","path":"/src/components/ui/button.tsx","statusCode":200,"duration":"6ms"}
+[2025-08-02T19:21:25.282Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/src/components/ui/badge.tsx"}
+[2025-08-02T19:21:25.284Z] INFO: Request completed {"requestId":"5osqoo","method":"GET","path":"/src/components/ui/accordion.tsx","statusCode":200,"duration":"8ms"}
+[2025-08-02T19:21:25.285Z] INFO: Request completed {"requestId":"h5y70a","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-NXESFFTV.js","statusCode":200,"duration":"41ms"}
+[2025-08-02T19:21:25.287Z] INFO: Request completed {"requestId":"p738rq","method":"GET","path":"/src/hooks/use-media-query.ts","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:25.287Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/clsx.js"}
+[2025-08-02T19:21:25.290Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/tailwind-merge.js"}
+[2025-08-02T19:21:25.292Z] INFO: Request completed {"requestId":"34wnza","method":"GET","path":"/src/components/ui/badge.tsx","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:25.292Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/class-variance-authority.js"}
+[2025-08-02T19:21:25.295Z] INFO: WARNING: High memory usage detected {"heapUsed":"144 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-slot.js"}
+[2025-08-02T19:21:25.297Z] INFO: Request completed {"requestId":"whxqt4","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/clsx.js","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:25.299Z] INFO: Request completed {"requestId":"rqih5k","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/tailwind-merge.js","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:25.299Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-accordion.js"}
+[2025-08-02T19:21:25.301Z] INFO: Request completed {"requestId":"zixdy","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/class-variance-authority.js","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:25.302Z] INFO: Request completed {"requestId":"xiumv","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/framer-motion.js","statusCode":200,"duration":"25ms"}
+[2025-08-02T19:21:25.303Z] INFO: Request completed {"requestId":"da39ah","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/lucide-react.js","statusCode":200,"duration":"38ms"}
+[2025-08-02T19:21:25.304Z] INFO: Request completed {"requestId":"k342ia","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-slot.js","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:25.304Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-U7P2NEEE.js"}
+[2025-08-02T19:21:25.305Z] INFO: Request completed {"requestId":"wpvytm","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-U7P2NEEE.js","statusCode":200,"duration":"1ms"}
+[2025-08-02T19:21:25.306Z] INFO: Request completed {"requestId":"h3haal","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-accordion.js","statusCode":200,"duration":"6ms"}
+[2025-08-02T19:21:25.308Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-4AWGPMUM.js"}
+[2025-08-02T19:21:25.310Z] INFO: Request completed {"requestId":"9pxub","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-4AWGPMUM.js","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:21:25.311Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-OKARPLAB.js"}
+[2025-08-02T19:21:25.312Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-BLD7VZ7P.js"}
+[2025-08-02T19:21:25.312Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-UERMD67X.js"}
+[2025-08-02T19:21:25.313Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-SJVTXC4X.js"}
+[2025-08-02T19:21:25.314Z] INFO: Request completed {"requestId":"23gnhc","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-BLD7VZ7P.js","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:21:25.314Z] INFO: Request completed {"requestId":"2vsnur","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-UERMD67X.js","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:21:25.314Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-GC5KF65H.js"}
+[2025-08-02T19:21:25.315Z] INFO: WARNING: High memory usage detected {"heapUsed":"145 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-YGXCHL4G.js"}
+[2025-08-02T19:21:25.316Z] INFO: WARNING: High memory usage detected {"heapUsed":"146 MB","heapTotal":"176 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-2NITXCUT.js"}
+[2025-08-02T19:21:25.317Z] INFO: Request completed {"requestId":"d3ais7","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-OKARPLAB.js","statusCode":200,"duration":"6ms"}
+[2025-08-02T19:21:25.318Z] INFO: Request completed {"requestId":"8zsips5","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-SJVTXC4X.js","statusCode":200,"duration":"5ms"}
+[2025-08-02T19:21:25.319Z] INFO: Request completed {"requestId":"yiwdwp","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-GC5KF65H.js","statusCode":200,"duration":"5ms"}
+[2025-08-02T19:21:25.319Z] INFO: Request completed {"requestId":"smlwn","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-YGXCHL4G.js","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:21:25.320Z] INFO: Request completed {"requestId":"v3nts9","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-2NITXCUT.js","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:21:25.364Z] INFO: WARNING: High memory usage detected {"heapUsed":"146 MB","heapTotal":"176 MB","path":"/src/pages/home.tsx"}
+[2025-08-02T19:21:25.399Z] INFO: WARNING: High memory usage detected {"heapUsed":"149 MB","heapTotal":"178 MB","path":"/api/promotions"}
+[2025-08-02T19:21:25.427Z] INFO: Request completed {"requestId":"sc5uyn","method":"GET","path":"/src/pages/home.tsx","statusCode":200,"duration":"63ms"}
+[2025-08-02T19:21:25.430Z] INFO: WARNING: High memory usage detected {"heapUsed":"151 MB","heapTotal":"178 MB","path":"/src/components/ui/card.tsx"}
+[2025-08-02T19:21:25.431Z] INFO: WARNING: High memory usage detected {"heapUsed":"151 MB","heapTotal":"178 MB","path":"/src/components/ui/installation-gallery.tsx"}
+[2025-08-02T19:21:25.431Z] INFO: WARNING: High memory usage detected {"heapUsed":"151 MB","heapTotal":"178 MB","path":"/src/lib/fbPixel.ts"}
+[2025-08-02T19:21:25.432Z] INFO: Request completed {"requestId":"wz33zq","method":"GET","path":"/src/lib/fbPixel.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:21:25.445Z] INFO: Request completed {"requestId":"fg4xt8","method":"GET","path":"/src/components/ui/card.tsx","statusCode":200,"duration":"15ms"}
+[2025-08-02T19:21:25.447Z] INFO: Request completed {"requestId":"4leb","method":"GET","path":"/src/components/ui/installation-gallery.tsx","statusCode":200,"duration":"16ms"}
+[2025-08-02T19:21:25.453Z] INFO: WARNING: High memory usage detected {"heapUsed":"149 MB","heapTotal":"181 MB","path":"/src/components/ui/carousel.tsx"}
+[2025-08-02T19:21:25.456Z] INFO: Request completed {"requestId":"9f8nsp","method":"GET","path":"/src/components/ui/carousel.tsx","statusCode":200,"duration":"3ms"}
+[2025-08-02T19:21:25.458Z] INFO: WARNING: High memory usage detected {"heapUsed":"149 MB","heapTotal":"181 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/embla-carousel-react.js"}
+[2025-08-02T19:21:25.460Z] INFO: Request completed {"requestId":"wsnlwa","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/embla-carousel-react.js","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:21:26.222Z] INFO: Request completed {"requestId":"usbr4p","method":"GET","path":"/api/promotions","statusCode":304,"duration":"823ms"}
+[2025-08-02T19:21:26.534Z] INFO: WARNING: High memory usage detected {"heapUsed":"150 MB","heapTotal":"182 MB","path":"/manifest.json"}
+[2025-08-02T19:21:26.536Z] INFO: Request completed {"requestId":"j0p9xc","method":"GET","path":"/manifest.json","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:21:51.722Z] INFO: Request completed {"requestId":"go16gg","method":"GET","path":"/src/pages/booking.tsx","statusCode":200,"duration":"123ms"}
+[2025-08-02T19:21:51.727Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"132 MB","path":"/src/components/ui/integrated-booking-wizard.tsx"}
+[2025-08-02T19:21:51.844Z] INFO: Request completed {"requestId":"x1d6gp","method":"GET","path":"/src/components/ui/integrated-booking-wizard.tsx","statusCode":200,"duration":"117ms"}
+[2025-08-02T19:21:51.852Z] INFO: WARNING: High memory usage detected {"heapUsed":"131 MB","heapTotal":"155 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/date-fns.js"}
+[2025-08-02T19:21:51.879Z] INFO: WARNING: High memory usage detected {"heapUsed":"130 MB","heapTotal":"159 MB","path":"/src/components/ui/calendar.tsx"}
+[2025-08-02T19:21:51.880Z] INFO: WARNING: High memory usage detected {"heapUsed":"130 MB","heapTotal":"159 MB","path":"/src/lib/pricing.ts"}
+[2025-08-02T19:21:51.881Z] INFO: WARNING: High memory usage detected {"heapUsed":"130 MB","heapTotal":"159 MB","path":"/src/components/ui/separator.tsx"}
+[2025-08-02T19:21:51.882Z] INFO: WARNING: High memory usage detected {"heapUsed":"130 MB","heapTotal":"159 MB","path":"/src/hooks/use-business-hours.ts"}
+[2025-08-02T19:21:51.882Z] INFO: WARNING: High memory usage detected {"heapUsed":"130 MB","heapTotal":"159 MB","path":"/src/components/ui/select.tsx"}
+[2025-08-02T19:21:51.895Z] INFO: Request completed {"requestId":"3ggnwg","method":"GET","path":"/src/lib/pricing.ts","statusCode":304,"duration":"15ms"}
+[2025-08-02T19:21:51.899Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"162 MB","path":"/src/components/ui/tabs.tsx"}
+[2025-08-02T19:21:51.909Z] INFO: Request completed {"requestId":"xoaqj9","method":"GET","path":"/src/components/ui/calendar.tsx","statusCode":200,"duration":"29ms"}
+[2025-08-02T19:21:51.910Z] INFO: Request completed {"requestId":"w64s9","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/date-fns.js","statusCode":200,"duration":"58ms"}
+[2025-08-02T19:21:51.912Z] INFO: Request completed {"requestId":"154zwn","method":"GET","path":"/src/components/ui/separator.tsx","statusCode":200,"duration":"31ms"}
+[2025-08-02T19:21:51.913Z] INFO: Request completed {"requestId":"77x0cq","method":"GET","path":"/src/hooks/use-business-hours.ts","statusCode":200,"duration":"31ms"}
+[2025-08-02T19:21:51.914Z] INFO: Request completed {"requestId":"55ugtk","method":"GET","path":"/src/components/ui/select.tsx","statusCode":200,"duration":"32ms"}
+[2025-08-02T19:21:51.917Z] INFO: WARNING: High memory usage detected {"heapUsed":"129 MB","heapTotal":"164 MB","path":"/src/components/ui/input.tsx"}
+[2025-08-02T19:21:51.918Z] INFO: WARNING: High memory usage detected {"heapUsed":"129 MB","heapTotal":"164 MB","path":"/src/components/ui/textarea.tsx"}
+[2025-08-02T19:21:51.919Z] INFO: WARNING: High memory usage detected {"heapUsed":"129 MB","heapTotal":"164 MB","path":"/src/components/ui/label.tsx"}
+[2025-08-02T19:21:51.919Z] INFO: WARNING: High memory usage detected {"heapUsed":"129 MB","heapTotal":"164 MB","path":"/src/components/ui/checkbox.tsx"}
+[2025-08-02T19:21:51.920Z] INFO: WARNING: High memory usage detected {"heapUsed":"129 MB","heapTotal":"164 MB","path":"/src/components/ui/radio-group.tsx"}
+[2025-08-02T19:21:51.922Z] INFO: Request completed {"requestId":"1r1og8","method":"GET","path":"/src/components/ui/tabs.tsx","statusCode":200,"duration":"23ms"}
+[2025-08-02T19:21:51.924Z] INFO: WARNING: High memory usage detected {"heapUsed":"130 MB","heapTotal":"164 MB","path":"/src/components/icons.tsx"}
+[2025-08-02T19:21:51.929Z] INFO: Request completed {"requestId":"tcc5w4","method":"GET","path":"/src/components/ui/input.tsx","statusCode":200,"duration":"12ms"}
+[2025-08-02T19:21:51.931Z] INFO: Request completed {"requestId":"c6uzmb","method":"GET","path":"/src/components/ui/checkbox.tsx","statusCode":200,"duration":"12ms"}
+[2025-08-02T19:21:51.932Z] INFO: Request completed {"requestId":"knrck","method":"GET","path":"/src/components/ui/textarea.tsx","statusCode":200,"duration":"14ms"}
+[2025-08-02T19:21:51.933Z] INFO: Request completed {"requestId":"et9u1m","method":"GET","path":"/src/components/ui/label.tsx","statusCode":200,"duration":"14ms"}
+[2025-08-02T19:21:51.934Z] INFO: Request completed {"requestId":"ps2mne","method":"GET","path":"/src/components/ui/radio-group.tsx","statusCode":200,"duration":"14ms"}
+[2025-08-02T19:21:51.936Z] INFO: WARNING: High memory usage detected {"heapUsed":"131 MB","heapTotal":"164 MB","path":"/src/components/ui/booking-assistant.tsx"}
+[2025-08-02T19:21:51.939Z] INFO: WARNING: High memory usage detected {"heapUsed":"131 MB","heapTotal":"164 MB","path":"/src/components/ui/booking-tutorial.tsx"}
+[2025-08-02T19:21:51.940Z] INFO: WARNING: High memory usage detected {"heapUsed":"131 MB","heapTotal":"164 MB","path":"/src/components/ui/booking-step-guide.tsx"}
+[2025-08-02T19:21:51.941Z] INFO: WARNING: High memory usage detected {"heapUsed":"131 MB","heapTotal":"164 MB","path":"/src/components/ui/booking-autofill.tsx"}
+[2025-08-02T19:21:51.941Z] INFO: WARNING: High memory usage detected {"heapUsed":"131 MB","heapTotal":"164 MB","path":"/src/components/ui/tooltip.tsx"}
+[2025-08-02T19:21:51.943Z] INFO: Request completed {"requestId":"q1e29h","method":"GET","path":"/src/components/icons.tsx","statusCode":200,"duration":"18ms"}
+[2025-08-02T19:21:51.947Z] INFO: WARNING: High memory usage detected {"heapUsed":"132 MB","heapTotal":"164 MB","path":"/src/components/steps/review-booking-step.tsx"}
+[2025-08-02T19:21:51.949Z] INFO: Request completed {"requestId":"qps17","method":"GET","path":"/src/components/ui/booking-assistant.tsx","statusCode":200,"duration":"13ms"}
+[2025-08-02T19:21:51.949Z] INFO: Request completed {"requestId":"oum9f9","method":"GET","path":"/src/components/ui/booking-step-guide.tsx","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:51.951Z] INFO: Request completed {"requestId":"c10n0j","method":"GET","path":"/src/components/ui/booking-autofill.tsx","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:51.953Z] INFO: Request completed {"requestId":"s65l","method":"GET","path":"/src/components/ui/booking-tutorial.tsx","statusCode":200,"duration":"14ms"}
+[2025-08-02T19:21:51.956Z] INFO: Request completed {"requestId":"k7lvm8","method":"GET","path":"/src/components/ui/tooltip.tsx","statusCode":200,"duration":"15ms"}
+[2025-08-02T19:21:51.956Z] INFO: WARNING: High memory usage detected {"heapUsed":"133 MB","heapTotal":"164 MB","path":"/src/components/ui/booking-confirmation-modal.tsx"}
+[2025-08-02T19:21:51.957Z] INFO: WARNING: High memory usage detected {"heapUsed":"133 MB","heapTotal":"164 MB","path":"/src/data/pricing-data.ts"}
+[2025-08-02T19:21:51.958Z] INFO: WARNING: High memory usage detected {"heapUsed":"133 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/react-day-picker.js"}
+[2025-08-02T19:21:51.959Z] INFO: WARNING: High memory usage detected {"heapUsed":"133 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-WBPQ5B3C.js"}
+[2025-08-02T19:21:51.960Z] INFO: Request completed {"requestId":"1ntuod","method":"GET","path":"/src/data/pricing-data.ts","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:21:51.964Z] INFO: WARNING: High memory usage detected {"heapUsed":"133 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-separator.js"}
+[2025-08-02T19:21:51.967Z] INFO: WARNING: High memory usage detected {"heapUsed":"133 MB","heapTotal":"164 MB","path":"/src/lib/queryClient.ts"}
+[2025-08-02T19:21:51.969Z] INFO: Request completed {"requestId":"lhqge","method":"GET","path":"/src/components/steps/review-booking-step.tsx","statusCode":200,"duration":"22ms"}
+[2025-08-02T19:21:51.970Z] INFO: Request completed {"requestId":"wfdo7n","method":"GET","path":"/src/components/ui/booking-confirmation-modal.tsx","statusCode":200,"duration":"14ms"}
+[2025-08-02T19:21:51.972Z] INFO: WARNING: High memory usage detected {"heapUsed":"133 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-select.js"}
+[2025-08-02T19:21:51.973Z] INFO: WARNING: High memory usage detected {"heapUsed":"133 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-tabs.js"}
+[2025-08-02T19:21:51.974Z] INFO: Request completed {"requestId":"wcz4nf","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-separator.js","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:51.976Z] INFO: Request completed {"requestId":"4ncgj","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-WBPQ5B3C.js","statusCode":200,"duration":"16ms"}
+[2025-08-02T19:21:51.976Z] INFO: Request completed {"requestId":"f5258","method":"GET","path":"/src/lib/queryClient.ts","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:51.979Z] INFO: WARNING: High memory usage detected {"heapUsed":"134 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-checkbox.js"}
+[2025-08-02T19:21:51.980Z] INFO: WARNING: High memory usage detected {"heapUsed":"134 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-label.js"}
+[2025-08-02T19:21:51.981Z] INFO: WARNING: High memory usage detected {"heapUsed":"134 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-radio-group.js"}
+[2025-08-02T19:21:51.983Z] INFO: Request completed {"requestId":"rso8ho","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-select.js","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:51.986Z] INFO: Request completed {"requestId":"owruymi","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-tabs.js","statusCode":200,"duration":"13ms"}
+[2025-08-02T19:21:51.986Z] INFO: WARNING: High memory usage detected {"heapUsed":"134 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-tooltip.js"}
+[2025-08-02T19:21:51.989Z] INFO: Request completed {"requestId":"kjdc2i","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-label.js","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:51.990Z] INFO: Request completed {"requestId":"g7jq9f","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-checkbox.js","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:51.991Z] INFO: Request completed {"requestId":"gconqr","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-radio-group.js","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:51.992Z] INFO: WARNING: High memory usage detected {"heapUsed":"134 MB","heapTotal":"164 MB","path":"/src/components/ui/alert-dialog.tsx"}
+[2025-08-02T19:21:51.993Z] INFO: WARNING: High memory usage detected {"heapUsed":"134 MB","heapTotal":"164 MB","path":"/src/components/ui/reschedule-dialog.tsx"}
+[2025-08-02T19:21:51.993Z] INFO: WARNING: High memory usage detected {"heapUsed":"134 MB","heapTotal":"164 MB","path":"/src/components/ui/dialog.tsx"}
+[2025-08-02T19:21:51.996Z] INFO: Request completed {"requestId":"5rkwep","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/react-day-picker.js","statusCode":200,"duration":"38ms"}
+[2025-08-02T19:21:51.997Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-ZRZS4ZTG.js"}
+[2025-08-02T19:21:51.999Z] INFO: Request completed {"requestId":"ki6uvn","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-tooltip.js","statusCode":200,"duration":"12ms"}
+[2025-08-02T19:21:52.000Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-FWK5BII5.js"}
+[2025-08-02T19:21:52.002Z] INFO: Request completed {"requestId":"wojo19","method":"GET","path":"/src/components/ui/alert-dialog.tsx","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:52.002Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-6ZMM2PAV.js"}
+[2025-08-02T19:21:52.004Z] INFO: Request completed {"requestId":"ry09tp","method":"GET","path":"/src/components/ui/reschedule-dialog.tsx","statusCode":200,"duration":"11ms"}
+[2025-08-02T19:21:52.006Z] INFO: Request completed {"requestId":"9ddcwm","method":"GET","path":"/src/components/ui/dialog.tsx","statusCode":200,"duration":"12ms"}
+[2025-08-02T19:21:52.006Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-XUV44MPA.js"}
+[2025-08-02T19:21:52.007Z] INFO: Request completed {"requestId":"f617hs","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-6ZMM2PAV.js","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:21:52.008Z] INFO: Request completed {"requestId":"dgqt6t","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-ZRZS4ZTG.js","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:52.008Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-5BE7YU3G.js"}
+[2025-08-02T19:21:52.009Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-KKWOGNYA.js"}
+[2025-08-02T19:21:52.011Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-TFX6JGDG.js"}
+[2025-08-02T19:21:52.012Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-F7W3RNG2.js"}
+[2025-08-02T19:21:52.013Z] INFO: Request completed {"requestId":"sicjrf","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-KKWOGNYA.js","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:21:52.014Z] INFO: Request completed {"requestId":"r8m1sr","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-FWK5BII5.js","statusCode":200,"duration":"14ms"}
+[2025-08-02T19:21:52.015Z] INFO: Request completed {"requestId":"z39t9c","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-TFX6JGDG.js","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:21:52.016Z] INFO: Request completed {"requestId":"mjqgh","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-XUV44MPA.js","statusCode":200,"duration":"10ms"}
+[2025-08-02T19:21:52.017Z] INFO: Request completed {"requestId":"32ht8i","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-5BE7YU3G.js","statusCode":200,"duration":"8ms"}
+[2025-08-02T19:21:52.017Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-K4H6TDA5.js"}
+[2025-08-02T19:21:52.018Z] INFO: WARNING: High memory usage detected {"heapUsed":"135 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-alert-dialog.js"}
+[2025-08-02T19:21:52.019Z] INFO: WARNING: High memory usage detected {"heapUsed":"136 MB","heapTotal":"164 MB","path":"/src/components/ui/popover.tsx"}
+[2025-08-02T19:21:52.020Z] INFO: WARNING: High memory usage detected {"heapUsed":"136 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-dialog.js"}
+[2025-08-02T19:21:52.021Z] INFO: Request completed {"requestId":"m5r39o","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-F7W3RNG2.js","statusCode":200,"duration":"9ms"}
+[2025-08-02T19:21:52.023Z] INFO: Request completed {"requestId":"29m3m","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-K4H6TDA5.js","statusCode":200,"duration":"6ms"}
+[2025-08-02T19:21:52.023Z] INFO: Request completed {"requestId":"y0wdni","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-alert-dialog.js","statusCode":200,"duration":"5ms"}
+[2025-08-02T19:21:52.024Z] INFO: Request completed {"requestId":"cb0zmo","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-dialog.js","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:21:52.025Z] INFO: Request completed {"requestId":"pwdfht","method":"GET","path":"/src/components/ui/popover.tsx","statusCode":200,"duration":"6ms"}
+[2025-08-02T19:21:52.025Z] INFO: WARNING: High memory usage detected {"heapUsed":"136 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-HSYXJG7H.js"}
+[2025-08-02T19:21:52.027Z] INFO: WARNING: High memory usage detected {"heapUsed":"136 MB","heapTotal":"164 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-popover.js"}
+[2025-08-02T19:21:52.028Z] INFO: Request completed {"requestId":"7yu6dv","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/chunk-HSYXJG7H.js","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:21:52.029Z] INFO: Request completed {"requestId":"b9ere","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/.vite/deps/@radix-ui_react-popover.js","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:21:52.068Z] INFO: WARNING: High memory usage detected {"heapUsed":"136 MB","heapTotal":"164 MB","path":"/api/business-hours"}
+[2025-08-02T19:21:52.071Z] INFO: Request completed {"requestId":"fh6w2","method":"GET","path":"/api/business-hours","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:21:52.076Z] INFO: WARNING: High memory usage detected {"heapUsed":"136 MB","heapTotal":"164 MB","path":"/api/system-settings/booking-buffer"}
+[2025-08-02T19:21:52.079Z] INFO: Request completed {"requestId":"15y8rj","method":"GET","path":"/api/system-settings/booking-buffer","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:21:52.079Z] INFO: WARNING: High memory usage detected {"heapUsed":"136 MB","heapTotal":"164 MB","path":"/api/system-settings/booking-buffer"}
+[2025-08-02T19:21:52.080Z] INFO: Request completed {"requestId":"8g0ol","method":"GET","path":"/api/system-settings/booking-buffer","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:21:52.080Z] INFO: WARNING: High memory usage detected {"heapUsed":"137 MB","heapTotal":"164 MB","path":"/api/bookings"}
+[2025-08-02T19:21:52.212Z] INFO: Request completed {"requestId":"kv64xh","method":"GET","path":"/api/bookings","statusCode":200,"duration":"131ms"}
+[2025-08-02T19:22:41.691Z] INFO: WARNING: High memory usage detected {"heapUsed":"102 MB","heapTotal":"108 MB","path":"/api/booking"}
+[2025-08-02T19:22:41.703Z] INFO: Booking validated successfully 
+[2025-08-02T19:22:41.886Z] INFO: Booking successfully inserted into database 
+[2025-08-02T19:22:41.887Z] INFO: Starting Gmail email sending process... 
+[2025-08-02T19:22:41.888Z] INFO: Sending unified confirmation emails via Gmail... 
+[2025-08-02T19:22:44.132Z] INFO: Gmail email sending summary - Customer: true, Admin: true 
+[2025-08-02T19:22:44.132Z] INFO: Starting Klaviyo profile submission... 
+[2025-08-02T19:22:44.309Z] INFO: Request completed {"requestId":"mf5dj","method":"POST","path":"/api/booking","statusCode":200,"duration":"2609ms"}
+[2025-08-02T19:22:44.418Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"109 MB","path":"/src/pages/booking-confirmation.tsx"}
+[2025-08-02T19:22:44.516Z] INFO: Request completed {"requestId":"imhkc7","method":"GET","path":"/src/pages/booking-confirmation.tsx","statusCode":200,"duration":"98ms"}
+[2025-08-02T19:22:44.519Z] INFO: WARNING: High memory usage detected {"heapUsed":"111 MB","heapTotal":"121 MB","path":"/src/components/ui/alert.tsx"}
+[2025-08-02T19:22:44.520Z] INFO: WARNING: High memory usage detected {"heapUsed":"111 MB","heapTotal":"121 MB","path":"/src/hooks/use-query-params.ts"}
+[2025-08-02T19:22:44.523Z] INFO: Request completed {"requestId":"3mv36j","method":"GET","path":"/src/components/ui/alert.tsx","statusCode":200,"duration":"3ms"}
+[2025-08-02T19:22:44.524Z] INFO: Request completed {"requestId":"nwhec","method":"GET","path":"/src/hooks/use-query-params.ts","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:25:10.139Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"121 MB","path":"/api/health"}
+[2025-08-02T19:25:10.260Z] INFO: Request completed {"requestId":"vfh0sn","method":"GET","path":"/api/health","statusCode":200,"duration":"121ms"}
+[2025-08-02T19:29:10.145Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"121 MB","path":"/api/health"}
+[2025-08-02T19:29:10.499Z] INFO: Request completed {"requestId":"02uu6w","method":"GET","path":"/api/health","statusCode":200,"duration":"353ms"}
+[2025-08-02T19:33:10.151Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"121 MB","path":"/api/health"}
+[2025-08-02T19:33:10.381Z] INFO: Request completed {"requestId":"t9ab0a","method":"GET","path":"/api/health","statusCode":200,"duration":"229ms"}
+[2025-08-02T19:37:10.151Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"121 MB","path":"/api/health"}
+[2025-08-02T19:37:10.354Z] INFO: Request completed {"requestId":"8dn4tn","method":"GET","path":"/api/health","statusCode":200,"duration":"202ms"}
+[2025-08-02T19:37:49.286Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"121 MB","path":"/booking-confirmation"}
+[2025-08-02T19:37:49.318Z] INFO: Request completed {"requestId":"vihr2","method":"GET","path":"/","statusCode":200,"duration":"31ms"}
+[2025-08-02T19:37:49.334Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/@vite/client"}
+[2025-08-02T19:37:49.335Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/src/main.tsx"}
+[2025-08-02T19:37:49.336Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"114 MB","path":"/@react-refresh"}
+[2025-08-02T19:37:49.337Z] INFO: Request completed {"requestId":"jml81c","method":"GET","path":"/@vite/client","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:37:49.338Z] INFO: Request completed {"requestId":"0s4s4","method":"GET","path":"/@react-refresh","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:37:49.343Z] INFO: Request completed {"requestId":"byhzqh","method":"GET","path":"/src/main.tsx","statusCode":200,"duration":"8ms"}
+[2025-08-02T19:37:49.360Z] INFO: WARNING: High memory usage detected {"heapUsed":"110 MB","heapTotal":"118 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs"}
+[2025-08-02T19:37:49.361Z] INFO: Request completed {"requestId":"219xa99","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:37:49.429Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"123 MB","path":"/src/components/ui/toaster.tsx"}
+[2025-08-02T19:37:49.430Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"123 MB","path":"/src/components/ui/loading-spinner.tsx"}
+[2025-08-02T19:37:49.431Z] INFO: Request completed {"requestId":"2cvwsa","method":"GET","path":"/src/components/ui/toaster.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:37:49.433Z] INFO: Request completed {"requestId":"8yirxe","method":"GET","path":"/src/components/ui/loading-spinner.tsx","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:37:49.434Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"124 MB","path":"/src/components/nav.tsx"}
+[2025-08-02T19:37:49.435Z] INFO: Request completed {"requestId":"l9bkyg","method":"GET","path":"/src/components/nav.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.436Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"124 MB","path":"/src/components/footer.tsx"}
+[2025-08-02T19:37:49.437Z] INFO: Request completed {"requestId":"u4h40f","method":"GET","path":"/src/components/footer.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.438Z] INFO: WARNING: High memory usage detected {"heapUsed":"112 MB","heapTotal":"124 MB","path":"/src/components/ui/promotion-banner.tsx"}
+[2025-08-02T19:37:49.439Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/components/ui/pwa-install-banner.tsx"}
+[2025-08-02T19:37:49.439Z] INFO: Request completed {"requestId":"c7judp","method":"GET","path":"/src/components/ui/promotion-banner.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.440Z] INFO: Request completed {"requestId":"fnbq9d","method":"GET","path":"/src/components/ui/pwa-install-banner.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.442Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/components/ui/environment-indicator.tsx"}
+[2025-08-02T19:37:49.443Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/components/error-boundary.tsx"}
+[2025-08-02T19:37:49.443Z] INFO: Request completed {"requestId":"hlesvi","method":"GET","path":"/src/components/ui/environment-indicator.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.445Z] INFO: Request completed {"requestId":"ldrz05","method":"GET","path":"/src/components/error-boundary.tsx","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:37:49.446Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/lib/process-polyfill.ts"}
+[2025-08-02T19:37:49.447Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/index.css"}
+[2025-08-02T19:37:49.448Z] INFO: Request completed {"requestId":"yyspac","method":"GET","path":"/src/lib/process-polyfill.ts","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:37:49.451Z] INFO: Request completed {"requestId":"6twd8a","method":"GET","path":"/src/index.css","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:37:49.461Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/hooks/use-toast.ts"}
+[2025-08-02T19:37:49.461Z] INFO: Request completed {"requestId":"x4z1we","method":"GET","path":"/src/hooks/use-toast.ts","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:37:49.466Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/components/ui/toast.tsx"}
+[2025-08-02T19:37:49.467Z] INFO: Request completed {"requestId":"u2vt6c","method":"GET","path":"/src/components/ui/toast.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.471Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/lib/utils.ts"}
+[2025-08-02T19:37:49.472Z] INFO: Request completed {"requestId":"3x102i","method":"GET","path":"/src/lib/utils.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.474Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/components/ui/button.tsx"}
+[2025-08-02T19:37:49.475Z] INFO: Request completed {"requestId":"iwv2yf","method":"GET","path":"/src/components/ui/button.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.479Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/components/logo.tsx"}
+[2025-08-02T19:37:49.480Z] INFO: Request completed {"requestId":"upjmwg","method":"GET","path":"/src/components/logo.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.485Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/components/ui/accordion.tsx"}
+[2025-08-02T19:37:49.486Z] INFO: Request completed {"requestId":"q3ol4","method":"GET","path":"/src/components/ui/accordion.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.502Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"124 MB","path":"/src/hooks/use-media-query.ts"}
+[2025-08-02T19:37:49.503Z] INFO: Request completed {"requestId":"rthu8e","method":"GET","path":"/src/hooks/use-media-query.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.506Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/components/ui/badge.tsx"}
+[2025-08-02T19:37:49.507Z] INFO: Request completed {"requestId":"umbdz","method":"GET","path":"/src/components/ui/badge.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.509Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/lib/errorLogger.ts"}
+[2025-08-02T19:37:49.510Z] INFO: Request completed {"requestId":"6ctc99","method":"GET","path":"/src/lib/errorLogger.ts","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:37:49.615Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/pages/booking-confirmation.tsx"}
+[2025-08-02T19:37:49.616Z] INFO: Request completed {"requestId":"6zxv7","method":"GET","path":"/src/pages/booking-confirmation.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.662Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/api/promotions"}
+[2025-08-02T19:37:49.696Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/components/ui/card.tsx"}
+[2025-08-02T19:37:49.697Z] INFO: Request completed {"requestId":"5xz4ve","method":"GET","path":"/src/components/ui/card.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:37:49.702Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/components/ui/input.tsx"}
+[2025-08-02T19:37:49.704Z] INFO: Request completed {"requestId":"23wh2","method":"GET","path":"/src/components/ui/input.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.712Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/components/ui/label.tsx"}
+[2025-08-02T19:37:49.713Z] INFO: Request completed {"requestId":"f0jbok","method":"GET","path":"/src/components/ui/label.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.716Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/components/ui/checkbox.tsx"}
+[2025-08-02T19:37:49.717Z] INFO: Request completed {"requestId":"hv53oto","method":"GET","path":"/src/components/ui/checkbox.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:37:49.720Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/components/ui/alert.tsx"}
+[2025-08-02T19:37:49.720Z] INFO: Request completed {"requestId":"ngtj4l","method":"GET","path":"/src/components/ui/alert.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:37:49.727Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/hooks/use-query-params.ts"}
+[2025-08-02T19:37:49.728Z] INFO: Request completed {"requestId":"53nnkj","method":"GET","path":"/src/hooks/use-query-params.ts","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:37:49.728Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/components/ui/separator.tsx"}
+[2025-08-02T19:37:49.729Z] INFO: Request completed {"requestId":"t3r087","method":"GET","path":"/src/components/ui/separator.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.730Z] INFO: WARNING: High memory usage detected {"heapUsed":"114 MB","heapTotal":"124 MB","path":"/src/lib/pricing.ts"}
+[2025-08-02T19:37:49.731Z] INFO: Request completed {"requestId":"i4lnai","method":"GET","path":"/src/lib/pricing.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.738Z] INFO: WARNING: High memory usage detected {"heapUsed":"115 MB","heapTotal":"124 MB","path":"/src/data/pricing-data.ts"}
+[2025-08-02T19:37:49.739Z] INFO: Request completed {"requestId":"nb7rhk","method":"GET","path":"/src/data/pricing-data.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:37:49.774Z] INFO: Request completed {"requestId":"tk1eqs","method":"GET","path":"/api/promotions","statusCode":304,"duration":"111ms"}
+[2025-08-02T19:37:50.018Z] INFO: WARNING: High memory usage detected {"heapUsed":"115 MB","heapTotal":"124 MB","path":"/manifest.json"}
+[2025-08-02T19:37:50.019Z] INFO: Request completed {"requestId":"4cbtsl","method":"GET","path":"/manifest.json","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:38:22.197Z] INFO: WARNING: High memory usage detected {"heapUsed":"113 MB","heapTotal":"118 MB","path":"/src/index.css"}
+[2025-08-02T19:38:22.272Z] INFO: Request completed {"requestId":"l285m1j","method":"GET","path":"/src/index.css","statusCode":200,"duration":"75ms"}
+[2025-08-02T19:38:31.309Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"111 MB","path":"/src/index.css"}
+[2025-08-02T19:38:31.397Z] INFO: Request completed {"requestId":"zuv4hg","method":"GET","path":"/src/index.css","statusCode":200,"duration":"88ms"}
+[2025-08-02T19:39:02.028Z] INFO: WARNING: High memory usage detected {"heapUsed":"109 MB","heapTotal":"120 MB","path":"/src/index.css"}
+[2025-08-02T19:39:02.092Z] INFO: Request completed {"requestId":"q6rqlr","method":"GET","path":"/src/index.css","statusCode":200,"duration":"64ms"}
+[2025-08-02T19:40:44.084Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"121 MB","path":"/src/index.css"}
+[2025-08-02T19:40:44.158Z] INFO: Request completed {"requestId":"ql822e","method":"GET","path":"/src/index.css","statusCode":200,"duration":"74ms"}
+[2025-08-02T19:40:44.162Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"121 MB","path":"/src/index.css"}
+[2025-08-02T19:40:44.166Z] INFO: Request completed {"requestId":"i4chwi","method":"GET","path":"/src/index.css","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:40:44.285Z] INFO: WARNING: High memory usage detected {"heapUsed":"104 MB","heapTotal":"119 MB","path":"/booking-confirmation"}
+[2025-08-02T19:40:44.322Z] INFO: Request completed {"requestId":"nwi80h","method":"GET","path":"/","statusCode":200,"duration":"37ms"}
+[2025-08-02T19:40:44.335Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/@vite/client"}
+[2025-08-02T19:40:44.337Z] INFO: WARNING: High memory usage detected {"heapUsed":"105 MB","heapTotal":"119 MB","path":"/src/main.tsx"}
+[2025-08-02T19:40:44.339Z] INFO: Request completed {"requestId":"rnby4m","method":"GET","path":"/@vite/client","statusCode":304,"duration":"3ms"}
+[2025-08-02T19:40:44.341Z] INFO: Request completed {"requestId":"9ybefv","method":"GET","path":"/src/main.tsx","statusCode":200,"duration":"3ms"}
+[2025-08-02T19:40:44.374Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/@react-refresh"}
+[2025-08-02T19:40:44.375Z] INFO: Request completed {"requestId":"s7usqq","method":"GET","path":"/@react-refresh","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.412Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs"}
+[2025-08-02T19:40:44.413Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/components/ui/toaster.tsx"}
+[2025-08-02T19:40:44.414Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/components/ui/loading-spinner.tsx"}
+[2025-08-02T19:40:44.414Z] INFO: Request completed {"requestId":"likdoe","method":"GET","path":"/@fs/C:/Users/Admin/Desktop/PPTVInstall-Release-Candidate-main/node_modules/vite/dist/client/env.mjs","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:44.415Z] INFO: Request completed {"requestId":"dd929g","method":"GET","path":"/src/components/ui/toaster.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:44.415Z] INFO: Request completed {"requestId":"rpxhv","method":"GET","path":"/src/components/ui/loading-spinner.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.428Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/components/nav.tsx"}
+[2025-08-02T19:40:44.429Z] INFO: Request completed {"requestId":"5cv3zb","method":"GET","path":"/src/components/nav.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.429Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/components/footer.tsx"}
+[2025-08-02T19:40:44.430Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/components/ui/promotion-banner.tsx"}
+[2025-08-02T19:40:44.431Z] INFO: Request completed {"requestId":"osomhc","method":"GET","path":"/src/components/footer.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.433Z] INFO: Request completed {"requestId":"ba0x","method":"GET","path":"/src/components/ui/promotion-banner.tsx","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:44.434Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/components/ui/pwa-install-banner.tsx"}
+[2025-08-02T19:40:44.435Z] INFO: Request completed {"requestId":"nrdf8","method":"GET","path":"/src/components/ui/pwa-install-banner.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.457Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/components/error-boundary.tsx"}
+[2025-08-02T19:40:44.458Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/components/ui/environment-indicator.tsx"}
+[2025-08-02T19:40:44.459Z] INFO: Request completed {"requestId":"gg2dz","method":"GET","path":"/src/components/ui/environment-indicator.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.460Z] INFO: Request completed {"requestId":"t5likm","method":"GET","path":"/src/components/error-boundary.tsx","statusCode":200,"duration":"2ms"}
+[2025-08-02T19:40:44.464Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/lib/process-polyfill.ts"}
+[2025-08-02T19:40:44.466Z] INFO: Request completed {"requestId":"6vf8p9","method":"GET","path":"/src/lib/process-polyfill.ts","statusCode":200,"duration":"1ms"}
+[2025-08-02T19:40:44.472Z] INFO: WARNING: High memory usage detected {"heapUsed":"106 MB","heapTotal":"119 MB","path":"/src/index.css"}
+[2025-08-02T19:40:44.473Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/hooks/use-toast.ts"}
+[2025-08-02T19:40:44.474Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/components/ui/toast.tsx"}
+[2025-08-02T19:40:44.474Z] INFO: Request completed {"requestId":"1jxlkc","method":"GET","path":"/src/hooks/use-toast.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.475Z] INFO: Request completed {"requestId":"y4n1wr","method":"GET","path":"/src/components/ui/toast.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.476Z] INFO: Request completed {"requestId":"8yvyc9","method":"GET","path":"/src/index.css","statusCode":200,"duration":"4ms"}
+[2025-08-02T19:40:44.480Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/lib/utils.ts"}
+[2025-08-02T19:40:44.481Z] INFO: Request completed {"requestId":"he921","method":"GET","path":"/src/lib/utils.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.481Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/components/ui/button.tsx"}
+[2025-08-02T19:40:44.481Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/components/logo.tsx"}
+[2025-08-02T19:40:44.482Z] INFO: Request completed {"requestId":"7iui6q","method":"GET","path":"/src/components/ui/button.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.483Z] INFO: Request completed {"requestId":"xr6dub","method":"GET","path":"/src/components/logo.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.483Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/components/ui/accordion.tsx"}
+[2025-08-02T19:40:44.485Z] INFO: Request completed {"requestId":"kmozwc","method":"GET","path":"/src/components/ui/accordion.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.487Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/hooks/use-media-query.ts"}
+[2025-08-02T19:40:44.488Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/lib/errorLogger.ts"}
+[2025-08-02T19:40:44.489Z] INFO: Request completed {"requestId":"p4w6z","method":"GET","path":"/src/hooks/use-media-query.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.489Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/components/ui/badge.tsx"}
+[2025-08-02T19:40:44.490Z] INFO: Request completed {"requestId":"nczcve","method":"GET","path":"/src/lib/errorLogger.ts","statusCode":304,"duration":"2ms"}
+[2025-08-02T19:40:44.490Z] INFO: Request completed {"requestId":"30jabh","method":"GET","path":"/src/components/ui/badge.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.559Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/pages/booking-confirmation.tsx"}
+[2025-08-02T19:40:44.560Z] INFO: Request completed {"requestId":"0izmbk","method":"GET","path":"/src/pages/booking-confirmation.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.582Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/components/ui/card.tsx"}
+[2025-08-02T19:40:44.583Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/components/ui/input.tsx"}
+[2025-08-02T19:40:44.583Z] INFO: Request completed {"requestId":"8kfmpn","method":"GET","path":"/src/components/ui/card.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.584Z] INFO: Request completed {"requestId":"jgs23w","method":"GET","path":"/src/components/ui/input.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.588Z] INFO: WARNING: High memory usage detected {"heapUsed":"107 MB","heapTotal":"119 MB","path":"/src/components/ui/label.tsx"}
+[2025-08-02T19:40:44.588Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/src/components/ui/checkbox.tsx"}
+[2025-08-02T19:40:44.589Z] INFO: Request completed {"requestId":"41262","method":"GET","path":"/src/components/ui/label.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.590Z] INFO: Request completed {"requestId":"zwial","method":"GET","path":"/src/components/ui/checkbox.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.592Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/src/components/ui/alert.tsx"}
+[2025-08-02T19:40:44.593Z] INFO: Request completed {"requestId":"mn00mw","method":"GET","path":"/src/components/ui/alert.tsx","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:40:44.594Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/src/hooks/use-query-params.ts"}
+[2025-08-02T19:40:44.594Z] INFO: Request completed {"requestId":"urs2vm","method":"GET","path":"/src/hooks/use-query-params.ts","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:40:44.596Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/src/components/ui/separator.tsx"}
+[2025-08-02T19:40:44.597Z] INFO: Request completed {"requestId":"uwc9sc","method":"GET","path":"/src/components/ui/separator.tsx","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.597Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/src/lib/pricing.ts"}
+[2025-08-02T19:40:44.598Z] INFO: Request completed {"requestId":"3kai2n","method":"GET","path":"/src/lib/pricing.ts","statusCode":304,"duration":"1ms"}
+[2025-08-02T19:40:44.600Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/src/data/pricing-data.ts"}
+[2025-08-02T19:40:44.601Z] INFO: Request completed {"requestId":"f2d11h5","method":"GET","path":"/src/data/pricing-data.ts","statusCode":304,"duration":"0ms"}
+[2025-08-02T19:40:44.767Z] INFO: WARNING: High memory usage detected {"heapUsed":"108 MB","heapTotal":"119 MB","path":"/manifest.json"}
+[2025-08-02T19:40:44.768Z] INFO: Request completed {"requestId":"ly11hm","method":"GET","path":"/manifest.json","statusCode":304,"duration":"1ms"}

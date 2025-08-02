@@ -1038,6 +1038,111 @@ export async function registerRoutes(app: Express): Promise<Server> {
           logger.error("Error sending Gmail emails:", error as Error);
         }
 
+        // Send customer data to Klaviyo for CRM and email marketing
+        try {
+          logger.info("Starting Klaviyo profile submission...");
+          
+          // Prepare Klaviyo profile data
+          const klaviyoProfileData = {
+            data: {
+              type: "profile",
+              attributes: {
+                email: booking.email,
+                phone_number: booking.phone,
+                first_name: booking.name.split(' ')[0] || booking.name,
+                last_name: booking.name.split(' ').slice(1).join(' ') || '',
+                properties: {
+                  // Customer address information
+                  street_address: booking.streetAddress,
+                  address_line_2: booking.addressLine2 || '',
+                  city: booking.city,
+                  state: booking.state,
+                  zip_code: booking.zipCode,
+                  
+                  // Booking information
+                  service_type: booking.serviceType,
+                  preferred_date: booking.preferredDate,
+                  appointment_time: booking.appointmentTime,
+                  booking_notes: booking.notes || '',
+                  pricing_total: booking.pricingTotal || '0',
+                  booking_id: newBooking.id.toString(),
+                  booking_status: 'active',
+                  
+                  // Custom properties for segmentation
+                  lead_source: 'website_booking',
+                  customer_type: 'new_booking',
+                  consent_to_contact: true,
+                  booking_created_at: new Date().toISOString(),
+                  
+                  // Service details for targeted marketing
+                  has_tv_installation: booking.serviceType.toLowerCase().includes('tv'),
+                  has_smart_home: booking.serviceType.toLowerCase().includes('smart home'),
+                  is_test_mode: booking.pricingTotal === undefined || booking.pricingTotal === 0
+                }
+              }
+            }
+          };
+
+          // Submit to Klaviyo Submit Profile API
+          const klaviyoResponse = await fetch('https://a.klaviyo.com/api/profiles/', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Klaviyo-API-Key pk_6cc7133ac45bb934eb3ce4bb9972577bab`,
+              'Content-Type': 'application/json',
+              'revision': '2024-10-15'
+            },
+            body: JSON.stringify(klaviyoProfileData)
+          });
+
+          if (klaviyoResponse.ok) {
+            const klaviyoResult = await klaviyoResponse.json();
+            const profileId = klaviyoResult.data?.id;
+            logger.info(`Klaviyo profile created successfully for ${booking.email}, Profile ID: ${profileId || 'unknown'}`);
+            
+            // Add the customer to the "New Bookings" list for flow triggers
+            if (profileId) {
+              try {
+                logger.info("Adding customer to New Bookings list...");
+                
+                const addToListData = {
+                  data: [
+                    {
+                      type: "profile",
+                      id: profileId
+                    }
+                  ]
+                };
+
+                // Add to list for flow triggers (you'll need to create this list in Klaviyo)
+                const addToListResponse = await fetch('https://a.klaviyo.com/api/lists/RbzDg6/relationships/profiles/', {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': `Klaviyo-API-Key pk_6cc7133ac45bb934eb3ce4bb9972577bab`,
+                    'Content-Type': 'application/json',
+                    'revision': '2024-10-15'
+                  },
+                  body: JSON.stringify(addToListData)
+                });
+
+                if (addToListResponse.ok) {
+                  logger.info(`Customer added to New Bookings list successfully`);
+                } else {
+                  const listErrorText = await addToListResponse.text();
+                  logger.error("Error adding to Klaviyo list:", new Error(`HTTP ${addToListResponse.status}: ${listErrorText}`));
+                }
+              } catch (listError) {
+                logger.error("Error adding customer to Klaviyo list:", listError as Error);
+              }
+            }
+          } else {
+            const errorText = await klaviyoResponse.text();
+            logger.error("Klaviyo API error:", new Error(`HTTP ${klaviyoResponse.status}: ${errorText}`));
+          }
+        } catch (klaviyoError: any) {
+          // Log error but don't fail the booking if Klaviyo is down
+          logger.error("Error submitting to Klaviyo:", klaviyoError as Error);
+        }
+
         // Return success response
         res.status(200).json({
           success: true,

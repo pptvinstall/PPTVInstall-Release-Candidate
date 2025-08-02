@@ -175,6 +175,38 @@ export default function BookingPage() {
     <div className="py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
+          
+          {/* Email Signup Banner */}
+          <section aria-label="Email Signup" className="mb-8 bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-6">
+            <div className="text-center">
+              <h2 className="text-lg font-semibold text-green-700 mb-2">
+                💰 Save $10 on Your Booking!
+              </h2>
+              <p className="text-green-600 mb-4">
+                Join our newsletter for exclusive discounts and priority booking access
+              </p>
+              
+              {/* Klaviyo Signup Form (Inline) */}
+              <div className="klaviyo-form-XXjrLu mb-3"></div>
+              
+              {/* Alternative Manual Trigger */}
+              <button 
+                onClick={() => {
+                  if ((window as any)._klOnsite) {
+                    (window as any)._klOnsite.push(['openForm', 'XXjrLu']);
+                  }
+                }}
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
+              >
+                Get Discount Code
+              </button>
+              
+              <p className="text-green-500 text-xs mt-2">
+                Apply discount at checkout • No spam ever
+              </p>
+            </div>
+          </section>
+          
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold mb-4">Book Your Installation</h1>
             <p className="text-xl text-gray-600">

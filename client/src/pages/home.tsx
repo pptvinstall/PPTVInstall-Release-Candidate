@@ -192,6 +192,39 @@ export default function HomePage() {
         </div>
       </section>
       
+      {/* Klaviyo Email Signup Section */}
+      <section aria-label="Email Signup" className="py-8 bg-gradient-to-r from-blue-600 to-blue-700">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Get $10 Off Your First Service
+            </h2>
+            <p className="text-blue-100 mb-6">
+              Join our VIP list for exclusive discounts, TV mounting tips, and priority booking access!
+            </p>
+            
+            {/* Klaviyo Signup Form */}
+            <div className="klaviyo-form-XXjrLu mb-4"></div>
+            
+            {/* Manual Trigger Button (Alternative) */}
+            <button 
+              onClick={() => {
+                if ((window as any)._klOnsite) {
+                  (window as any)._klOnsite.push(['openForm', 'XXjrLu']);
+                }
+              }}
+              className="bg-white text-blue-600 hover:bg-gray-50 px-8 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl"
+            >
+              💰 Claim $10 Discount
+            </button>
+            
+            <p className="text-blue-200 text-sm mt-4">
+              No spam, unsubscribe anytime. Join 500+ happy customers!
+            </p>
+          </div>
+        </div>
+      </section>
+      
       {/* Featured Service Section */}
       <section className="py-8 bg-gradient-to-b from-white to-blue-50" style={{ position: 'relative' }}>
         <div className="container mx-auto px-4">

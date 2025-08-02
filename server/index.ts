@@ -248,11 +248,7 @@ const gracefulShutdown = (signal: string) => {
       }
     }, 240000); // Every 4 minutes
 
-    server.listen({
-      port,
-      host: "0.0.0.0",
-      reusePort: true,
-    }, () => {
+    server.listen(port, () => {
       log(`Server started successfully, serving on port ${port}`);
     });
 
