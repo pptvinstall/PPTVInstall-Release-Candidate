@@ -14,10 +14,6 @@ import ErrorBoundary from './components/error-boundary';
 
 import './lib/process-polyfill';
 import './index.css';
-<<<<<<< HEAD
-=======
-import { performanceMonitor } from './lib/performance-monitor';
->>>>>>> 061ffe2aa68be99f5de7736257afad6f2089d0a9
 
 // Service Worker Registration (temporarily disabled)
 // Uncomment when ready for PWA deployment
@@ -114,20 +110,9 @@ const ScrollToTop = () => {
   const [location] = useLocation();
 
   useEffect(() => {
-<<<<<<< HEAD
     // Use requestAnimationFrame for better performance
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-=======
-    // Start performance monitoring for route changes
-    performanceMonitor.startRouteTimer(location);
-    
-    // Use requestAnimationFrame for better performance
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      // End performance monitoring after scroll
-      setTimeout(() => performanceMonitor.endRouteTimer(location), 100);
->>>>>>> 061ffe2aa68be99f5de7736257afad6f2089d0a9
     });
   }, [location]);
 

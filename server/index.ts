@@ -1,10 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
-<<<<<<< HEAD
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-=======
->>>>>>> 061ffe2aa68be99f5de7736257afad6f2089d0a9
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import compression from 'compression';
@@ -15,15 +12,12 @@ import {
   rateLimiting 
 } from './middleware/optimization';
 
-<<<<<<< HEAD
 // Load environment variables
 import 'dotenv/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-=======
->>>>>>> 061ffe2aa68be99f5de7736257afad6f2089d0a9
 const app = express();
 
 // Apply optimization middleware
@@ -201,12 +195,9 @@ const gracefulShutdown = (signal: string) => {
       });
     });
 
-<<<<<<< HEAD
     // Serve static files from public directory (for manifest.json, icons, etc.)
     app.use(express.static(path.resolve(__dirname, '../public')));
 
-=======
->>>>>>> 061ffe2aa68be99f5de7736257afad6f2089d0a9
     // importantly only setup vite in development and after
     // setting up all the other routes so the catch-all route
     // doesn't interfere with the other routes
@@ -259,13 +250,8 @@ const gracefulShutdown = (signal: string) => {
 
     server.listen({
       port,
-<<<<<<< HEAD
-      host: "localhost",
-      reusePort: false,
-=======
       host: "0.0.0.0",
       reusePort: true,
->>>>>>> 061ffe2aa68be99f5de7736257afad6f2089d0a9
     }, () => {
       log(`Server started successfully, serving on port ${port}`);
     });
