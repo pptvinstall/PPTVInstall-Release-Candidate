@@ -9,9 +9,10 @@ import { Toaster } from "@/components/ui/toaster";
 // Layout & Components
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
-import EnvironmentIndicator from "@/components/ui/environment-indicator";
-import PromotionBanner from "@/components/ui/promotion-banner";
-import PWAInstallBanner from "@/components/ui/pwa-install-banner";
+// FIX: Added curly braces { } for named imports
+import { EnvironmentIndicator } from "@/components/ui/environment-indicator";
+import { PromotionBanner } from "@/components/ui/promotion-banner";
+import { PWAInstallBanner } from "@/components/ui/pwa-install-banner";
 import ErrorBoundary from "@/components/error-boundary";
 
 // Pages
@@ -19,7 +20,7 @@ import Home from "@/pages/home";
 import Services from "@/pages/services";
 import Contact from "@/pages/contact";
 import FAQ from "@/pages/faq";
-import Gallery from "@/pages/gallery"; // <--- Make sure this is imported if you added the file!
+import Gallery from "@/pages/gallery"; 
 import Booking from "@/pages/booking";
 import Confirmation from "@/pages/Confirmation";
 import AdminBookings from "@/pages/admin-bookings";
@@ -41,7 +42,7 @@ function Router() {
       {/* Admin */}
       <Route path="/admin/bookings" component={AdminBookings} />
 
-      {/* Fallback (Redirect to Home instead of crashing on 404) */}
+      {/* Fallback */}
       <Route>
         {() => <Home />} 
       </Route>
@@ -53,9 +54,11 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
+        {/* These components are usually dev-tools or optional */}
         <EnvironmentIndicator />
         <PromotionBanner />
         <PWAInstallBanner />
+        
         <Nav />
         <main>
           <Router />
