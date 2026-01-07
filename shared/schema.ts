@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { pgTable, serial, text, varchar, timestamp, boolean, integer, jsonb, uniqueIndex, json } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, varchar, timestamp, boolean, integer, jsonb, uniqueIndex, json, uuid } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { relations } from 'drizzle-orm';
 
@@ -75,6 +75,7 @@ export const bookings = pgTable('bookings', {
   mountType: varchar('mount_type', { length: 50 }),
   wallMaterial: varchar('wall_material', { length: 50 }),
   specialInstructions: text('special_instructions'),
+  managementToken: uuid("management_token").defaultRandom().notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   // Consent to receiving notifications
   consentToContact: boolean('consent_to_contact').default(false),
