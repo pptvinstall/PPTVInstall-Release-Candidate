@@ -87,7 +87,8 @@ const queryClient = new QueryClient({
 const Home = lazy(() => import('@/pages/home'));
 const Services = lazy(() => import('@/pages/services'));
 const Booking = lazy(() => import('@/pages/booking'));
-const BookingConfirmation = lazy(() => import('@/pages/booking-confirmation'));
+const Confirmation = lazy(() => import('@/pages/Confirmation'));
+const ManageBooking = lazy(() => import('@/pages/ManageBooking'));
 const Contact = lazy(() => import('@/pages/contact'));
 const FAQ = lazy(() => import('@/pages/faq'));
 const Dashboard = lazy(() => import('@/pages/dashboard'));
@@ -102,8 +103,6 @@ const SendTestEmails = lazy(() => import('@/pages/send-test-emails')); // Added 
 const ForgotPassword = lazy(() => import('@/pages/forgot-password')); // Added forgot password page
 const ResetPassword = lazy(() => import('@/pages/reset-password')); // Added reset password page
 const AdminBookings = lazy(() => import('@/pages/admin-bookings')); // Added admin bookings page
-
-
 
 // Optimized ScrollToTop component with better performance
 const ScrollToTop = () => {
@@ -126,9 +125,6 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-
-
-
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary> {/* Added Error Boundary */}
@@ -144,54 +140,74 @@ createRoot(document.getElementById('root')!).render(
                 <ScrollToTop />
                 <Switch>
                   <Route path="/" component={Home} />
+                  
                   <Route path="/services">
                     {() => <PageWrapper><Services /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/booking">
                     {() => <PageWrapper><Booking /></PageWrapper>}
                   </Route>
-                  <Route path="/booking-confirmation">
-                    {() => <PageWrapper><BookingConfirmation /></PageWrapper>}
+                  
+                  <Route path="/manage-booking">
+                    {() => <PageWrapper><ManageBooking /></PageWrapper>}
                   </Route>
+                  
+                  {/* Fixed Route */}
+                  <Route path="/confirmation" component={Confirmation} />
+                  
                   <Route path="/contact">
                     {() => <PageWrapper><Contact /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/faq">
                     {() => <PageWrapper><FAQ /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/dashboard">
                     {() => <PageWrapper><Dashboard /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/admin">
                     {() => <PageWrapper><Admin /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/admin/pricing">
                     {() => <PageWrapper><PricingEditor /></PageWrapper>}
-                  </Route> {/* Added pricing editor route */}
+                  </Route>
+                  
                   <Route path="/customer-login">
                     {() => <PageWrapper><CustomerLogin /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/customer-portal">
                     {() => <PageWrapper><CustomerPortal /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/customer-profile">
                     {() => <PageWrapper><CustomerProfile /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/admin/email-previews">
                     {() => <PageWrapper><EmailPreviews /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/admin/send-test-emails">
                     {() => <PageWrapper><SendTestEmails /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/forgot-password">
                     {() => <PageWrapper><ForgotPassword /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/reset-password">
                     {() => <PageWrapper><ResetPassword /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/admin/bookings">
                     {() => <PageWrapper><AdminBookings /></PageWrapper>}
                   </Route>
+                  
                   <Route path="/customer-portal/:email/:token">
                     {() => <PageWrapper><CustomerPortal /></PageWrapper>}
                   </Route>

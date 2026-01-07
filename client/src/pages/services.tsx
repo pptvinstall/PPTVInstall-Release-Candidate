@@ -1,254 +1,226 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Monitor, Cable, Tv, Package, Wrench, DoorClosed, Camera, Lightbulb, Check } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-
-const tvServices = [
-  {
-    title: "Basic TV Mounting",
-    price: "$100",
-    isMostPopular: true,
-    description: "Professional TV mounting with your own mount",
-    features: [
-      "Customer-provided mount",
-      "32\"-55\" or 56\"+ TVs",
-      "Level installation",
-      "Basic cable management",
-      "Hardware included",
-      "+$50 for non-drywall surfaces (brick/concrete/stone)",
-      "+$100 for outlet relocation"
-    ],
-    icon: Monitor
-  },
-  {
-    title: "Standard TV Mounting",
-    price: "From $150",
-    description: "Professional TV mounting with mount provided by us",
-    features: [
-      "We provide the mount",
-      "32\"-55\" or 56\"+ TVs",
-      "Level installation",
-      "Basic cable management",
-      "Hardware included",
-      "+$50 for non-drywall surfaces (brick/concrete/stone)",
-      "+$100 for outlet relocation"
-    ],
-    icon: Monitor
-  },
-  {
-    title: "Above Fireplace",
-    price: "From $200",
-    description: "Specialized mounting above fireplaces with proper heat protection",
-    features: [
-      "Heat-safe installation",
-      "Cable concealment",
-      "All mount types available",
-      "Hardware included",
-      "Proper angle optimization",
-      "+$50 for masonry walls",
-      "Contact for outlet options"
-    ],
-    icon: Tv
-  },
-  {
-    title: "Ceiling Mount",
-    price: "From $175",
-    description: "Custom ceiling mounting solutions",
-    features: [
-      "Secure ceiling installation",
-      "All TV sizes supported",
-      "Tilt/swivel options",
-      "Cable management",
-      "Perfect for corners",
-      "+$50 for masonry surfaces",
-      "+$100 for outlet relocation"
-    ],
-    icon: Cable
-  }
-];
-
-const smartHomeServices = [
-  {
-    title: "Smart Doorbell",
-    price: "$85",
-    description: "Professional smart doorbell installation",
-    features: [
-      "Proper wiring setup",
-      "Brick installation (+$10)",
-      "WiFi connection",
-      "Testing & setup",
-      "Sync with existing chime"
-    ],
-    icon: DoorClosed
-  },
-  {
-    title: "Smart Camera",
-    price: "From $75",
-    description: "Security camera installation at any height",
-    features: [
-      "Secure mounting",
-      "Power connection",
-      "Custom height options",
-      "+$25 per 4ft above 8ft",
-      "WiFi setup & testing"
-    ],
-    icon: Camera
-  },
-  {
-    title: "Floodlight",
-    price: "$125",
-    description: "Smart floodlight camera installation",
-    features: [
-      "Professional wiring",
-      "Weatherproof installation",
-      "Motion sensor setup",
-      "App configuration",
-      "Lighting optimization"
-    ],
-    icon: Lightbulb
-  }
-];
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Check, Tv, Zap, Video, Shield, Hammer, ArrowRight, Flame, MinusCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Services() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className="py-12">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Our Services</h1>
-          <p className="text-xl text-gray-600">
-            Professional TV mounting, unmounting, and smart home installation solutions
-          </p>
+    <div className="flex flex-col min-h-screen bg-slate-50">
+      
+      {/* --- HERO SECTION --- */}
+      <section className="relative bg-slate-900 text-white pt-32 pb-24 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
+          <div className="absolute top-[10%] left-[10%] w-[600px] h-[600px] rounded-full bg-blue-600 blur-[100px]" />
+          <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full bg-indigo-600 blur-[100px]" />
         </div>
 
-        <div className="mb-12 max-w-3xl mx-auto">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-semibold">TV Unmounting Service</h2>
-            <p className="text-gray-600">Need to remove a mounted TV? Our professionals will handle it safely.</p>
+        <div className="container relative z-10 mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto space-y-6"
+          >
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+              Expert <span className="text-blue-500">Solutions</span> for <br/>Every Screen
+            </h1>
+            <p className="text-lg text-slate-300 leading-relaxed">
+              From basic mounting to complex home theater setups and smart home integration. 
+              We bring the tools, the hardware, and the expertise.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* --- TV MOUNTING SECTION --- */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center gap-3 mb-10">
+            <div className="p-3 rounded-xl bg-blue-100 text-blue-600">
+              <Tv className="h-6 w-6" />
+            </div>
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900">TV Mounting</h2>
+              <p className="text-slate-500">Secure, level, and clean installations.</p>
+            </div>
           </div>
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-md">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-blue-700">
-                  <Package className="h-6 w-6 text-blue-500" />
-                  Professional TV Unmounting
-                </CardTitle>
-                <div className="flex items-center">
-                  <div className="bg-blue-100 p-1 px-2 rounded mr-2">
-                    <p className="text-xl font-bold text-blue-700">$50</p>
-                  </div>
-                  <Link href="/booking">
-                    <Button className="bg-blue-600 hover:bg-blue-700">Book Now</Button>
+
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {/* Basic Package */}
+            <motion.div variants={itemVariants}>
+              <Card className="h-full hover:shadow-lg transition-all border-slate-200 flex flex-col">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold">Basic Mounting</CardTitle>
+                  <div className="text-3xl font-black text-slate-900 mt-2">$100</div>
+                  <CardDescription>You provide the TV & Mount</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <ul className="space-y-3 text-sm text-slate-600">
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Level installation guaranteed</li>
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Any TV Size (32" - 85"+)</li>
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Basic cable management</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/booking" className="w-full">
+                    <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50">Book Basic</Button>
                   </Link>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700 mb-4">Complete TV removal and wall restoration service</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <div className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-green-500" />
-                    <span className="font-medium">Safe TV and mount removal</span>
-                  </div>
-                </div>
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <div className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-green-500" />
-                    <span className="font-medium">Basic wall repair included</span>
-                  </div>
-                </div>
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <div className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-green-500" />
-                    <span className="font-medium">Cable organization</span>
-                  </div>
-                </div>
-                <div className="bg-white rounded-lg p-3 shadow-sm">
-                  <div className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-green-500" />
-                    <span className="font-medium">All TV sizes supported</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+                </CardFooter>
+              </Card>
+            </motion.div>
 
-        <div className="space-y-12">
-          <div>
-            <h2 className="text-2xl font-semibold mb-6">TV Mounting Services</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {tvServices.map((service) => (
-                <Card key={service.title} className={`relative ${service.isMostPopular ? 'border-2 border-blue-500 shadow-lg' : ''}`}>
-                  {service.isMostPopular && (
-                    <div className="absolute top-0 right-0 bg-blue-500 text-white px-3 py-1 rounded-bl-lg font-medium text-sm">
-                      Most Popular
-                    </div>
-                  )}
-                  <CardHeader>
-                    <service.icon className="h-12 w-12 text-brand-blue-500 mb-4" />
-                    <CardTitle className="text-2xl">{service.title}</CardTitle>
-                    <p className="text-xl font-bold text-brand-blue-500">{service.price}</p>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 mb-4">{service.description}</p>
-                    <ul className="space-y-2">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-center">
-                          <Package className="h-4 w-4 text-brand-blue-500 mr-2" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    {service.title === "Above Fireplace" && (
-                      <div className="mt-4 p-3 bg-brand-blue-50 rounded-lg text-sm text-gray-700">
-                        Note: For outlet relocation above fireplaces, please send photos of your fireplace and nearby outlets for a custom quote, or schedule an in-person estimate.
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
+            {/* Hardware Bundle */}
+            <motion.div variants={itemVariants}>
+              <Card className="h-full shadow-lg border-blue-500 bg-white relative overflow-hidden flex flex-col transform md:-translate-y-4">
+                <div className="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-blue-700">Hardware Bundle</CardTitle>
+                  <div className="text-3xl font-black text-slate-900 mt-2">$130<span className="text-lg text-slate-400 font-medium">+</span></div>
+                  <CardDescription>We provide the Mount</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <ul className="space-y-3 text-sm text-slate-600">
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-blue-500 flex-shrink-0" /> <strong>Mount Included</strong></li>
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Fixed, Tilt, or Full Motion options</li>
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Professional installation</li>
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Hardware warranty included</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/booking" className="w-full">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-md">Book Bundle</Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </motion.div>
+
+            {/* Premium / Fireplace */}
+            <motion.div variants={itemVariants}>
+              <Card className="h-full hover:shadow-lg transition-all border-slate-200 flex flex-col">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold flex items-center gap-2">
+                    <Flame className="h-5 w-5 text-amber-500"/> Over Fireplace
+                  </CardTitle>
+                  <div className="text-3xl font-black text-slate-900 mt-2">$200<span className="text-lg text-slate-400 font-medium">+</span></div>
+                  <CardDescription>Specialized Heat-Safe Install</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <ul className="space-y-3 text-sm text-slate-600">
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Drywall or Masonry/Brick</li>
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Heat damage prevention</li>
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Proper viewing angle</li>
+                    <li className="flex gap-2"><Check className="h-4 w-4 text-green-500 flex-shrink-0" /> Wire concealment available</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/booking" className="w-full">
+                    <Button variant="outline" className="w-full">Book Fireplace</Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          </motion.div>
+
+          {/* Additional Info */}
+          <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100 text-sm text-blue-800 flex flex-col sm:flex-row gap-4 justify-center items-center text-center">
+            <span className="flex items-center gap-2"><Hammer className="h-4 w-4"/> Brick/Stone Surface: <strong>+$50</strong></span>
+            <span className="hidden sm:inline text-blue-300">|</span>
+            <span className="flex items-center gap-2"><Zap className="h-4 w-4"/> Outlet Relocation: <strong>+$100</strong></span>
+            <span className="hidden sm:inline text-blue-300">|</span>
+            <span className="flex items-center gap-2"><Zap className="h-4 w-4"/> Wire Concealment: <strong>Package Available</strong></span>
+          </div>
+        </div>
+      </section>
+
+      {/* --- SMART HOME SECTION --- */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center gap-3 mb-10">
+            <div className="p-3 rounded-xl bg-indigo-100 text-indigo-600">
+              <Video className="h-6 w-6" />
+            </div>
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900">Smart Home</h2>
+              <p className="text-slate-500">Automate and secure your property.</p>
             </div>
           </div>
 
-          <Separator className="my-12" />
-
-          <div>
-            <h2 className="text-2xl font-semibold mb-6">Smart Home Installation</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {smartHomeServices.map((service) => (
-                <Card key={service.title}>
-                  <CardHeader>
-                    <service.icon className="h-12 w-12 text-brand-blue-500 mb-4" />
-                    <CardTitle className="text-2xl">{service.title}</CardTitle>
-                    <p className="text-xl font-bold text-brand-blue-500">{service.price}</p>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 mb-4">{service.description}</p>
-                    <ul className="space-y-2">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-center">
-                          <Package className="h-4 w-4 text-brand-blue-500 mr-2" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          <div className="grid md:grid-cols-3 gap-6">
+             {[
+               { title: "Smart Doorbell", price: "$85", icon: Video, features: ["Wiring setup", "Chime sync", "WiFi testing", "Brick install (+$10)"] },
+               { title: "Security Camera", price: "$75", icon: Shield, features: ["Secure mounting", "Power connection", "Custom height", "WiFi Setup"] },
+               { title: "Floodlight Cam", price: "$125", icon: Zap, features: ["Weatherproof install", "Wiring integration", "Motion sensor setup", "App config"] }
+             ].map((item, idx) => (
+               <Card key={idx} className="hover:border-indigo-200 transition-all group">
+                 <CardContent className="p-6">
+                   <div className="flex justify-between items-start mb-4">
+                     <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-indigo-50 transition-colors">
+                       <item.icon className="h-6 w-6 text-slate-700 group-hover:text-indigo-600" />
+                     </div>
+                     <div className="text-2xl font-bold text-indigo-600">{item.price}</div>
+                   </div>
+                   <h3 className="text-lg font-bold text-slate-900 mb-4">{item.title}</h3>
+                   <ul className="space-y-2 mb-6">
+                     {item.features.map((f, i) => (
+                       <li key={i} className="text-sm text-slate-500 flex items-center gap-2">
+                         <div className="h-1.5 w-1.5 rounded-full bg-indigo-400" /> {f}
+                       </li>
+                     ))}
+                   </ul>
+                   <Link href="/booking">
+                     <Button variant="ghost" className="w-full text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50">Add to Booking <ArrowRight className="ml-2 h-4 w-4"/></Button>
+                   </Link>
+                 </CardContent>
+               </Card>
+             ))}
           </div>
         </div>
+      </section>
 
-        <div className="text-center mt-12">
-          <Link href="/booking">
-            <Button size="lg" className="px-8">
-              Book Your Installation
-            </Button>
-          </Link>
+      {/* --- REMOVAL SECTION --- */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="bg-slate-900 rounded-2xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-red-400 font-bold uppercase tracking-wide text-sm">
+                <MinusCircle className="h-5 w-5" /> Removal Services
+              </div>
+              <h2 className="text-3xl font-bold">Need a TV Taken Down?</h2>
+              <p className="text-slate-400 max-w-lg">
+                We offer professional unmounting services. We'll safely remove your TV and mount, organize your cables, and patch basic drywall holes.
+              </p>
+              <div className="flex items-center gap-6 pt-2">
+                <div className="text-4xl font-bold">$50</div>
+                <div className="text-sm text-slate-400">Flat rate per TV</div>
+              </div>
+            </div>
+            <Link href="/booking">
+              <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-200 font-bold px-8">
+                Book Removal
+              </Button>
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
+
     </div>
   );
 }
