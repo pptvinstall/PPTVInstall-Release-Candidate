@@ -51,11 +51,8 @@ function DashboardContent() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
-  
-  // --- MANUAL MODAL STATE ---
   const [rescheduleBooking, setRescheduleBooking] = useState<any>(null);
 
-  // FETCH
   const { data: bookings = [] } = useQuery({
     queryKey: ["/api/admin/bookings"],
     queryFn: async () => {
@@ -64,7 +61,6 @@ function DashboardContent() {
     },
   });
 
-  // MUTATIONS
   const rescheduleMutation = useMutation({
     mutationFn: async ({ id, date, time }: { id: number, date: string, time: string }) => {
       await apiRequest("POST", `/api/admin/bookings/${id}/reschedule`, { date, time });
@@ -72,10 +68,10 @@ function DashboardContent() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/bookings"] });
       toast({ title: "Updated!", description: "Customer has been emailed." });
-      setRescheduleBooking(null); // Close modal
+      setRescheduleBooking(null);
     },
     onError: () => {
-      toast({ title: "Error", description: "Failed to update. Check server logs.", variant: "destructive" });
+      toast({ title: "Error", description: "Failed to update.", variant: "destructive" });
     }
   });
 
@@ -89,10 +85,17 @@ function DashboardContent() {
     }
   });
 
-  const filteredBookings = Array.isArray(bookings) ? bookings.filter((b: any) => 
-    b.name.toLowerCase().includes(search.toLowerCase()) || 
-    b.email.toLowerCase().includes(search.toLowerCase())
-  ).sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) : [];
+  // SAFETY CHECK: Ensure we don't process null/undefined bookings
+  const safeBookings = Array.isArray(bookings) ? bookings.filter(b => b && typeof b === 'object') : [];
+
+  const filteredBookings = safeBookings.filter((b: any) => 
+    (b.name || "").toLowerCase().includes(search.toLowerCase()) || 
+    (b.email || "").toLowerCase().includes(search.toLowerCase())
+  ).sort((a: any, b: any) => {
+    const timeA = a.created_at ? new Date(a.created_at).getTime() : 0;
+    const timeB = b.created_at ? new Date(b.created_at).getTime() : 0;
+    return timeB - timeA;
+  });
 
   const totalRevenue = filteredBookings.filter((b: any) => b.status !== 'cancelled').reduce((acc: number, b: any) => acc + (parseInt(b.pricingTotal) || 0), 0);
   const activeJobs = filteredBookings.filter((b: any) => b.status !== 'cancelled').length;
@@ -100,8 +103,6 @@ function DashboardContent() {
   return (
     <div className="min-h-screen bg-slate-50 p-6 md:p-12 relative">
        <div className="max-w-6xl mx-auto space-y-8">
-         
-         {/* HEADER STATS */}
          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
            <div>
              <h1 className="text-3xl font-bold text-slate-900">Booking Command Center</h1>
@@ -125,7 +126,6 @@ function DashboardContent() {
            </div>
          </div>
 
-         {/* SEARCH */}
          <div className="relative">
            <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
            <Input 
@@ -136,7 +136,6 @@ function DashboardContent() {
            />
          </div>
 
-         {/* LIST */}
          {filteredBookings.length === 0 ? (
            <div className="text-center py-20 bg-white rounded-xl border border-dashed border-slate-300">
              <div className="bg-slate-50 p-4 rounded-full w-fit mx-auto mb-4">
@@ -149,92 +148,86 @@ function DashboardContent() {
            </div>
          ) : (
            <div className="grid gap-4">
-             {filteredBookings.map((booking: any) => (
-               <Card key={booking.id} className="overflow-hidden hover:shadow-md transition-all border-slate-200">
-                 <div className="p-6 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
-                   <div className="space-y-2">
-                     <div className="flex items-center gap-3">
-                       <span className="font-bold text-lg text-slate-900">{booking.name}</span>
-                       {booking.status === 'cancelled' 
-                          ? <Badge variant="destructive">Cancelled</Badge> 
-                          : <Badge className="bg-green-600 hover:bg-green-600">Active</Badge>}
-                       <span className="text-sm font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">${booking.pricingTotal}</span>
-                     </div>
-                     <div className="text-sm text-slate-500 flex flex-wrap gap-4">
-                       <span className="flex items-center gap-1"><CalendarIcon className="h-4 w-4 text-blue-500"/> {booking.preferredDate}</span>
-                       <span className="flex items-center gap-1"><Clock className="h-4 w-4 text-blue-500"/> {booking.appointmentTime}</span>
-                     </div>
-                     <div className="text-xs text-slate-400 font-medium">
-                       {booking.serviceType} • {booking.streetAddress}, {booking.city}
-                     </div>
-                   </div>
+             {filteredBookings.map((booking: any) => {
+               // SAFETY CHECK: If booking ID is missing, skip rendering this card
+               if (!booking || !booking.id) return null;
 
-                   {booking.status !== 'cancelled' && (
-                     <div className="flex gap-2 w-full md:w-auto">
-                       {/* MOVE BUTTON */}
-                       <Button 
-                         variant="outline" 
-                         size="sm" 
-                         className="flex-1 md:flex-none border-blue-200 text-blue-700 hover:bg-blue-50"
-                         onClick={() => setRescheduleBooking(booking)}
-                       >
-                         <Edit className="h-4 w-4 mr-2"/> Move
-                       </Button>
-                       
-                       {/* CANCEL BUTTON */}
-                       <Button 
-                         variant="ghost" 
-                         size="sm"
-                         className="flex-1 md:flex-none text-red-600 hover:text-red-700 hover:bg-red-50"
-                         onClick={() => {
-                           if(confirm("Are you sure? This will email the customer.")) cancelMutation.mutate(booking.id);
-                         }}
-                       >
-                         <Trash2 className="h-4 w-4 mr-2"/> Cancel
-                       </Button>
+               return (
+                 <Card key={booking.id} className="overflow-hidden hover:shadow-md transition-all border-slate-200">
+                   <div className="p-6 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                     <div className="space-y-2">
+                       <div className="flex items-center gap-3">
+                         <span className="font-bold text-lg text-slate-900">{booking.name}</span>
+                         {booking.status === 'cancelled' 
+                            ? <Badge variant="destructive">Cancelled</Badge> 
+                            : <Badge className="bg-green-600 hover:bg-green-600">Active</Badge>}
+                         <span className="text-sm font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">${booking.pricingTotal}</span>
+                       </div>
+                       <div className="text-sm text-slate-500 flex flex-wrap gap-4">
+                         <span className="flex items-center gap-1"><CalendarIcon className="h-4 w-4 text-blue-500"/> {booking.preferredDate}</span>
+                         <span className="flex items-center gap-1"><Clock className="h-4 w-4 text-blue-500"/> {booking.appointmentTime}</span>
+                       </div>
+                       <div className="text-xs text-slate-400 font-medium">
+                         {booking.serviceType} • {booking.streetAddress}, {booking.city}
+                       </div>
                      </div>
-                   )}
-                 </div>
-               </Card>
-             ))}
+
+                     {booking.status !== 'cancelled' && (
+                       <div className="flex gap-2 w-full md:w-auto">
+                         <Button 
+                           variant="outline" 
+                           size="sm" 
+                           className="flex-1 md:flex-none border-blue-200 text-blue-700 hover:bg-blue-50"
+                           onClick={() => setRescheduleBooking(booking)}
+                         >
+                           <Edit className="h-4 w-4 mr-2"/> Move
+                         </Button>
+                         <Button 
+                           variant="ghost" 
+                           size="sm"
+                           className="flex-1 md:flex-none text-red-600 hover:text-red-700 hover:bg-red-50"
+                           onClick={() => {
+                             if(confirm("Are you sure? This will email the customer.")) cancelMutation.mutate(booking.id);
+                           }}
+                         >
+                           <Trash2 className="h-4 w-4 mr-2"/> Cancel
+                         </Button>
+                       </div>
+                     )}
+                   </div>
+                 </Card>
+               );
+             })}
            </div>
          )}
        </div>
 
-       {/* --- MANUAL MODAL (Z-INDEX 9999) --- */}
        {rescheduleBooking && (
          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-           {/* Modal Box */}
            <div className="bg-white rounded-xl shadow-2xl w-full max-w-md animate-in zoom-in-95 duration-200 relative">
-             
-             {/* Header */}
              <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50 rounded-t-xl">
                <h3 className="font-bold text-lg text-slate-900">Reschedule Appointment</h3>
                <button onClick={() => setRescheduleBooking(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
                  <X className="h-5 w-5" />
                </button>
              </div>
-
-             {/* Content */}
              <div className="p-6">
                <RescheduleForm booking={rescheduleBooking} onSubmit={(data: any) => rescheduleMutation.mutate(data)} />
              </div>
-
            </div>
          </div>
        )}
-
     </div>
   );
 }
 
 function RescheduleForm({ booking, onSubmit }: any) {
   const [date, setDate] = useState<Date | undefined>(() => {
-    if (!booking.preferredDate) return new Date();
+    if (!booking?.preferredDate) return new Date();
     return new Date(booking.preferredDate + 'T12:00:00');
   });
   
-  const [time, setTime] = useState(booking.appointmentTime || "8:00 AM");
+  const [time, setTime] = useState(booking?.appointmentTime || "8:00 AM");
 
   return (
     <div className="space-y-6">
@@ -249,8 +242,6 @@ function RescheduleForm({ booking, onSubmit }: any) {
        </div>
        <div className="space-y-2">
          <label className="text-sm font-bold text-slate-700">Select New Time</label>
-         
-         {/* THE FIX: Native Select Element (Always appears on top) */}
          <div className="relative">
            <select 
              value={time} 
@@ -263,10 +254,9 @@ function RescheduleForm({ booking, onSubmit }: any) {
            </select>
            <ChevronDown className="absolute right-3 top-3.5 h-4 w-4 text-slate-400 pointer-events-none" />
          </div>
-
        </div>
        <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 h-12 text-lg shadow-lg" onClick={() => {
-         if(date && time) onSubmit({ id: booking.id, date: format(date, 'yyyy-MM-dd'), time });
+         if(date && time && booking?.id) onSubmit({ id: booking.id, date: format(date, 'yyyy-MM-dd'), time });
        }}>
          Confirm New Time
        </Button>
