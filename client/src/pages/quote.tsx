@@ -1,5 +1,6 @@
 import { MessageSquareText, ReceiptText, CalendarDays } from "lucide-react";
 
+import { QuoteEducation } from "@/components/ui/QuoteEducation";
 import QuoteTool from "@/components/ui/QuoteTool";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -50,6 +51,10 @@ export default function QuotePage() {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="mx-auto mt-10 max-w-6xl">
+        <QuoteEducation />
       </section>
 
       <div className="mx-auto mt-10 max-w-6xl">

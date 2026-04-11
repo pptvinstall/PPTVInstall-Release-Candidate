@@ -70,6 +70,8 @@ type AiQuoteConfig = {
 };
 
 type NextStepIntent = "schedule" | "send_quote" | "text_confirm" | null;
+type QuoteSourceMode = QuoteMode | null;
+type OutletDistanceAnswer = "yes" | "no" | "not_sure" | null;
 
 type PendingQuoteStorage = {
   total: number;
@@ -134,6 +136,7 @@ type SpeechRecognitionLike = EventTarget & {
 };
 
 type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
+type MicrophonePermissionState = "granted" | "prompt" | "denied" | "unsupported" | "unknown";
 
 type TurnstileInstance = {
   render: (container: string | HTMLElement, options: Record<string, unknown>) => string;
@@ -174,6 +177,7 @@ const telHref = `tel:${businessPhone.replace(/\D/g, "")}`;
 const mailtoHref = `mailto:${businessEmail}?subject=${encodeURIComponent("Picture Perfect TV Install quote")}`;
 const pendingQuoteStorageKey = "pptvinstall_pending_quote";
 const DESCRIBE_IT_MAX_CHARS = 400;
+const OUTLET_DISTANCE_QUESTION = "Is the existing outlet within 1–2 feet of where you want the TV mounted?";
 
 function createDefaultStandaloneServices(): StandaloneServices {
   return {
@@ -443,6 +447,34 @@ function buildDisplayFlags(flags: string[]): string[] {
     ...dedupedOtherFlags,
     "Fireplace wire concealment requires photo review before we confirm final pricing.",
   ];
+}
+
+function groupContextText(group: QuoteGroup): string {
+  return [group.title, group.subtitle, ...group.items.map((item) => item.name)].filter(Boolean).join(" ").toLowerCase();
+}
+
+function groupHasNonFireplaceWireConcealment(group: QuoteGroup): boolean {
+  const contextText = groupContextText(group);
+  return contextText.includes(pricingData.wireConcealment.standard.name.toLowerCase()) && !contextText.includes("fireplace");
+}
+
+function descriptionProvidesOutletDistanceInfo(description: string): boolean {
+  const normalized = description.toLowerCase();
+  return [
+    /\bwithin\s+1(?:-|–|—|\s+to\s+)?2\s+feet\b/,
+    /\b1(?:-|–|—|\s+to\s+)?2\s+feet\b/,
+    /\boutlet\b.*\b(close|near|nearby|right below|directly below|behind it|behind the tv)\b/,
+    /\b(close|near|nearby|right below|directly below|behind it|behind the tv)\b.*\boutlet\b/,
+    /\boutlet\b.*\bfar|farther|further|not close|not near\b/,
+  ].some((pattern) => pattern.test(normalized));
+}
+
+function quoteNeedsOutletDistanceFollowUp(quote: DisplayQuote, sourceMode: QuoteSourceMode, description: string): boolean {
+  if (sourceMode !== "text" || descriptionProvidesOutletDistanceInfo(description)) {
+    return false;
+  }
+
+  return quote.groups.some((group) => groupHasNonFireplaceWireConcealment(group));
 }
 
 function getMountPriceLabel(size: TVConfig["size"], type: MountType): string {
@@ -752,6 +784,7 @@ export default function QuoteTool() {
   const [textZipTouched, setTextZipTouched] = useState(false);
   const [voiceTranscript, setVoiceTranscript] = useState("");
   const [voiceError, setVoiceError] = useState("");
+  const [microphonePermission, setMicrophonePermission] = useState<MicrophonePermissionState>("unknown");
   const [isRecording, setIsRecording] = useState(false);
   const [zipError, setZipError] = useState("");
   const [promoCodeInput, setPromoCodeInput] = useState(seasonalTheme.promoCode ?? "");
@@ -760,6 +793,8 @@ export default function QuoteTool() {
   const [quoteRequestStatus, setQuoteRequestStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [nextStepIntent, setNextStepIntent] = useState<NextStepIntent>(null);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
+  const [quoteSourceMode, setQuoteSourceMode] = useState<QuoteSourceMode>(null);
+  const [describeOutletAnswer, setDescribeOutletAnswer] = useState<OutletDistanceAnswer>(null);
   const [aiQuoteConfig, setAiQuoteConfig] = useState<AiQuoteConfig | null>(null);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [turnstileError, setTurnstileError] = useState("");
@@ -804,12 +839,33 @@ export default function QuoteTool() {
     [isTextZipValid, textZipCode],
   );
   const reviewGroups = useMemo(
-    () => (quote ? quote.groups.map(buildDisplayGroup) : []),
+    () =>
+      quote
+        ? quote.groups
+            .map(buildDisplayGroup)
+            .filter((group) => group.items.length > 0 && group.items.some((item) => item.lineTotal !== 0 || item.name.trim().length > 0))
+        : [],
     [quote],
   );
   const reviewFlags = useMemo(
-    () => (quote ? buildDisplayFlags(quote.flags) : []),
-    [quote],
+    () => {
+      if (!quote) {
+        return [];
+      }
+
+      const flags = buildDisplayFlags(quote.flags);
+
+      if (quoteNeedsOutletDistanceFollowUp(quote, quoteSourceMode, cleanedTextInput)) {
+        if (describeOutletAnswer === "no") {
+          flags.push("Because the nearest outlet is farther than 1–2 feet from the TV location, additional concealment work may be needed. We’ll confirm that before the install.");
+        } else if (describeOutletAnswer === "not_sure") {
+          flags.push("Outlet distance is still unconfirmed for the standard wire concealment part of this quote. We may ask for a quick photo before finalizing pricing.");
+        }
+      }
+
+      return Array.from(new Set(flags));
+    },
+    [cleanedTextInput, describeOutletAnswer, quote, quoteSourceMode],
   );
   const reviewDiscountLabel = useMemo(() => {
     if (!quote || quote.discount <= 0) {
@@ -817,8 +873,21 @@ export default function QuoteTool() {
     }
 
     const tvGroupCount = quote.groups.filter((group) => group.title.startsWith("TV ")).length;
-    return tvGroupCount > 1 ? `Bundle Discount (${tvGroupCount} TVs)` : "Additional TV Discount";
+    return tvGroupCount > 1 ? `Bundle Discount (${tvGroupCount} TVs)` : "Bundle Discount";
   }, [quote]);
+  const describeOutletFollowUpNeeded = useMemo(
+    () => (quote ? quoteNeedsOutletDistanceFollowUp(quote, quoteSourceMode, cleanedTextInput) : false),
+    [cleanedTextInput, quote, quoteSourceMode],
+  );
+  const reviewNeedsPhotoHelper = useMemo(() => {
+    if (!quote) {
+      return false;
+    }
+
+    const hasTrickyFlag = reviewFlags.some((flag) => /\b(fireplace|brick|masonry|photo|concealment)\b/i.test(flag));
+    const hasTrickyGroup = reviewGroups.some((group) => /\b(fireplace|brick|stone|masonry)\b/i.test(groupContextText(group)));
+    return hasTrickyFlag || hasTrickyGroup || describeOutletAnswer === "not_sure";
+  }, [describeOutletAnswer, quote, reviewFlags, reviewGroups]);
 
   useEffect(() => {
     if (!formState.tvs.some((tv) => tv.id === activeTvId) && formState.tvs[0]) {
@@ -831,6 +900,14 @@ export default function QuoteTool() {
       recognitionRef.current?.abort();
     };
   }, []);
+
+  useEffect(() => {
+    if (mode !== "voice") {
+      return;
+    }
+
+    void refreshMicrophonePermission();
+  }, [mode]);
 
   useEffect(() => {
     apiRequest("GET", "/api/ai-quote/config")
@@ -969,6 +1046,8 @@ export default function QuoteTool() {
           summary: buildLocalQuoteSummary(liveQuote, formState, standaloneServices),
         }),
       );
+      setQuoteSourceMode("form");
+      setDescribeOutletAnswer(null);
       setPromoCodeInput(seasonalTheme.promoCode ?? "");
       setStep("review");
     } catch (submitError) {
@@ -992,6 +1071,8 @@ export default function QuoteTool() {
     try {
       const raw = await requestProtectedAiQuote({ mode: "voice", message: prompt });
       setQuote(normalizeQuoteForDisplayTotals(normalizeAiQuote(extractJson<FullAiQuoteResponse>(raw))));
+      setQuoteSourceMode("voice");
+      setDescribeOutletAnswer(null);
       setPromoCodeInput(seasonalTheme.promoCode ?? "");
       setStep("review");
     } catch (submitError) {
@@ -1048,6 +1129,8 @@ export default function QuoteTool() {
           travelContext: nextTravelContext,
         }),
       );
+      setQuoteSourceMode("text");
+      setDescribeOutletAnswer(null);
       setPromoCodeInput(seasonalTheme.promoCode ?? "");
       setStep("review");
     } catch (submitError) {
@@ -1099,6 +1182,12 @@ export default function QuoteTool() {
   }
 
   function handleReviewApproval() {
+    if (describeOutletFollowUpNeeded && !describeOutletAnswer) {
+      setError("Please answer the quick wire-concealment question so we can finalize the review clearly.");
+      return;
+    }
+
+    setError("");
     setQuoteRequestError("");
     setStep("contact");
   }
@@ -1107,6 +1196,7 @@ export default function QuoteTool() {
     setQuoteRequestError("");
     setQuoteRequestStatus("idle");
     setNextStepIntent(null);
+    setError("");
     setStep("build");
   }
 
@@ -1182,6 +1272,7 @@ export default function QuoteTool() {
     setTextZipTouched(false);
     setVoiceTranscript("");
     setVoiceError("");
+    setMicrophonePermission("unknown");
     setZipError("");
     setStandaloneServices(createDefaultStandaloneServices());
     setQuoteRequest({ name: "", phone: "", email: "" });
@@ -1189,6 +1280,8 @@ export default function QuoteTool() {
     setQuoteRequestStatus("idle");
     setNextStepIntent(null);
     setCopyStatus("idle");
+    setQuoteSourceMode(null);
+    setDescribeOutletAnswer(null);
     const nextState = createDefaultQuoteFormState();
     setFormState(nextState);
     setActiveTvId(nextState.tvs[0]?.id ?? "");
@@ -1198,7 +1291,47 @@ export default function QuoteTool() {
     setStep("build");
   }
 
-  function toggleRecording() {
+  async function refreshMicrophonePermission(): Promise<MicrophonePermissionState> {
+    if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
+      setMicrophonePermission("unsupported");
+      return "unsupported";
+    }
+
+    if (!navigator.permissions?.query) {
+      setMicrophonePermission("unknown");
+      return "unknown";
+    }
+
+    try {
+      const permissionStatus = await navigator.permissions.query({ name: "microphone" as PermissionName });
+      const nextState = permissionStatus.state as MicrophonePermissionState;
+      setMicrophonePermission(nextState);
+      return nextState;
+    } catch {
+      setMicrophonePermission("unknown");
+      return "unknown";
+    }
+  }
+
+  async function requestMicrophoneAccess(): Promise<boolean> {
+    if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
+      setMicrophonePermission("unsupported");
+      return false;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach((track) => track.stop());
+      setMicrophonePermission("granted");
+      return true;
+    } catch (requestError) {
+      const errorName = requestError instanceof DOMException ? requestError.name : "";
+      setMicrophonePermission(errorName === "NotAllowedError" || errorName === "PermissionDeniedError" ? "denied" : "unknown");
+      return false;
+    }
+  }
+
+  async function toggleRecording() {
     if (!browserSupportsSpeechRecognition) {
       setVoiceError("Voice quotes are not supported in this browser. Please use the builder or type your request instead.");
       return;
@@ -1215,6 +1348,29 @@ export default function QuoteTool() {
       return;
     }
 
+    let permissionState = microphonePermission;
+    if (permissionState === "unknown") {
+      permissionState = await refreshMicrophonePermission();
+    }
+
+    if (permissionState === "denied") {
+      setVoiceError("Microphone access is blocked right now. Allow microphone access in your browser settings, then refresh or try again. If you want to keep moving, use Describe It instead.");
+      return;
+    }
+
+    if (permissionState === "unsupported") {
+      setVoiceError("This browser doesn't expose microphone access the way voice quotes need. Please use Describe It instead.");
+      return;
+    }
+
+    if (permissionState === "prompt" || permissionState === "unknown") {
+      const granted = await requestMicrophoneAccess();
+      if (!granted) {
+        setVoiceError("We need microphone access to capture your voice note. Please allow access in your browser prompt, or use Describe It instead.");
+        return;
+      }
+    }
+
     const recognition = new Recognition();
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -1223,13 +1379,17 @@ export default function QuoteTool() {
       const transcript = Array.from(event.results).map((result) => result[0]?.transcript ?? "").join(" ").trim();
       setVoiceTranscript(transcript);
       setVoiceError("");
+      setMicrophonePermission("granted");
     };
     recognition.onerror = (event) => {
       setVoiceError(
         event.error === "not-allowed"
-          ? "Microphone access was blocked. Please allow microphone permissions or use the text mode instead."
+          ? "Microphone access was blocked. Please allow it in your browser settings, then refresh or try again. You can also use Describe It instead."
           : "We couldn't capture your voice note. Please try again or use the text mode instead.",
       );
+      if (event.error === "not-allowed") {
+        setMicrophonePermission("denied");
+      }
       setIsRecording(false);
     };
     recognition.onend = () => setIsRecording(false);
@@ -1297,7 +1457,7 @@ export default function QuoteTool() {
               className="space-y-6 p-6 md:p-8"
             >
               <Tabs value={mode} onValueChange={(value) => setMode(value as QuoteMode)} className="w-full">
-                <TabsList className="grid h-auto w-full grid-cols-3 gap-2 rounded-3xl bg-slate-100 p-2">
+                <TabsList data-quote-tabs="true" className="grid h-auto w-full grid-cols-3 gap-2 rounded-3xl bg-slate-100 p-2">
                   <TabsTrigger value="form" className="rounded-2xl px-4 py-3 text-sm font-semibold data-[state=active]:bg-blue-600 data-[state=active]:text-white">
                     Build It
                   </TabsTrigger>
@@ -1308,6 +1468,11 @@ export default function QuoteTool() {
                     Voice Note
                   </TabsTrigger>
                 </TabsList>
+                <div className="mt-3 grid gap-2 text-xs text-slate-500 md:grid-cols-3">
+                  <p><span className="font-semibold text-slate-700">Build It</span> — best if you know exactly what you need</p>
+                  <p><span className="font-semibold text-slate-700">Describe It</span> — best if you want us to figure it out</p>
+                  <p><span className="font-semibold text-slate-700">Voice Note</span> — best if it&apos;s easier to explain it out loud</p>
+                </div>
 
                 <TabsContent value="form" className="mt-6 space-y-8">
                   <section className="space-y-4">
@@ -1421,7 +1586,7 @@ export default function QuoteTool() {
                                     onClick={() =>
                                       setFormState((current) => ({
                                         ...current,
-                                        tvs: current.tvs.map((item) => (item.id === tv.id ? { ...item, location: "fireplace" } : item)),
+                                        tvs: current.tvs.map((item) => (item.id === tv.id ? { ...item, location: "fireplace", outletDistance: null } : item)),
                                       }))
                                     }
                                   >
@@ -1529,7 +1694,7 @@ export default function QuoteTool() {
                                     onClick={() =>
                                       setFormState((current) => ({
                                         ...current,
-                                        tvs: current.tvs.map((item) => (item.id === tv.id ? { ...item, wireConcealment: false } : item)),
+                                        tvs: current.tvs.map((item) => (item.id === tv.id ? { ...item, wireConcealment: false, outletDistance: null } : item)),
                                       }))
                                     }
                                   >
@@ -1547,6 +1712,51 @@ export default function QuoteTool() {
                                     Yes - hide my wires (+{formatPrice(pricingData.wireConcealment.standard.price)})
                                   </SelectorButton>
                                 </div>
+                                {tv.wireConcealment && tv.location !== "fireplace" ? (
+                                  <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-4">
+                                    <div>
+                                      <p className="text-sm font-semibold text-slate-900">Is the existing outlet within 1-2 feet of where you want the TV mounted?</p>
+                                      <p className="mt-1 text-sm text-slate-500">This helps us confirm whether the standard concealment price is the right fit.</p>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                      <SelectorButton
+                                        selected={tv.outletDistance === "near"}
+                                        onClick={() =>
+                                          setFormState((current) => ({
+                                            ...current,
+                                            tvs: current.tvs.map((item) => (item.id === tv.id ? { ...item, outletDistance: "near" } : item)),
+                                          }))
+                                        }
+                                      >
+                                        Yes, it&apos;s close
+                                      </SelectorButton>
+                                      <SelectorButton
+                                        selected={tv.outletDistance === "far"}
+                                        onClick={() =>
+                                          setFormState((current) => ({
+                                            ...current,
+                                            tvs: current.tvs.map((item) => (item.id === tv.id ? { ...item, outletDistance: "far" } : item)),
+                                          }))
+                                        }
+                                      >
+                                        No, it&apos;s farther away
+                                      </SelectorButton>
+                                    </div>
+                                    {tv.outletDistance === "near" ? (
+                                      <p className="text-sm text-green-700">Perfect. We&apos;ll treat this as a standard concealment setup for the estimate.</p>
+                                    ) : tv.outletDistance === "far" ? (
+                                      <Alert className="border-amber-200 bg-amber-50 text-amber-900">
+                                        <AlertCircle className="h-4 w-4" />
+                                        <AlertTitle>Extra outlet work may be needed</AlertTitle>
+                                        <AlertDescription>
+                                          If the outlet is farther than 1-2 feet from the TV location, we may need to confirm extra work before final pricing.
+                                        </AlertDescription>
+                                      </Alert>
+                                    ) : (
+                                      <p className="text-sm text-slate-500">If you&apos;re not sure yet, we&apos;ll assume a nearby outlet for this estimate and confirm anything unusual before booking.</p>
+                                    )}
+                                  </div>
+                                ) : null}
                               </section>
 
                               <section className="space-y-3">
@@ -1956,7 +2166,7 @@ export default function QuoteTool() {
                   <div className="space-y-2">
                     <p className="text-sm text-slate-500">Keep it short and simple — just describe the job.</p>
                     <p className="text-sm text-slate-500">Example: 2 TVs, one over fireplace, hide wires in bedroom, I already have mounts</p>
-                    <p className="text-sm text-slate-500">Example: Mount 1 TV on drywall and set up a soundbar</p>
+                    <p className="text-sm text-slate-500">Example: Mount 1 TV on drywall, set up a soundbar, and the outlet is already close to the TV spot</p>
                   </div>
                   <div className="flex items-center justify-between gap-3 text-sm">
                     <label className="text-sm font-semibold text-slate-900">ZIP Code (for travel pricing)</label>
@@ -2078,11 +2288,36 @@ export default function QuoteTool() {
                     </p>
                   </div>
 
+                  {browserSupportsSpeechRecognition && (microphonePermission === "prompt" || microphonePermission === "unknown") ? (
+                    <Alert className="border-blue-200 bg-blue-50 text-blue-900">
+                      <Mic className="h-4 w-4" />
+                      <AlertTitle>Microphone access helps us capture your voice note</AlertTitle>
+                      <AlertDescription>
+                        Tap the mic and your browser should ask for permission. We only use it to turn your spoken request into a quote.
+                      </AlertDescription>
+                    </Alert>
+                  ) : null}
+
+                  {microphonePermission === "denied" ? (
+                    <Alert className="border-amber-200 bg-amber-50 text-amber-900">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertTitle>Microphone access is blocked</AlertTitle>
+                      <AlertDescription>
+                        Allow microphone access in your browser settings, then refresh or try again. If you&apos;d rather keep moving, Describe It works great too.
+                      </AlertDescription>
+                    </Alert>
+                  ) : null}
+
                   {voiceError ? (
                     <Alert className="border-amber-200 bg-amber-50 text-amber-900">
                       <AlertCircle className="h-4 w-4" />
                       <AlertTitle>Voice note unavailable</AlertTitle>
-                      <AlertDescription>{voiceError}</AlertDescription>
+                      <AlertDescription className="space-y-3">
+                        <p>{voiceError}</p>
+                        <Button type="button" variant="outline" className="h-10 rounded-xl border-amber-300 bg-white text-amber-900 hover:bg-amber-100" onClick={() => setMode("text")}>
+                          Use Describe It instead
+                        </Button>
+                      </AlertDescription>
                     </Alert>
                   ) : null}
 
@@ -2148,6 +2383,43 @@ export default function QuoteTool() {
                 <p className="text-base leading-7 text-slate-700">{quote.summary}</p>
               </div>
 
+              {describeOutletFollowUpNeeded ? (
+                <div className="rounded-[28px] border border-blue-200 bg-blue-50 p-5 shadow-sm">
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">Quick Clarification</p>
+                    <h5 className="text-lg font-bold text-slate-900">{OUTLET_DISTANCE_QUESTION}</h5>
+                    <p className="text-sm text-slate-600">This only applies to the standard wire-concealment part of your quote, not the fireplace portion.</p>
+                  </div>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    {[
+                      { value: "yes", label: "Yes" },
+                      { value: "no", label: "No" },
+                      { value: "not_sure", label: "Not sure" },
+                    ].map((option) => (
+                      <SelectorButton
+                        key={option.value}
+                        selected={describeOutletAnswer === option.value}
+                        onClick={() => {
+                          setDescribeOutletAnswer(option.value as OutletDistanceAnswer);
+                          setError("");
+                        }}
+                      >
+                        {option.label}
+                      </SelectorButton>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-xs text-slate-500">
+                    {describeOutletAnswer === "yes"
+                      ? "Great — we’ll keep the standard concealment path."
+                      : describeOutletAnswer === "no"
+                        ? "Thanks — we’ll keep the current estimate and clearly note that extra work may be needed."
+                        : describeOutletAnswer === "not_sure"
+                          ? "No problem — we’ll keep the estimate and note that a quick confirmation may be needed."
+                          : "A quick answer helps us present the cleanest review and set expectations clearly."}
+                  </p>
+                </div>
+              ) : null}
+
               <div className="grid gap-4 md:grid-cols-3">
                 <div className="rounded-[28px] bg-slate-900 p-5 text-white shadow-sm">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Final Price</p>
@@ -2170,13 +2442,19 @@ export default function QuoteTool() {
                 </div>
               </div>
 
-              {reviewFlags.map((flag) => (
+              {reviewFlags.length > 0 ? reviewFlags.map((flag) => (
                 <Alert key={flag} className="border-amber-200 bg-amber-50 text-amber-900">
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Heads up</AlertTitle>
                   <AlertDescription>{flag}</AlertDescription>
                 </Alert>
-              ))}
+              )) : null}
+
+              {reviewNeedsPhotoHelper ? (
+                <p className="text-sm text-slate-500">
+                  Photos help us confirm pricing faster for fireplace, brick, or custom concealment jobs.
+                </p>
+              ) : null}
 
               {formState.notes.trim() ? (
                 <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
@@ -2234,7 +2512,7 @@ export default function QuoteTool() {
                 </div>
               </div>
 
-              {quote.followUp ? (
+              {quote.followUp && quote.followUp !== OUTLET_DISTANCE_QUESTION ? (
                 <Alert className="border-amber-200 bg-amber-50 text-amber-900">
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>One thing to confirm</AlertTitle>
@@ -2253,7 +2531,7 @@ export default function QuoteTool() {
               </p>
 
               <div className="grid gap-3 md:grid-cols-2">
-                <Button className="h-14 rounded-2xl bg-blue-600 text-base font-bold text-white hover:bg-blue-500" onClick={handleReviewApproval}>
+                <Button className="h-14 rounded-2xl bg-blue-600 text-base font-bold text-white hover:bg-blue-500 disabled:opacity-60" disabled={describeOutletFollowUpNeeded && !describeOutletAnswer} onClick={handleReviewApproval}>
                   Looks Good <ArrowRight className="h-4 w-4" />
                 </Button>
                 <Button type="button" variant="outline" className="h-14 rounded-2xl" onClick={handleEditQuote}>

@@ -13,6 +13,7 @@ export type TVConfig = {
   hasMount: boolean;
   mountType: MountType | null;
   wireConcealment: boolean;
+  outletDistance: "near" | "far" | null;
   unmounting: boolean;
 };
 
@@ -128,6 +129,7 @@ export function createDefaultTVConfig(): TVConfig {
     hasMount: true,
     mountType: null,
     wireConcealment: false,
+    outletDistance: null,
     unmounting: false,
   };
 }
@@ -272,7 +274,11 @@ export function calculateQuote(state: QuoteFormState): QuoteResult {
           lineTotal: pricingData.wireConcealment.standard.price,
         });
         positiveSubtotal += pricingData.wireConcealment.standard.price;
-
+        if (tv.outletDistance === "far") {
+          flags.add(`TV ${index + 1} wire concealment may need extra outlet work because the nearest outlet is more than 1–2 feet from the TV location. We'll confirm final pricing before work begins.`);
+        } else if (tv.outletDistance === null) {
+          flags.add(`TV ${index + 1} wire concealment pricing assumes the nearest outlet is within 1–2 feet of the TV location. If not, we may need to confirm extra work.`);
+        }
       }
     }
 
