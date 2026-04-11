@@ -1,97 +1,89 @@
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, Phone, X } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+
+const navLinks = [
+  { label: "Services", href: "/services" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Contact", href: "/contact" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Get a Quote", href: "/quote" },
+];
 
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [location] = useLocation();
 
-  // Solid white background for best visibility
-  const navClasses = "bg-white border-b border-slate-100 shadow-sm py-2";
-  const linkClass = "text-slate-900 hover:text-blue-600 transition-colors cursor-pointer font-bold tracking-wide";
-
-  // --- ENSURE GALLERY IS IN THIS LIST ---
-  const navLinks = [
-    { label: "Services", href: "/services" },
-    { label: "Gallery", href: "/gallery" }, 
-    { label: "Contact", href: "/contact" },
-    { label: "FAQ", href: "/faq" },
-  ];
+  const closeMenu = () => setMobileMenuOpen(false);
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navClasses}`}>
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          
+      <nav className="fixed left-0 right-0 top-0 z-50 border-b border-slate-200 bg-white/95 py-3 shadow-sm backdrop-blur">
+        <div className="container mx-auto flex items-center justify-between px-4">
           <Logo variant="dark" />
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <span className={linkClass}>
+                <span className="cursor-pointer text-sm font-bold text-slate-900 transition-colors hover:text-blue-600">
                   {link.label}
                 </span>
               </Link>
             ))}
-          </div>
-
-          <div className="hidden md:flex items-center gap-4">
-            <Link href="/booking">
-              <Button 
-                size="sm" 
-                className="font-bold rounded-full px-8 transition-all shadow-md bg-blue-600 text-white hover:bg-blue-700 h-10 text-base"
-              >
-                Book Now
+            <a href="tel:4047024748" className="inline-flex items-center">
+              <Button variant="outline" className="rounded-2xl border-slate-300 px-5 text-sm font-bold text-slate-900 hover:bg-slate-50">
+                <Phone className="h-4 w-4" />
+                Call
               </Button>
-            </Link>
+            </a>
           </div>
 
-          {/* Mobile Toggle */}
-          <div className="md:hidden">
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-slate-900 p-2"
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6"/> : <Menu className="h-6 w-6"/>}
+          <div className="flex items-center gap-2 md:hidden">
+            <a href="tel:4047024748" className="inline-flex items-center">
+              <Button variant="outline" size="icon" className="rounded-2xl border-slate-300">
+                <Phone className="h-5 w-5" />
+              </Button>
+            </a>
+            <button type="button" onClick={() => setMobileMenuOpen((current) => !current)} className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-900">
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Menu Drawer */}
       <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden flex flex-col h-screen"
-          >
-            <div className="flex flex-col gap-6 text-center">
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href}>
-                  <span 
-                    className="text-2xl font-bold text-slate-800 py-2 block" 
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </span>
+        {mobileMenuOpen ? (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-40 bg-slate-950/40 backdrop-blur md:hidden">
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 260, damping: 28 }}
+              className="ml-auto flex h-full w-full max-w-sm flex-col bg-white pt-24 shadow-2xl"
+            >
+              <div className="flex-1 overflow-y-auto px-4 pb-6">
+                {navLinks.map((link) => (
+                  <Link key={link.href} href={link.href}>
+                    <button type="button" onClick={closeMenu} className="flex min-h-[56px] w-full items-center border-b border-slate-100 text-left text-lg font-bold text-slate-900">
+                      {link.label}
+                    </button>
+                  </Link>
+                ))}
+                <Link href="/quote">
+                  <button type="button" onClick={closeMenu} className="flex min-h-[56px] w-full items-center border-b border-slate-100 text-left text-lg font-bold text-blue-600">
+                    Get Quote
+                  </button>
                 </Link>
-              ))}
-              <div className="h-px bg-slate-100 w-full my-4" />
-              
-              <Link href="/booking">
-                <Button className="w-full bg-blue-600 text-lg py-6 shadow-lg" onClick={() => setMobileMenuOpen(false)}>
-                  Book Now
-                </Button>
-              </Link>
-            </div>
+                <a href="tel:4047024748" onClick={closeMenu} className="flex min-h-[56px] w-full items-center border-b border-slate-100 text-left text-lg font-bold text-slate-900">
+                  Call Us
+                </a>
+              </div>
+            </motion.div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </>
   );

@@ -13,6 +13,18 @@ if (!accountSid || !authToken || !fromNumber) {
   twilioClient = twilio(accountSid, authToken);
 }
 
+export async function sendSMS(to: string, body: string) {
+  if (!twilioClient || !fromNumber) {
+    throw new Error("Twilio not configured");
+  }
+
+  return twilioClient.messages.create({
+    body,
+    to,
+    from: fromNumber,
+  });
+}
+
 /**
  * Send a booking confirmation SMS
  */
@@ -40,11 +52,7 @@ Est. Price: ${booking.pricingTotal || 'TBD'}
 Questions? Call (678) 263-2859
 `.trim();
 
-    await twilioClient.messages.create({
-      body: message,
-      to: booking.phone,
-      from: fromNumber
-    });
+    await sendSMS(booking.phone, message);
 
     console.log(`Booking confirmation SMS sent to ${booking.phone}`);
     return true;
@@ -81,11 +89,7 @@ Please ensure the installation area is accessible.
 Questions? Call (678) 263-2859
 `.trim();
 
-    await twilioClient.messages.create({
-      body: message,
-      to: booking.phone,
-      from: fromNumber
-    });
+    await sendSMS(booking.phone, message);
 
     console.log(`Appointment reminder SMS sent to ${booking.phone}`);
     return true;

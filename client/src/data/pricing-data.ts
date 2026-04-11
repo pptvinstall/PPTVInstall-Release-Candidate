@@ -78,7 +78,7 @@ export const pricingData = {
     },
     additional: {
       name: "Additional Outlet Installation (Same Visit)",
-      price: 90,
+      price: 85,
       description: "Each additional outlet installation at the same location."
     },
     fireplaceWarning: {
@@ -136,12 +136,12 @@ export const pricingData = {
   // Custom Services (Hourly Rate)
   customServices: {
     handyman: {
-      name: "General Handyman Work",
+      name: "Handyman / General Work",
       price: 100,
       hourly: true,
       minimum: 100,
       halfHourRate: 50,
-      description: "Shelves, Mirrors, Furniture Assembly. $50 for every additional 30 minutes."
+      description: "Shelves, mirrors, furniture assembly, and general home tasks. $100 for the first hour, $50 for each additional 30 minutes."
     }
   },
 
@@ -159,6 +159,34 @@ export const pricingData = {
       name: "$5 Off Per Additional Mount Purchased",
       amount: 5
     }
+  },
+
+  // Zero-TV standalone services
+  otherServices: {
+    tvUnmounting: {
+      name: "TV Unmounting / Removal",
+      price: 50,
+      description: "Safe removal of an existing wall-mounted TV. Per TV.",
+    },
+    avTroubleshooting: {
+      name: "AV Troubleshooting",
+      price: 100,
+      hourly: true,
+      halfHourRate: 50,
+      minimum: 100,
+      description: "Remote issues, HDMI problems, sound not working, streaming setup. $100 first hour, $50 per additional 30 min.",
+    },
+    wireManagementOnly: {
+      name: "Wire Management / Cable Tidy",
+      price: 75,
+      additionalLocationPrice: 50,
+      description: "Already mounted but wires are a mess? $75 for one TV location, +$50 per additional location.",
+    },
+    deviceSetup: {
+      name: "Device Setup & Configuration",
+      price: 75,
+      description: "Smart TV setup, streaming apps, Alexa/Google Home, WiFi config. $75 flat.",
+    },
   },
 
   // Travel fee

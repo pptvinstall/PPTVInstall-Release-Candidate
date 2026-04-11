@@ -1,0 +1,184 @@
+import "../env";
+import { pricingData } from "../../client/src/data/pricing-data";
+import { TRAVEL_FEE } from "../../client/src/lib/travel-pricing";
+
+type RateLimitEntry = {
+  count: number;
+  windowStartedAt: number;
+  lastRequestAt: number;
+};
+
+type RateLimitSettings = {
+  maxRequestsPerHour: number;
+  windowMs: number;
+  minimumCooldownMs: number;
+};
+
+const rateLimitStore = new Map<string, RateLimitEntry>();
+
+function getAiQuoteRateLimitSettings(): RateLimitSettings {
+  const isProduction = process.env.NODE_ENV === "production";
+
+  return isProduction
+    ? {
+        maxRequestsPerHour: 3,
+        windowMs: 60 * 60 * 1000,
+        minimumCooldownMs: 30 * 1000,
+      }
+    : {
+        maxRequestsPerHour: 50,
+        windowMs: 60 * 60 * 1000,
+        minimumCooldownMs: 1500,
+      };
+}
+
+export function getAiQuoteProtectionConfig() {
+  const siteKey = process.env.VITE_TURNSTILE_SITE_KEY?.trim() || "";
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim() || "";
+  const anthropicApiKey = process.env.ANTHROPIC_API_KEY?.trim() || "";
+  const turnstileRequired = Boolean(siteKey && turnstileSecret);
+
+  return {
+    siteKey,
+    enabled: Boolean(anthropicApiKey),
+    turnstileRequired,
+    requireTurnstile: turnstileRequired,
+  };
+}
+
+export function buildAiQuotePrompt(message: string): string {
+  return [
+    "You are a pricing assistant for Picture Perfect TV Install.",
+    "Use ONLY the pricing data and ZIP travel fee data below as the source of truth.",
+    "Return ONLY valid JSON. No markdown. No preamble.",
+    "Return this exact schema:",
+    '{"groups":[{"title":"string","subtitle":"optional string","items":[{"name":"string","price":0,"qty":1,"lineTotal":0,"isDiscount":false}],"subtotal":0}],"subtotal":0,"discount":0,"total":0,"summary":"string","flags":["string"],"followUp":"optional string"}',
+    "Use TV groups plus one Shared Services group whenever appropriate.",
+    "Evaluate wall type, fireplace risk, and wire concealment per TV group, not globally across the whole job.",
+    "A fireplace TV should use one coherent fireplace pricing path per TV. Do not stack Standard TV Mounting, Over Fireplace TV Mounting, and Non-Drywall add-on together for the same fireplace TV.",
+    "For a TV over a brick fireplace with a customer-provided mount, prefer a single fireplace mounting line item such as 'Fireplace TV Mounting (Customer's Mount)' rather than overlapping complexity lines.",
+    "Treat the fireplace mounting price as the complete mounting charge for that fireplace TV. Do not add a separate non-drywall or brick/masonry surcharge to the same fireplace TV unless the customer clearly described a separate extra service.",
+    "Apply only ONE discount strategy to the whole quote. For multi-TV quotes, use a single bundle discount instead of stacking separate per-TV and per-wire discounts.",
+    "For multi-TV quotes, the bundle discount should equal $10 for each additional TV after the first, plus $10 for each additional non-fireplace wire concealment after the first, but show that as one quote-level discount rather than multiple discount lines.",
+    "If fireplace wire concealment is requested, include a $0 line item named 'Wire concealment assessment required' and add a flag about photo assessment.",
+    "If one TV is over a fireplace and another TV is a standard drywall install, only the fireplace TV should use the assessment-only concealment line. The drywall TV should still receive the normal wire concealment price when requested.",
+    "Do not let a fireplace TV or a masonry TV cause a second standard drywall TV to lose its normal wire concealment pricing.",
+    "If the ZIP code is outside the listed service area, do not add a travel fee and add a flag telling the customer to call for availability.",
+    "If a floodlight is included, add a flag about existing outdoor wiring.",
+    "If a wired DVR/NVR camera system is included, add a flag about final pricing needing review.",
+    `Additional services: TV unmounting or removal is $${pricingData.otherServices.tvUnmounting.price} per TV.`,
+    `Additional services: AV troubleshooting is $${pricingData.otherServices.avTroubleshooting.minimum ?? pricingData.otherServices.avTroubleshooting.price} for the first hour and $${pricingData.otherServices.avTroubleshooting.halfHourRate ?? 0} for each additional 30 minutes.`,
+    `Additional services: Cable or wire management only is $${pricingData.otherServices.wireManagementOnly.price} for the first location and $${pricingData.otherServices.wireManagementOnly.additionalLocationPrice} for each additional location.`,
+    `Additional services: Device setup and configuration is $${pricingData.otherServices.deviceSetup.price} flat for smart TV setup, streaming apps, Alexa or Google Home linking, and WiFi config.`,
+    "Map phrases like unmount, remove my TV, take down, troubleshoot, sound isn't working, HDMI issue, remote not working, setup my TV, and streaming not working to those services when appropriate.",
+    `Pricing data: ${JSON.stringify(pricingData)}`,
+    `Travel fees: ${JSON.stringify(TRAVEL_FEE)}`,
+    `Customer request: ${message}`,
+  ].join("\n");
+}
+
+export function checkAiQuoteRateLimit(ipAddress: string): { allowed: true } | { allowed: false; message: string; retryAfterSeconds: number; code: "AI_QUOTE_RATE_LIMITED" } {
+  const settings = getAiQuoteRateLimitSettings();
+  const now = Date.now();
+  const existing = rateLimitStore.get(ipAddress);
+
+  if (!existing || now - existing.windowStartedAt >= settings.windowMs) {
+    rateLimitStore.set(ipAddress, {
+      count: 1,
+      windowStartedAt: now,
+      lastRequestAt: now,
+    });
+    return { allowed: true };
+  }
+
+  const cooldownRemainingMs = settings.minimumCooldownMs - (now - existing.lastRequestAt);
+  if (cooldownRemainingMs > 0) {
+    return {
+      allowed: false,
+      code: "AI_QUOTE_RATE_LIMITED",
+      message: process.env.NODE_ENV === "production"
+        ? "Please wait a moment before trying another AI quote request."
+        : "Please wait a second before trying another AI quote request in local dev.",
+      retryAfterSeconds: Math.max(1, Math.ceil(cooldownRemainingMs / 1000)),
+    };
+  }
+
+  if (existing.count >= settings.maxRequestsPerHour) {
+    const windowRemainingMs = settings.windowMs - (now - existing.windowStartedAt);
+    return {
+      allowed: false,
+      code: "AI_QUOTE_RATE_LIMITED",
+      message: "You've reached the limit for AI quote requests right now. Please try again later or call us directly.",
+      retryAfterSeconds: Math.max(1, Math.ceil(windowRemainingMs / 1000)),
+    };
+  }
+
+  existing.count += 1;
+  existing.lastRequestAt = now;
+  rateLimitStore.set(ipAddress, existing);
+  return { allowed: true };
+}
+
+export async function verifyTurnstileToken(token: string, ipAddress: string) {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    throw new Error("TURNSTILE_SECRET_KEY is not configured.");
+  }
+
+  if (!token) {
+    return false;
+  }
+
+  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      secret,
+      response: token,
+      remoteip: ipAddress,
+    }),
+  });
+
+  if (!response.ok) {
+    return false;
+  }
+
+  const data = (await response.json()) as { success?: boolean };
+  return data.success === true;
+}
+
+export async function requestAnthropicQuote(message: string) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    throw new Error("ANTHROPIC_API_KEY is not configured.");
+  }
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "anthropic-version": "2023-06-01",
+      "x-api-key": apiKey,
+    },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1400,
+      system: "Return only valid JSON for a full structured quote.",
+      messages: [{ role: "user", content: buildAiQuotePrompt(message) }],
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Anthropic request failed with status ${response.status}.`);
+  }
+
+  const data = (await response.json()) as { content?: Array<{ type?: string; text?: string }> };
+  const content = data.content?.find((block) => block.type === "text")?.text;
+  if (!content) {
+    throw new Error("The AI quote service returned an empty response.");
+  }
+
+  return content;
+}

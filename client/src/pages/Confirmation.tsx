@@ -2,10 +2,11 @@ import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Calendar, Mail } from "lucide-react";
+import { ReviewCTA } from "@/components/ui/ReviewCTA";
 
 export default function Confirmation() {
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center gap-8 p-4">
       <Card className="max-w-md w-full shadow-xl border-green-100">
         <div className="bg-green-50 p-6 flex justify-center rounded-t-lg border-b border-green-100">
           <div className="h-20 w-20 bg-green-100 rounded-full flex items-center justify-center animate-in zoom-in duration-300">
@@ -47,6 +48,11 @@ export default function Confirmation() {
           </Link>
         </CardContent>
       </Card>
+
+      {/* Review request — shown after booking is confirmed */}
+      <div className="max-w-md w-full">
+        <ReviewCTA />
+      </div>
     </div>
   );
 }
