@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Check, Flame, Settings, Shield, Tv, Video, Wrench, XCircle, Zap } from "lucide-react";
@@ -87,6 +88,10 @@ const troubleshootingServices = [
 ];
 
 export default function Services() {
+  useEffect(() => {
+    document.title = "TV Mounting Services in Atlanta | Picture Perfect TV Install";
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
       <section className="relative overflow-hidden bg-slate-900 pb-24 pt-32 text-white">
@@ -101,7 +106,10 @@ export default function Services() {
               Expert <span className="text-blue-500">Solutions</span> for Every Screen
             </h1>
             <p className="text-lg text-slate-300">
-              From clean TV mounting to smart home installs, we bring the tools, hardware, and experience.
+              TV mounting services in Atlanta, wire concealment, fireplace installs, smart home setup, and troubleshooting across Midtown, Buckhead, Decatur, Marietta, Alpharetta, Roswell, Lawrenceville, and more.
+            </p>
+            <p className="text-sm text-slate-400">
+              Need help fast? <a href="tel:14047024748" className="font-semibold text-white hover:underline">Call 404-702-4748</a> for Metro Atlanta TV installation support.
             </p>
           </motion.div>
         </div>

@@ -30,7 +30,10 @@ export default function QuotePage() {
           Get an instant quote
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-          Build each TV your way, add shared services, or just describe the whole job.
+          Get an instant quote for TV mounting in Atlanta and across Metro Atlanta. Build each TV your way, add shared services, or just describe the whole job.
+        </p>
+        <p className="mx-auto mt-3 max-w-3xl text-sm text-slate-500">
+          Serving Midtown, Buckhead, Decatur, Marietta, Alpharetta, Roswell, Lawrenceville, and nearby Atlanta-area neighborhoods. Need a faster answer? <a href="tel:14047024748" className="font-semibold text-blue-600 hover:underline">Call 404-702-4748</a> or <a href="sms:4047024748?body=Hi! I need a TV mounting quote in Atlanta." className="font-semibold text-blue-600 hover:underline">text us</a>.
         </p>
       </div>
 

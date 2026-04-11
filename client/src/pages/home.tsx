@@ -130,8 +130,7 @@ export default function Home() {
             </h1>
 
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-300 md:text-xl">
-              Transform your living space with expert TV mounting and smart home setup.
-              Clean, wire-free, and professionally secured.
+              TV mounting in Atlanta with clean installs, wire concealment, fireplace mounting, and smart home setup across Midtown, Buckhead, Decatur, Marietta, Alpharetta, and more.
             </p>
 
             <div className="pt-8">
@@ -223,6 +222,21 @@ export default function Home() {
       <section className="bg-white py-20">
         <div className="container mx-auto px-4">
           <QuoteEducation />
+        </div>
+      </section>
+
+      <section className="bg-slate-50 py-16">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-4xl rounded-[32px] border border-slate-200 bg-white p-8 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">Atlanta TV Mounting</p>
+            <h2 className="mt-3 text-3xl font-extrabold text-slate-900 md:text-4xl">Looking for TV mounting in Atlanta?</h2>
+            <p className="mt-4 text-base leading-7 text-slate-600">
+              If you&apos;re looking for TV mounting in Atlanta, Picture Perfect TV Install provides fast, professional installations with clear upfront pricing. We handle drywall, brick, and fireplace mounts, can hide wires for a cleaner look, and regularly serve Metro Atlanta neighborhoods like Midtown, Buckhead, Decatur, Marietta, Alpharetta, Roswell, and Lawrenceville.
+            </p>
+            <p className="mt-4 text-sm text-slate-500">
+              Need a faster answer? <a href="tel:14047024748" className="font-semibold text-blue-600 hover:underline">Call 404-702-4748</a> or <a href="sms:4047024748?body=Hi! I'm interested in TV mounting services." className="font-semibold text-blue-600 hover:underline">text us now</a>.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -375,10 +389,13 @@ export default function Home() {
           <div id="instant-quote-start" className="scroll-mt-28">
             <h2 className="mb-4 text-3xl font-extrabold md:text-4xl">Know your price before you book</h2>
             <p className="mx-auto mb-3 max-w-xl text-lg text-slate-400">
-              Type it, fill it out, or just say it. Our AI quote tool gives you an itemized price in seconds.
+              Type it, fill it out, or just say it. Our AI quote tool gives you an itemized price in seconds for TV mounting in Atlanta and across Metro Atlanta.
             </p>
             <p className="mx-auto max-w-2xl text-sm text-slate-400">
               Start with Build It for the most exact setup, use Describe It for a quick typed request, or tap Voice Note if talking is easier.
+            </p>
+            <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-300">
+              Serving Decatur, Midtown, Buckhead, Marietta, Alpharetta, Roswell, Lawrenceville, and nearby Metro Atlanta areas. Need a faster answer? <a href="tel:14047024748" className="font-semibold text-white underline-offset-2 hover:underline">Call 404-702-4748</a>.
             </p>
           </div>
           {theme.promoDiscount ? (

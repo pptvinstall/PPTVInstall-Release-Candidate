@@ -9,6 +9,7 @@ const faqs = [
   {
     category: "Booking & Payments",
     items: [
+      { q: "How much does it cost to mount a TV in Atlanta?", a: "Standard TV mounting starts at $100 with your mount. Fireplace mounting starts at $200, and wire concealment or specialty walls can change the final estimate. Our quote tool gives the fastest exact pricing for Atlanta-area installs." },
       { q: "How far in advance do I need to book?", a: "Same-day booking is available with 2 hours notice. We recommend 1-2 days ahead for best slot selection." },
       { q: "Do I need to pay a deposit?", a: "No. There is no payment required until after the job is complete." },
       { q: "What payment methods do you accept?", a: "Cash, Zelle, Cash App, Venmo, and all major credit cards. Payment due after job is complete." },
@@ -25,7 +26,10 @@ const faqs = [
   {
     category: "Installation Details",
     items: [
+      { q: "Do I need to buy my own mount?", a: "No. You can bring your own mount or we can supply one. Fixed mounts are the most affordable, tilting mounts help with glare, and full-motion mounts are great when you need more flexibility." },
       { q: "Do you hide the wires?", a: "Yes. We offer wire concealment and can quote it instantly in our quote tool for most standard installs." },
+      { q: "Can you hide wires behind the wall?", a: "Yes, in many standard drywall installs we can conceal wires cleanly. Some setups require a nearby outlet, and fireplace or custom paths may need a quick photo review before we confirm final pricing." },
+      { q: "How long does TV mounting take?", a: "Most single TV mounts take 30-90 minutes. Fireplace installs, brick walls, multiple TVs, or wire concealment can take longer." },
       { q: "Can you mount over a fireplace?", a: "Yes. Fireplace installs are one of our specialties, including drywall, brick, and stone surfaces." },
       { q: "Do you install on brick or concrete?", a: "Yes. We mount on brick, stone, and other masonry surfaces with the right hardware and tools." },
     ],

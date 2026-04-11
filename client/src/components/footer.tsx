@@ -34,7 +34,7 @@ export default function Footer() {
           <div className="space-y-4">
             <Logo variant="light" />
             <p className="text-sm text-slate-400">
-              Metro Atlanta&apos;s premier TV mounting and smart home installation service.
+              TV mounting in Atlanta, wire concealment, fireplace installs, and smart home setup across Midtown, Buckhead, Decatur, Marietta, Alpharetta, Roswell, Lawrenceville, and nearby Metro Atlanta areas.
             </p>
           </div>
 

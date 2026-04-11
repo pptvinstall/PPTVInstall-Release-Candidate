@@ -1413,6 +1413,9 @@ export default function QuoteTool() {
             <p className="max-w-2xl text-sm text-slate-300 md:text-base">
               Configure every TV, add shared services, and watch the estimate update in real time.
             </p>
+            <p className="text-sm text-slate-300">
+              Need a faster answer? <a href={telHref} className="font-semibold text-white hover:underline">Call or text {businessPhone}</a>.
+            </p>
           </div>
         </div>
       </div>
