@@ -27,6 +27,12 @@ const Confirmation = lazy(() => import("@/pages/Confirmation"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
 
+// City SEO pages — lazy loaded, share a single CityPage component
+const CityPageComponent = lazy(() =>
+  import("@/pages/city/CityPage").then((m) => ({ default: m.default })),
+);
+import { cityPages, getCityBySlug } from "@/data/city-pages";
+
 function PageLoader() {
   return (
     <div className="flex min-h-[50vh] items-center justify-center">
@@ -53,6 +59,15 @@ function Router() {
 
         {/* Owner Dashboard */}
         <Route path="/dashboard" component={Dashboard} />
+
+        {/* City SEO landing pages */}
+        <Route path="/areas/:slug">
+          {(params) => {
+            const city = getCityBySlug(params.slug ?? "");
+            if (!city) return <NotFoundPage />;
+            return <CityPageComponent city={city} />;
+          }}
+        </Route>
 
         {/* Fallback */}
         <Route>
