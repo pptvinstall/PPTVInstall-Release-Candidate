@@ -299,7 +299,7 @@ export async function sendAppointmentReminder(booking: any): Promise<void> {
 export async function sendPostJobFollowUp(booking: any): Promise<void> {
   const [firstName] = String(booking.name || "").split(" ");
   const subject = "How did your install go? — Picture Perfect TV Install";
-  const reviewUrl = "https://g.page/r/ChIJ_your_place_id/review";
+  const reviewUrl = "https://www.google.com/maps/place/Picture+Perfect+TV+Installation/reviews?cid=10426705498086011678";
 
   const html = `
     <div style="font-family:Arial,sans-serif;background:#f8fafc;padding:24px;">
