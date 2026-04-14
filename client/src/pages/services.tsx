@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { Check, Flame, Settings, Shield, Tv, Video, Wrench, XCircle, Zap } from "lucide-react";
+import { Check, Flame, Settings, Shield, Star, Tv, Video, Wrench, XCircle, Zap } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 const tvServices = [
@@ -12,18 +13,21 @@ const tvServices = [
     price: "$100",
     description: "Customer provides the TV and mount.",
     features: ["Level installation guaranteed", "Any TV size supported", "Basic cable management"],
+    mostPopular: true,
   },
   {
     title: "Hardware Bundle",
     price: "$130+",
     description: "We provide the mount and install it.",
     features: ["Mount included", "Fixed, tilt, or full motion options", "Professional installation"],
+    mostPopular: false,
   },
   {
     title: "Fireplace Mounting",
     price: "$200+",
     description: "Specialized over-fireplace setups.",
     features: ["Drywall or masonry", "Heat-safe placement", "Wire concealment available"],
+    mostPopular: false,
   },
 ];
 
@@ -135,12 +139,24 @@ export default function Services() {
             />
           </div>
 
+          <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">
+            <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+            Available evenings &amp; weekends — same-day bookings accepted with 2 hours notice
+          </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tvServices.map((service) => (
-              <Card key={service.title} className="border-l-4 border-l-blue-500 border-slate-200 shadow-sm card-elevated flex flex-col">
+              <Card key={service.title} className={`border-l-4 border-slate-200 shadow-sm card-elevated flex flex-col ${service.mostPopular ? "border-l-blue-600 ring-2 ring-blue-100" : "border-l-blue-500"}`}>
                 <CardHeader className="pb-2">
                   <div className="flex items-start justify-between gap-4">
-                    <CardTitle className="text-xl font-bold text-slate-900">{service.title}</CardTitle>
+                    <div className="space-y-1">
+                      <CardTitle className="text-xl font-bold text-slate-900">{service.title}</CardTitle>
+                      {service.mostPopular ? (
+                        <Badge className="border-blue-200 bg-blue-50 text-blue-700">
+                          <Star className="mr-1 h-3 w-3 fill-blue-600" />
+                          Most Popular
+                        </Badge>
+                      ) : null}
+                    </div>
                     <div className="text-2xl font-black text-blue-600 whitespace-nowrap">{service.price}</div>
                   </div>
                   <CardDescription className="text-slate-500">{service.description}</CardDescription>
@@ -156,8 +172,8 @@ export default function Services() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Link href="/quote" className="w-full">
-                    <Button className="w-full rounded-2xl bg-blue-600 text-white hover:bg-blue-500">Get a Quote</Button>
+                  <Link href="/booking" className="w-full">
+                    <Button className="w-full rounded-2xl bg-blue-600 text-white hover:bg-blue-500">Book This Service</Button>
                   </Link>
                 </CardFooter>
               </Card>
@@ -196,8 +212,8 @@ export default function Services() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/quote">
-                    <Button variant="outline" className="w-full rounded-2xl border-purple-200 text-purple-700 hover:bg-purple-50">Get a Quote</Button>
+                  <Link href="/booking">
+                    <Button variant="outline" className="w-full rounded-2xl border-purple-200 text-purple-700 hover:bg-purple-50">Book This Service</Button>
                   </Link>
                 </CardContent>
               </Card>
@@ -246,8 +262,8 @@ export default function Services() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/quote">
-                    <Button variant="outline" className="w-full rounded-2xl border-amber-200 text-amber-700 hover:bg-amber-50">Get a Quote</Button>
+                  <Link href="/booking">
+                    <Button variant="outline" className="w-full rounded-2xl border-amber-200 text-amber-700 hover:bg-amber-50">Book This Service</Button>
                   </Link>
                 </CardContent>
               </Card>

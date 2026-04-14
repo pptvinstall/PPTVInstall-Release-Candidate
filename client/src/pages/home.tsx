@@ -1,11 +1,12 @@
-import { lazy, Suspense, useCallback } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ReviewCTA } from "@/components/ui/ReviewCTA";
 import { getSeasonalTheme } from "@/lib/seasonal-theme";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Star, Shield, Clock, Trophy, ChevronRight, Tv, MapPin, Flame, Plug, Camera, Bell, Speaker, Wrench, Smartphone, Trash2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { CheckCircle2, Star, Shield, Clock, Trophy, ChevronRight, Tv, MapPin, Flame, Plug, Camera, Bell, Speaker, Wrench, Smartphone, Trash2, CalendarDays, Phone } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const QuoteEducation = lazy(() => import("@/components/ui/QuoteEducation").then((module) => ({ default: module.QuoteEducation })));
 const QuoteTool = lazy(() => import("@/components/ui/QuoteTool"));
@@ -25,6 +26,16 @@ export default function Home() {
       </CardContent>
     </Card>
   );
+
+  const [showStickyBar, setShowStickyBar] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      setShowStickyBar(window.scrollY > 420);
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToQuoteTool = useCallback(() => {
     if (typeof window === "undefined" || typeof document === "undefined") {
@@ -120,6 +131,42 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      {/* Sticky Book Now bar — appears after scrolling past the hero */}
+      <AnimatePresence>
+        {showStickyBar ? (
+          <motion.div
+            initial={{ y: -64, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -64, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 26 }}
+            className="fixed left-0 right-0 top-[56px] z-40 hidden border-b border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur md:block"
+          >
+            <div className="container mx-auto flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <span className="text-sm font-semibold text-slate-700">5-star rated · 250+ customers · Metro Atlanta</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <a href="tel:4047024748" className="flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-slate-900">
+                  <Phone className="h-4 w-4" />
+                  404-702-4748
+                </a>
+                <Link href="/booking">
+                  <Button className="h-10 rounded-xl bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-500">
+                    <CalendarDays className="mr-2 h-4 w-4" />
+                    Book Now
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 pb-32 pt-24 text-white">
         <div className="absolute inset-0 opacity-5 hero-grid-pattern" />
         {theme.heroBgOverlay ? <div className={cn("absolute inset-0 z-0", theme.heroBgOverlay)} /> : null}
