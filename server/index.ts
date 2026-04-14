@@ -1,9 +1,11 @@
 import "./env";
 import express, { type Request, Response, NextFunction } from "express";
+import compression from "compression";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -56,8 +58,8 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Start Server (Port 5000)
-  const PORT = 5000;
+  // Start Server (PORT env var for Render/hosting, fallback to 5000 locally)
+  const PORT = process.env.PORT || 5000;
   server.listen(PORT, "0.0.0.0", () => {
     log(`serving on port ${PORT}`);
   });

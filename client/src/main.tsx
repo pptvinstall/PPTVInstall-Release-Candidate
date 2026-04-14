@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { Switch, Route } from "wouter";
 import "./index.css";
@@ -6,51 +6,60 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 
-// Layout & Components
+// Layout & Components (not lazy — needed on every page)
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
 import MobileFAB from "@/components/ui/MobileFAB";
-// FIX: Added curly braces { } for named imports
 import { EnvironmentIndicator } from "@/components/ui/environment-indicator";
 import { PromotionBanner } from "@/components/ui/promotion-banner";
 import SeasonalBanner from "@/components/ui/SeasonalBanner";
 import ErrorBoundary from "@/components/error-boundary";
 
-// Pages
-import Home from "@/pages/home";
-import Services from "@/pages/services";
-import Contact from "@/pages/contact";
-import FAQ from "@/pages/faq";
-import Gallery from "@/pages/gallery"; 
-import Booking from "@/pages/booking";
-import QuotePage from "@/pages/quote";
-import Confirmation from "@/pages/Confirmation";
-import Dashboard from "@/pages/dashboard";
-import NotFoundPage from "@/pages/not-found";
+// Pages — lazy loaded so each route is a separate chunk
+const Home = lazy(() => import("@/pages/home"));
+const Services = lazy(() => import("@/pages/services"));
+const Contact = lazy(() => import("@/pages/contact"));
+const FAQ = lazy(() => import("@/pages/faq"));
+const Gallery = lazy(() => import("@/pages/gallery"));
+const Booking = lazy(() => import("@/pages/booking"));
+const QuotePage = lazy(() => import("@/pages/quote"));
+const Confirmation = lazy(() => import("@/pages/Confirmation"));
+const Dashboard = lazy(() => import("@/pages/dashboard"));
+const NotFoundPage = lazy(() => import("@/pages/not-found"));
+
+function PageLoader() {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
+    </div>
+  );
+}
 
 function Router() {
   return (
-    <Switch>
-      {/* Public Pages */}
-      <Route path="/" component={Home} />
-      <Route path="/services" component={Services} />
-      <Route path="/gallery" component={Gallery} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/faq" component={FAQ} />
-      
-      {/* Booking Flow */}
-      <Route path="/booking" component={Booking} />
-      <Route path="/quote" component={QuotePage} />
-      <Route path="/confirmation" component={Confirmation} />
+    <Suspense fallback={<PageLoader />}>
+      <Switch>
+        {/* Public Pages */}
+        <Route path="/" component={Home} />
+        <Route path="/services" component={Services} />
+        <Route path="/gallery" component={Gallery} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/faq" component={FAQ} />
 
-      {/* Owner Dashboard */}
-      <Route path="/dashboard" component={Dashboard} />
+        {/* Booking Flow */}
+        <Route path="/booking" component={Booking} />
+        <Route path="/quote" component={QuotePage} />
+        <Route path="/confirmation" component={Confirmation} />
 
-      {/* Fallback */}
-      <Route>
-        {() => <NotFoundPage />} 
-      </Route>
-    </Switch>
+        {/* Owner Dashboard */}
+        <Route path="/dashboard" component={Dashboard} />
+
+        {/* Fallback */}
+        <Route>
+          {() => <NotFoundPage />}
+        </Route>
+      </Switch>
+    </Suspense>
   );
 }
 
@@ -61,7 +70,7 @@ createRoot(document.getElementById("root")!).render(
         <SeasonalBanner />
         <EnvironmentIndicator />
         <PromotionBanner />
-        
+
         <Nav />
         <main>
           <Router />

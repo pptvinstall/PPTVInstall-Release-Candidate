@@ -33,6 +33,20 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
-    chunkSizeWarningLimit: 600, // Suppress warning for chunks under 600kb
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'ui-vendor': ['framer-motion', 'lucide-react'],
+          'radix-vendor': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-select',
+            '@radix-ui/react-tabs',
+          ],
+          'data-vendor': ['@tanstack/react-query', 'drizzle-orm'],
+          'chart-vendor': ['recharts'],
+        },
+      },
+    },
   },
 });
