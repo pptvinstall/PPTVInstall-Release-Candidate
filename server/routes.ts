@@ -2,18 +2,69 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import nodemailer from "nodemailer";
 import { storage } from "./storage";
-import { sendBookingEmails, sendRescheduleEmail, sendCancellationEmail } from "./email";
-import { insertBookingSchema } from "@shared/schema";
+import { sendBookingEmails, sendCancellationEmail, sendContactMessageEmail, sendRescheduleEmail } from "./email";
+import { insertBookingSchema, insertContactMessageSchema, promotions } from "@shared/schema";
 import { addDays, format } from "date-fns";
 import { generateICS } from "./services/calendarService";
+import { monitoring } from "./monitoring";
+import { db } from "./db";
 import {
   checkAiQuoteRateLimit,
   getAiQuoteProtectionConfig,
   requestAnthropicQuote,
   verifyTurnstileToken,
 } from "./services/aiQuoteService";
+import { and, desc, eq, gte, isNull, lte, or } from "drizzle-orm";
+import { ZodError } from "zod";
 
 export function registerRoutes(app: Express): Server {
+  app.get("/api/promotions", async (_req, res) => {
+    try {
+      const today = format(new Date(), "yyyy-MM-dd");
+      const rows = await db
+        .select()
+        .from(promotions)
+        .where(
+          and(
+            eq(promotions.isActive, true),
+            or(isNull(promotions.startDate), lte(promotions.startDate, today)),
+            or(isNull(promotions.endDate), gte(promotions.endDate, today)),
+          ),
+        )
+        .orderBy(desc(promotions.priority), desc(promotions.updatedAt));
+
+      res.json({
+        promotions: rows.map((row) => ({
+          id: row.id,
+          name: row.title,
+          description: row.description ?? "",
+          linkText: row.linkText ?? undefined,
+          linkUrl: row.linkUrl ?? undefined,
+          backgroundColor: row.backgroundColor ?? undefined,
+          textColor: row.textColor ?? undefined,
+        })),
+      });
+    } catch (error) {
+      console.error("Promotions route error:", error);
+      res.json({ promotions: [] });
+    }
+  });
+
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const message = insertContactMessageSchema.parse(req.body);
+      await sendContactMessageEmail(message);
+      res.json({ success: true });
+    } catch (error) {
+      if (error instanceof ZodError) {
+        console.warn("Contact route validation failed");
+      } else {
+        console.error("Contact route error:", error);
+      }
+      res.status(400).json({ message: "We couldn't send that message right now. Please call or text us instead." });
+    }
+  });
+
   function getClientIpAddress(req: Express["request"]) {
     const forwardedFor = req.headers["x-forwarded-for"];
     if (typeof forwardedFor === "string") {
@@ -85,40 +136,32 @@ export function registerRoutes(app: Express): Server {
   // --- 1. FIND NEXT AVAILABLE SLOT (SERVER SIDE LOGIC) ---
   app.get("/api/next-slot", async (req, res) => {
     try {
-      console.log("🔍 Searching for ASAP slot...");
       const allBookings = await storage.getAllBookings();
-      
-      let checkDate = new Date(); // Start "Now"
+
+      let checkDate = new Date();
       let foundSlot = null;
       let foundDate = null;
 
       for (let i = 0; i <= 14; i++) {
-        const targetDate = addDays(checkDate, i); // Look at i days in the future
+        const targetDate = addDays(checkDate, i);
         const dateStr = format(targetDate, 'yyyy-MM-dd');
 
-        // Find taken slots for this specific date string
         const takenOnDay = allBookings
           .filter(b => b.preferredDate === dateStr && b.status !== 'cancelled')
           .map(b => b.appointmentTime);
 
-        // Debug Log (So you can see it in your terminal)
-        console.log(`Checking ${dateStr}: ${takenOnDay.length} slots taken.`);
-
-        // Find the first slot NOT in the taken list
         const firstFree = getAvailableSlots(targetDate, takenOnDay)[0];
 
         if (firstFree) {
           foundSlot = firstFree;
           foundDate = dateStr;
-          console.log(`✅ Found Slot: ${foundDate} @ ${foundSlot}`);
-          break; // Stop looking, we found one!
+          break;
         }
       }
 
       if (foundDate && foundSlot) {
         res.json({ date: foundDate, time: foundSlot });
       } else {
-        console.log("❌ No slots found in 14 days.");
         res.status(404).json({ message: "No slots found soon" });
       }
     } catch (error) {
@@ -263,7 +306,11 @@ export function registerRoutes(app: Express): Server {
       
       res.json(booking);
     } catch (error) {
-      console.error("Booking Error:", error);
+      if (error instanceof ZodError) {
+        console.warn("Booking validation failed");
+      } else {
+        console.error("Booking Error:", error);
+      }
       res.status(400).json({ message: "Invalid booking data" });
     }
   });
@@ -396,19 +443,64 @@ export function registerRoutes(app: Express): Server {
 
   app.post("/api/admin/bookings/:id/reschedule", async (req, res) => {
     const id = parseInt(req.params.id);
-    const updated = await storage.updateBooking(id, { ...req.body });
+    const updated = await storage.updateBooking(id, {
+      ...req.body,
+      preferredDate: req.body.preferredDate ?? req.body.date,
+      appointmentTime: req.body.appointmentTime ?? req.body.time,
+    });
     sendRescheduleEmail(updated).catch(e => console.error(e));
     res.json(updated);
   });
 
   app.post("/api/admin/bookings/:id/cancel", async (req, res) => {
     const id = parseInt(req.params.id);
-    const updated = await storage.updateBooking(id, { status: "cancelled" });
+    const updated = await storage.updateBooking(id, {
+      status: "cancelled",
+      cancellationReason: req.body?.reason,
+    });
     sendCancellationEmail(updated).catch(e => console.error(e));
     res.json(updated);
   });
 
-  app.get("/api/health", (req, res) => res.json({ status: "ok" }));
+  app.get("/api/health", async (_req, res) => {
+    try {
+      const health = await monitoring.getSystemHealth();
+      const statusCode = health.status === "unhealthy" ? 503 : 200;
+      res.status(statusCode).json(health);
+    } catch (error) {
+      console.error("Health route error:", error);
+      res.status(503).json({
+        status: "unhealthy",
+        timestamp: new Date().toISOString(),
+        message: "Health check failed",
+      });
+    }
+  });
+
+  app.get("/api/ready", async (_req, res) => {
+    try {
+      const health = await monitoring.getSystemHealth();
+      if (!health.database) {
+        return res.status(503).json({
+          status: "not_ready",
+          timestamp: health.timestamp,
+          database: health.database,
+        });
+      }
+
+      res.json({
+        status: "ready",
+        timestamp: health.timestamp,
+        database: health.database,
+      });
+    } catch (error) {
+      console.error("Readiness route error:", error);
+      res.status(503).json({
+        status: "not_ready",
+        timestamp: new Date().toISOString(),
+      });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;

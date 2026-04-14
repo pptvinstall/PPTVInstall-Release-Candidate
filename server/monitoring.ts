@@ -157,7 +157,7 @@ export class MonitoringService {
       system: 'Picture Perfect TV Install'
     };
 
-    logger.error(`🚨 ${level} ALERT: ${message}`, alert);
+    logger.error(`🚨 ${level} ALERT: ${message}`, new Error(JSON.stringify(alert)));
 
     // In production, this would send to external monitoring services
     // For now, we log extensively for admin visibility

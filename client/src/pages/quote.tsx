@@ -1,8 +1,10 @@
+import { lazy, Suspense } from "react";
 import { MessageSquareText, ReceiptText, CalendarDays } from "lucide-react";
 
-import { QuoteEducation } from "@/components/ui/QuoteEducation";
-import QuoteTool from "@/components/ui/QuoteTool";
 import { Card, CardContent } from "@/components/ui/card";
+
+const QuoteEducation = lazy(() => import("@/components/ui/QuoteEducation").then((module) => ({ default: module.QuoteEducation })));
+const QuoteTool = lazy(() => import("@/components/ui/QuoteTool"));
 
 const steps = [
   {
@@ -23,6 +25,20 @@ const steps = [
 ];
 
 export default function QuotePage() {
+  const loadingCard = (
+    <Card className="rounded-[28px] border-slate-200 shadow-sm">
+      <CardContent className="space-y-4 p-8">
+        <div className="h-6 w-40 animate-pulse rounded-full bg-slate-200" />
+        <div className="h-4 w-full animate-pulse rounded-full bg-slate-100" />
+        <div className="h-4 w-5/6 animate-pulse rounded-full bg-slate-100" />
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="h-12 animate-pulse rounded-2xl bg-slate-100" />
+          <div className="h-12 animate-pulse rounded-2xl bg-slate-100" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-16">
       <div className="mx-auto max-w-6xl pt-16 text-center">
@@ -57,11 +73,15 @@ export default function QuotePage() {
       </section>
 
       <section className="mx-auto mt-10 max-w-6xl">
-        <QuoteEducation />
+        <Suspense fallback={loadingCard}>
+          <QuoteEducation />
+        </Suspense>
       </section>
 
       <div className="mx-auto mt-10 max-w-6xl">
-        <QuoteTool />
+        <Suspense fallback={loadingCard}>
+          <QuoteTool />
+        </Suspense>
       </div>
     </div>
   );

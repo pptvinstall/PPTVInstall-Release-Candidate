@@ -1,16 +1,31 @@
-import { useCallback } from "react";
+import { lazy, Suspense, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteEducation } from "@/components/ui/QuoteEducation";
-import QuoteTool from "@/components/ui/QuoteTool";
 import { ReviewCTA } from "@/components/ui/ReviewCTA";
 import { getSeasonalTheme } from "@/lib/seasonal-theme";
 import { cn } from "@/lib/utils";
 import { CheckCircle2, Star, Shield, Clock, Trophy, ChevronRight, Tv, MapPin, Flame, Plug, Camera, Bell, Speaker, Wrench, Smartphone, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 
+const QuoteEducation = lazy(() => import("@/components/ui/QuoteEducation").then((module) => ({ default: module.QuoteEducation })));
+const QuoteTool = lazy(() => import("@/components/ui/QuoteTool"));
+
 export default function Home() {
   const theme = getSeasonalTheme();
+  const deferredQuoteFallback = (
+    <Card className="rounded-[28px] border-slate-200 shadow-sm">
+      <CardContent className="space-y-4 p-8">
+        <div className="h-6 w-40 animate-pulse rounded-full bg-slate-200" />
+        <div className="h-4 w-full animate-pulse rounded-full bg-slate-100" />
+        <div className="h-4 w-5/6 animate-pulse rounded-full bg-slate-100" />
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="h-12 animate-pulse rounded-2xl bg-slate-100" />
+          <div className="h-12 animate-pulse rounded-2xl bg-slate-100" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   const scrollToQuoteTool = useCallback(() => {
     if (typeof window === "undefined" || typeof document === "undefined") {
       return;
@@ -221,7 +236,9 @@ export default function Home() {
 
       <section className="bg-white py-20">
         <div className="container mx-auto px-4">
-          <QuoteEducation />
+          <Suspense fallback={deferredQuoteFallback}>
+            <QuoteEducation />
+          </Suspense>
         </div>
       </section>
 
@@ -409,7 +426,9 @@ export default function Home() {
             </div>
           ) : null}
           <div className="mt-10">
-            <QuoteTool />
+            <Suspense fallback={deferredQuoteFallback}>
+              <QuoteTool />
+            </Suspense>
           </div>
         </div>
       </section>

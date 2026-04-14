@@ -1,41 +1,99 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Link } from "wouter";
 import { Clock, Mail, MapPin, MessageSquare, Phone, Send } from "lucide-react";
-import { motion } from "framer-motion";
 
 import { useToast } from "@/hooks/use-toast";
+import { trackEvent } from "@/lib/analytics";
+import { apiRequest } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number is required"),
-  message: z.string().min(10, "Please provide more details"),
-});
+type ContactFormState = {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+};
+
+type ContactErrors = Partial<Record<keyof ContactFormState, string>>;
+
+const initialFormState: ContactFormState = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+};
+
+function validateContactForm(form: ContactFormState): ContactErrors {
+  const errors: ContactErrors = {};
+
+  if (form.name.trim().length < 2) {
+    errors.name = "Name is required";
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+    errors.email = "Invalid email address";
+  }
+
+  if (form.phone.replace(/\D/g, "").length < 10) {
+    errors.phone = "Phone number is required";
+  }
+
+  if (form.message.trim().length < 10) {
+    errors.message = "Please provide more details";
+  }
+
+  return errors;
+}
 
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState<ContactFormState>(initialFormState);
+  const [errors, setErrors] = useState<ContactErrors>({});
 
-  const form = useForm<z.infer<typeof contactSchema>>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: { name: "", email: "", phone: "", message: "" },
-  });
+  function updateField<K extends keyof ContactFormState>(key: K, value: ContactFormState[K]) {
+    setForm((current) => ({ ...current, [key]: value }));
+    setErrors((current) => {
+      if (!current[key]) {
+        return current;
+      }
 
-  async function onSubmit(data: z.infer<typeof contactSchema>) {
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  }
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const nextErrors = validateContactForm(form);
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    console.log("Contact Data:", data);
-    toast({ title: "Message Sent!", description: "We'll get back to you shortly.", className: "bg-green-50 border-green-200 text-green-900" });
-    form.reset();
-    setIsSubmitting(false);
+    try {
+      await apiRequest("POST", "/api/contact", form);
+      trackEvent("contact_form_submitted", { path: "/contact" });
+      toast({ title: "Message Sent!", description: "We'll get back to you shortly.", className: "bg-green-50 border-green-200 text-green-900" });
+      setForm(initialFormState);
+      setErrors({});
+    } catch (error) {
+      console.error("Contact submit failed:", error);
+      toast({
+        title: "Message failed",
+        description: "We couldn't send that message right now. Please call or text us instead.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -45,21 +103,21 @@ export default function Contact() {
           <div className="absolute right-[10%] top-[20%] h-[500px] w-[500px] rounded-full bg-blue-600 blur-[100px]" />
         </div>
         <div className="container relative z-10 mx-auto px-4 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mx-auto max-w-3xl space-y-6">
+          <div className="mx-auto max-w-3xl space-y-6">
             <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
               Get in <span className="text-blue-500">Touch</span>
             </h1>
             <p className="text-lg text-slate-300">
               Have a custom project or a quick question? We&apos;re here to help.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       <section className="relative z-20 -mt-10 py-16">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="grid gap-8 lg:grid-cols-3">
-            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6 lg:col-span-1">
+            <div className="space-y-6 lg:col-span-1">
               <Card className="border-none bg-blue-600 text-white shadow-xl">
                 <CardContent className="space-y-4 p-6 text-center">
                   <h3 className="text-xl font-bold">Need an exact price first?</h3>
@@ -103,8 +161,8 @@ export default function Contact() {
                     <div>
                       <h4 className="font-bold text-slate-900">Business Hours</h4>
                       <div className="space-y-1 text-sm text-slate-600">
-                        <p>Monday to Friday: 5:30 PM to 8:00 PM</p>
-                        <p>Saturday and Sunday: 8:00 AM to 6:00 PM</p>
+                        <p>Monday to Friday: 5:30 PM to 7:00 PM</p>
+                        <p>Saturday and Sunday: 8:00 AM to 5:00 PM</p>
                       </div>
                     </div>
                   </div>
@@ -117,80 +175,72 @@ export default function Contact() {
                   </a>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
 
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-2">
+            <div className="lg:col-span-2">
               <Card className="border-none shadow-lg">
                 <CardContent className="p-6 md:p-8">
                   <h2 className="mb-6 text-2xl font-bold text-slate-900">Send us a message</h2>
-                  <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                      <div className="grid gap-6 md:grid-cols-2">
-                        <FormField
-                          control={form.control}
-                          name="name"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Full Name</FormLabel>
-                              <FormControl>
-                                <Input placeholder="John Doe" className="h-12 bg-slate-50 text-base" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
+                  <form onSubmit={onSubmit} className="space-y-6">
+                    <div className="grid gap-6 md:grid-cols-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="contact-name">Full Name</Label>
+                        <Input
+                          id="contact-name"
+                          value={form.name}
+                          onChange={(event) => updateField("name", event.target.value)}
+                          placeholder="John Doe"
+                          className="h-12 bg-slate-50 text-base"
                         />
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Phone Number</FormLabel>
-                              <FormControl>
-                                <Input placeholder="(404) 555-0123" className="h-12 bg-slate-50 text-base" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                        {errors.name ? <p className="text-sm text-red-600">{errors.name}</p> : null}
                       </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="contact-phone">Phone Number</Label>
+                        <Input
+                          id="contact-phone"
+                          value={form.phone}
+                          onChange={(event) => updateField("phone", event.target.value)}
+                          placeholder="(404) 555-0123"
+                          inputMode="tel"
+                          className="h-12 bg-slate-50 text-base"
+                        />
+                        {errors.phone ? <p className="text-sm text-red-600">{errors.phone}</p> : null}
+                      </div>
+                    </div>
 
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Email Address</FormLabel>
-                            <FormControl>
-                              <Input placeholder="john@example.com" className="h-12 bg-slate-50 text-base" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                    <div className="space-y-2">
+                      <Label htmlFor="contact-email">Email Address</Label>
+                      <Input
+                        id="contact-email"
+                        value={form.email}
+                        onChange={(event) => updateField("email", event.target.value)}
+                        placeholder="john@example.com"
+                        inputMode="email"
+                        className="h-12 bg-slate-50 text-base"
                       />
+                      {errors.email ? <p className="text-sm text-red-600">{errors.email}</p> : null}
+                    </div>
 
-                      <FormField
-                        control={form.control}
-                        name="message"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>How can we help?</FormLabel>
-                            <FormControl>
-                              <Textarea placeholder="Tell us about your project or question." className="min-h-[150px] resize-none bg-slate-50 text-base" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                    <div className="space-y-2">
+                      <Label htmlFor="contact-message">How can we help?</Label>
+                      <Textarea
+                        id="contact-message"
+                        value={form.message}
+                        onChange={(event) => updateField("message", event.target.value)}
+                        placeholder="Tell us about your project or question."
+                        className="min-h-[150px] resize-none bg-slate-50 text-base"
                       />
+                      {errors.message ? <p className="text-sm text-red-600">{errors.message}</p> : null}
+                    </div>
 
-                      <Button type="submit" className="w-full rounded-2xl bg-slate-900 text-white hover:bg-slate-800" disabled={isSubmitting}>
-                        {isSubmitting ? "Sending..." : "Send Message"}
-                        {!isSubmitting ? <Send className="ml-2 h-4 w-4" /> : null}
-                      </Button>
-                    </form>
-                  </Form>
+                    <Button type="submit" className="w-full rounded-2xl bg-slate-900 text-white hover:bg-slate-800" disabled={isSubmitting}>
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                      {!isSubmitting ? <Send className="ml-2 h-4 w-4" /> : null}
+                    </Button>
+                  </form>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

@@ -2,6 +2,7 @@ import "./env";
 import express, { type Request, Response, NextFunction } from "express";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
+import { checkDatabaseConnection } from "./db";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { alertOnError } from "./services/errorAlertService";
@@ -92,8 +93,23 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
+  if (app.get("env") === "production") {
+    try {
+      await checkDatabaseConnection(8000);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : typeof error === "object" && error !== null
+            ? JSON.stringify(error)
+            : String(error);
+      log(`database preflight failed: ${message}`);
+      process.exit(1);
+    }
+  }
+
   // Start Server (PORT env var for Render/hosting, fallback to 5000 locally)
-  const PORT = process.env.PORT || 5000;
+  const PORT = Number(process.env.PORT) || 5000;
   server.listen(PORT, "0.0.0.0", () => {
     log(`serving on port ${PORT}`);
   });

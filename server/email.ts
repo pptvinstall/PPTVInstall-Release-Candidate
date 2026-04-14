@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import { format } from "date-fns";
 import { addHours, formatICSDate, parseBookingDateTime } from "./services/calendarService";
+import type { InsertContactMessage } from "@shared/schema";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -11,6 +12,14 @@ const transporter = nodemailer.createTransport({
 });
 
 type LineItem = { name: string; total: number };
+
+function getFromAddress() {
+  return process.env.EMAIL_FROM || "Picture Perfect TV Install <pptvinstall@gmail.com>";
+}
+
+function getAdminAddress() {
+  return process.env.ADMIN_EMAIL || "pptvinstall@gmail.com";
+}
 
 function formatAppointment(date: string, time: string) {
   return format(new Date(`${date}T12:00:00`), "EEEE, MMMM d yyyy") + ` at ${time}`;
@@ -153,7 +162,7 @@ export async function sendBookingEmails(booking: any) {
     `No payment required until after the job is complete.`;
 
   await transporter.sendMail({
-    from: process.env.EMAIL_FROM || "Picture Perfect TV Install <pptvinstall@gmail.com>",
+    from: getFromAddress(),
     to: booking.email,
     subject: customerSubject,
     html: customerHtml,
@@ -161,13 +170,114 @@ export async function sendBookingEmails(booking: any) {
   });
 
   await transporter.sendMail({
-    from: process.env.EMAIL_FROM || "Picture Perfect TV Install <pptvinstall@gmail.com>",
-    to: process.env.ADMIN_EMAIL || "pptvinstall@gmail.com",
+    from: getFromAddress(),
+    to: getAdminAddress(),
     subject: ownerSubject,
     html: ownerHtml,
     text: ownerText,
   });
 }
 
-export async function sendRescheduleEmail(_booking: any) {}
-export async function sendCancellationEmail(_booking: any) {}
+export async function sendContactMessageEmail(message: InsertContactMessage) {
+  const normalizedPhone = message.phone.replace(/\D/g, "");
+  const phoneHref = normalizedPhone ? `tel:${normalizedPhone}` : undefined;
+
+  await transporter.sendMail({
+    from: getFromAddress(),
+    to: getAdminAddress(),
+    replyTo: message.email,
+    subject: `New Contact Message -- ${message.name}`,
+    text:
+      `Name: ${message.name}\n` +
+      `Email: ${message.email}\n` +
+      `Phone: ${message.phone}\n\n` +
+      `${message.message}`,
+    html: `
+      <div style="font-family:Arial,sans-serif;background:#f8fafc;padding:24px;">
+        <div style="max-width:680px;margin:0 auto;background:#fff;border-radius:16px;padding:28px;">
+          <h1 style="margin:0 0 18px;color:#0f172a;">New Contact Message</h1>
+          <p><strong>Name:</strong> ${message.name}</p>
+          <p><strong>Email:</strong> <a href="mailto:${message.email}">${message.email}</a></p>
+          <p><strong>Phone:</strong> ${phoneHref ? `<a href="${phoneHref}">${message.phone}</a>` : message.phone}</p>
+          <div style="margin-top:20px;padding:16px;background:#f8fafc;border-radius:12px;">
+            <p style="margin:0;white-space:pre-wrap;color:#334155;">${message.message}</p>
+          </div>
+        </div>
+      </div>
+    `,
+  });
+}
+
+export async function sendRescheduleEmail(booking: any) {
+  const appointmentLabel = formatAppointment(booking.preferredDate, booking.appointmentTime);
+  const address = `${booking.streetAddress}, ${booking.city}, ${booking.state} ${booking.zipCode}`;
+  const subject = `Appointment Rescheduled -- ${booking.name} -- ${booking.preferredDate} at ${booking.appointmentTime}`;
+
+  const customerText =
+    `Hi ${String(booking.name || "").split(" ")[0] || "there"},\n\n` +
+    `Your Picture Perfect TV Install appointment has been rescheduled to ${appointmentLabel}.\n` +
+    `Address: ${address}\n\n` +
+    `Questions? Call 404-702-4748 or reply to this email.`;
+
+  const ownerText =
+    `Booking rescheduled.\n\n` +
+    `Customer: ${booking.name}\n` +
+    `Phone: ${booking.phone}\n` +
+    `Email: ${booking.email}\n` +
+    `Updated appointment: ${appointmentLabel}\n` +
+    `Address: ${address}`;
+
+  await Promise.all([
+    transporter.sendMail({
+      from: getFromAddress(),
+      to: booking.email,
+      subject,
+      text: customerText,
+      html: `<p>${customerText.replace(/\n/g, "<br />")}</p>`,
+    }),
+    transporter.sendMail({
+      from: getFromAddress(),
+      to: getAdminAddress(),
+      subject,
+      text: ownerText,
+      html: `<p>${ownerText.replace(/\n/g, "<br />")}</p>`,
+    }),
+  ]);
+}
+
+export async function sendCancellationEmail(booking: any) {
+  const appointmentLabel = formatAppointment(booking.preferredDate, booking.appointmentTime);
+  const reason = booking.cancellationReason?.trim() || "No reason provided.";
+  const subject = `Appointment Cancelled -- ${booking.name} -- ${booking.preferredDate} at ${booking.appointmentTime}`;
+
+  const customerText =
+    `Hi ${String(booking.name || "").split(" ")[0] || "there"},\n\n` +
+    `Your Picture Perfect TV Install appointment for ${appointmentLabel} has been cancelled.\n` +
+    `Reason: ${reason}\n\n` +
+    `If you want to book a new time, call 404-702-4748 or visit https://pptvinstall.com/booking.`;
+
+  const ownerText =
+    `Booking cancelled.\n\n` +
+    `Customer: ${booking.name}\n` +
+    `Phone: ${booking.phone}\n` +
+    `Email: ${booking.email}\n` +
+    `Original appointment: ${appointmentLabel}\n` +
+    `Reason: ${reason}`;
+
+  await Promise.all([
+    transporter.sendMail({
+      from: getFromAddress(),
+      to: booking.email,
+      subject,
+      text: customerText,
+      html: `<p>${customerText.replace(/\n/g, "<br />")}</p>`,
+    }),
+    transporter.sendMail({
+      from: getFromAddress(),
+      to: getAdminAddress(),
+      subject,
+      text: ownerText,
+      html: `<p>${ownerText.replace(/\n/g, "<br />")}</p>`,
+    }),
+  ]);
+}

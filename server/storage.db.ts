@@ -3,29 +3,11 @@ import {
   bookings,
   type Booking,
   type InsertBooking,
-  type User,
-  type InsertUser,
 } from "@shared/schema";
 import { eq, desc } from "drizzle-orm";
 import type { IStorage } from "./storage";
 
 export class DatabaseStorage implements IStorage {
-  // ── User methods ──────────────────────────────────────────────────────────
-  // No `users` table exists in the schema (only `customers`).
-  // These are part of IStorage but are not called anywhere in routes.ts.
-
-  async getUser(_id: number): Promise<User | undefined> {
-    return undefined;
-  }
-
-  async getUserByUsername(_username: string): Promise<User | undefined> {
-    return undefined;
-  }
-
-  async createUser(_user: InsertUser): Promise<User> {
-    throw new Error("User accounts are managed via the customers table — use customer routes instead.");
-  }
-
   // ── Booking methods ───────────────────────────────────────────────────────
 
   async createBooking(insertBooking: InsertBooking): Promise<Booking> {
@@ -60,7 +42,6 @@ export class DatabaseStorage implements IStorage {
       })
       .returning();
 
-    console.log(`✅ DB: Saved Booking #${row.id} for ${row.email}`);
     return this.toBooking(row);
   }
 

@@ -67,16 +67,11 @@ export default function Nav() {
               <div className="flex-1 overflow-y-auto px-4 pb-6">
                 {navLinks.map((link) => (
                   <Link key={link.href} href={link.href}>
-                    <button type="button" onClick={closeMenu} className="flex min-h-[56px] w-full items-center border-b border-slate-100 text-left text-lg font-bold text-slate-900">
+                    <button type="button" onClick={closeMenu} className={`flex min-h-[56px] w-full items-center border-b border-slate-100 text-left text-lg font-bold ${link.href === "/quote" ? "text-blue-600" : "text-slate-900"}`}>
                       {link.label}
                     </button>
                   </Link>
                 ))}
-                <Link href="/quote">
-                  <button type="button" onClick={closeMenu} className="flex min-h-[56px] w-full items-center border-b border-slate-100 text-left text-lg font-bold text-blue-600">
-                    Get Quote
-                  </button>
-                </Link>
                 <a href="tel:4047024748" onClick={closeMenu} className="flex min-h-[56px] w-full items-center border-b border-slate-100 text-left text-lg font-bold text-slate-900">
                   Call Us
                 </a>
