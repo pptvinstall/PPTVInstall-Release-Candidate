@@ -245,6 +245,96 @@ export async function sendRescheduleEmail(booking: any) {
   ]);
 }
 
+export async function sendAppointmentReminder(booking: any): Promise<void> {
+  const [firstName] = String(booking.name || "").split(" ");
+  const appointmentLabel = formatAppointment(booking.preferredDate, booking.appointmentTime);
+  const address = `${booking.streetAddress}, ${booking.city}, ${booking.state} ${booking.zipCode}`;
+  const subject = "Reminder: Your TV Install Tomorrow — Picture Perfect TV Install";
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;background:#f8fafc;padding:24px;">
+      <div style="max-width:680px;margin:0 auto;background:#fff;border-radius:16px;padding:28px;">
+        <h1 style="margin:0 0 18px;color:#0f172a;">Your install is tomorrow!</h1>
+        <p>Hi ${firstName || "there"},</p>
+        <p>This is a friendly reminder that your appointment is scheduled for:</p>
+        <div style="margin:20px 0;padding:16px;background:#eff6ff;border-radius:12px;border-left:4px solid #2563eb;">
+          <p style="margin:0 0 6px;"><strong>Date &amp; Time:</strong> ${appointmentLabel}</p>
+          <p style="margin:0;"><strong>Address:</strong> ${address}</p>
+        </div>
+        <p><strong>What to expect:</strong></p>
+        <ul style="color:#334155;line-height:1.8;">
+          <li>We'll arrive within the scheduled window</li>
+          <li>The install typically takes 30–90 minutes depending on complexity</li>
+          <li>Please have the TV and any equipment accessible beforehand</li>
+          <li>No payment required until the job is complete</li>
+        </ul>
+        <p>Need to reschedule? Call <a href="tel:4047024748" style="color:#2563eb;">404-702-4748</a> as soon as possible and we'll find a new time.</p>
+        <p style="color:#64748b;font-size:14px;">— Justin at Picture Perfect TV Install</p>
+      </div>
+    </div>
+  `;
+
+  const text =
+    `Hi ${firstName || "there"},\n\n` +
+    `Reminder: your TV install appointment is tomorrow.\n\n` +
+    `Date & Time: ${appointmentLabel}\n` +
+    `Address: ${address}\n\n` +
+    `What to expect:\n` +
+    `- We'll arrive within the scheduled window\n` +
+    `- The install typically takes 30–90 minutes\n` +
+    `- Please have the TV and equipment accessible beforehand\n` +
+    `- No payment required until the job is complete\n\n` +
+    `Need to reschedule? Call 404-702-4748 as soon as possible.\n\n` +
+    `— Justin at Picture Perfect TV Install`;
+
+  await transporter.sendMail({
+    from: getFromAddress(),
+    to: booking.email,
+    subject,
+    html,
+    text,
+  });
+}
+
+export async function sendPostJobFollowUp(booking: any): Promise<void> {
+  const [firstName] = String(booking.name || "").split(" ");
+  const subject = "How did your install go? — Picture Perfect TV Install";
+  const reviewUrl = "https://g.page/r/ChIJ_your_place_id/review";
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;background:#f8fafc;padding:24px;">
+      <div style="max-width:680px;margin:0 auto;background:#fff;border-radius:16px;padding:28px;">
+        <h1 style="margin:0 0 18px;color:#0f172a;">Thanks for choosing us, ${firstName || "there"}!</h1>
+        <p>We hope everything looks great and your install went smoothly. It was a pleasure working with you.</p>
+        <p>If you have a minute, a quick Google review would mean a lot to a small business like ours — it helps other Atlanta homeowners find us:</p>
+        <div style="margin:24px 0;text-align:center;">
+          <a href="${reviewUrl}" style="display:inline-block;background:#2563eb;color:white;padding:14px 28px;border-radius:10px;text-decoration:none;font-weight:bold;font-size:16px;">Leave a Google Review ⭐</a>
+        </div>
+        <p>Also — if you know anyone who needs a TV mounted, a camera installed, or smart home help, we'd love the referral. Feel free to share our number: <strong>404-702-4748</strong>.</p>
+        <p>Questions or concerns about your install? Reply to this email or call and we'll make it right.</p>
+        <p style="color:#64748b;font-size:14px;">— Justin at Picture Perfect TV Install<br/>pptvinstall@gmail.com · 404-702-4748</p>
+      </div>
+    </div>
+  `;
+
+  const text =
+    `Hi ${firstName || "there"},\n\n` +
+    `Thanks for choosing Picture Perfect TV Install! We hope everything looks great.\n\n` +
+    `If you have a minute, a quick Google review helps other Atlanta homeowners find us:\n` +
+    `${reviewUrl}\n\n` +
+    `Know someone who needs a TV mounted or smart home help? We'd love the referral — 404-702-4748.\n\n` +
+    `Questions? Reply to this email or call us and we'll make it right.\n\n` +
+    `— Justin at Picture Perfect TV Install`;
+
+  await transporter.sendMail({
+    from: getFromAddress(),
+    to: booking.email,
+    subject,
+    html,
+    text,
+  });
+}
+
 export async function sendCancellationEmail(booking: any) {
   const appointmentLabel = formatAppointment(booking.preferredDate, booking.appointmentTime);
   const reason = booking.cancellationReason?.trim() || "No reason provided.";

@@ -6,6 +6,7 @@ import { checkDatabaseConnection } from "./db";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { alertOnError } from "./services/errorAlertService";
+import { startScheduler } from "./services/schedulerService";
 
 const app = express();
 app.use(compression());
@@ -112,5 +113,6 @@ app.use((req, res, next) => {
   const PORT = Number(process.env.PORT) || 5000;
   server.listen(PORT, "0.0.0.0", () => {
     log(`serving on port ${PORT}`);
+    startScheduler();
   });
 })();
