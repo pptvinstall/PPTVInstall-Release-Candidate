@@ -8,7 +8,7 @@ GMAIL_USER=pptvinstall@gmail.com
 GMAIL_APP_PASSWORD=YOUR_GMAIL_APP_PASSWORD_HERE
 
 # PostgreSQL database (Production)
-DATABASE_URL=postgresql://neondb_owner:npg_qS8yKnEpV3tr@ep-wispy-tooth-a61ij4qd.us-west-2.aws.neon.tech/neondb?sslmode=require
+DATABASE_URL=postgresql://neondb_owner:npg_5urVlb7JDHRa@ep-billowing-rice-adnceg0j-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 
 # Environment indicator
 NODE_ENV=PRODUCTION
