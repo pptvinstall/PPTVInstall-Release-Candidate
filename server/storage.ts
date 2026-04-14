@@ -1,4 +1,5 @@
-import { users, type User, type InsertUser, bookings, type Booking, type InsertBooking } from "@shared/schema";
+import { type User, type InsertUser, type Booking, type InsertBooking } from "@shared/schema";
+import { DatabaseStorage } from "./storage.db";
 
 // This interface defines what our Storage must do
 export interface IStorage {
@@ -79,4 +80,4 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
