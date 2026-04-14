@@ -42,7 +42,7 @@ git push -u origin main
 ### 3. Configure Environment Variables
 Set these in Render dashboard:
 ```
-GMAIL_APP_PASSWORD=xsjlfjpqderocpyh
+GMAIL_APP_PASSWORD=YOUR_GMAIL_APP_PASSWORD_HERE
 ADMIN_PASSWORD=PictureP3rfectTV2025
 ```
 

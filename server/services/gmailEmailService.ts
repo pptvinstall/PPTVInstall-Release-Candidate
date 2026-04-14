@@ -3,8 +3,8 @@ import type { Booking } from '@shared/schema';
 import { format, parseISO } from 'date-fns';
 
 // Gmail SMTP configuration
-const GMAIL_USER = process.env.GMAIL_USER || 'pptvinstall@gmail.com';
-const GMAIL_APP_PASSWORD = 'xsjlfjpqderocpyh'; // Updated Gmail App Password
+const GMAIL_USER = process.env.GMAIL_USER;
+const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
 const ADMIN_EMAIL = 'pptvinstall@gmail.com';
 const COMPANY_NAME = 'Picture Perfect TV Install';
 const COMPANY_PHONE = '404-702-4748';
