@@ -25,11 +25,9 @@ export const QUOTE_KEY = "pptvinstall_pending_quote";
 export const WEEKDAY_SLOTS = ["5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM"];
 export const WEEKEND_SLOTS = (() => {
   const slots: string[] = [];
-  for (let hour = 8; hour <= 17; hour += 1) {
+  for (let hour = 10; hour <= 21; hour += 1) {
     slots.push(format(new Date(2026, 0, 1, hour, 0), "h:mm a"));
-    if (hour < 17) {
-      slots.push(format(new Date(2026, 0, 1, hour, 30), "h:mm a"));
-    }
+    slots.push(format(new Date(2026, 0, 1, hour, 30), "h:mm a"));
   }
   return slots;
 })();
@@ -89,7 +87,8 @@ export function getAvailableSlots(date: Date, bookedSlots: string[]): string[] {
   let allSlots = getAllSlots(date);
   if (isToday) {
     const twoHoursFromNow = new Date(now.getTime() + 2 * 60 * 60 * 1000);
-    const cutoffHour = 17;
+    const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+    const cutoffHour = isWeekend ? 22 : 17;
     if (now.getHours() >= cutoffHour) allSlots = [];
     else allSlots = allSlots.filter((slot) => parseSlotTime(date, slot) >= twoHoursFromNow);
   }

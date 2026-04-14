@@ -92,8 +92,8 @@ function DashboardContent() {
     (b.name || "").toLowerCase().includes(search.toLowerCase()) || 
     (b.email || "").toLowerCase().includes(search.toLowerCase())
   ).sort((a: any, b: any) => {
-    const timeA = a.created_at ? new Date(a.created_at).getTime() : 0;
-    const timeB = b.created_at ? new Date(b.created_at).getTime() : 0;
+    const timeA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const timeB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
     return timeB - timeA;
   });
 

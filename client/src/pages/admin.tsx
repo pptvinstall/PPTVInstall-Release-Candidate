@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Loader2, DollarSign, Calendar, Users, MapPin, X, ArrowRight } from "lucide-react";
+import { Loader2, DollarSign, Calendar, Users, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Admin() {
