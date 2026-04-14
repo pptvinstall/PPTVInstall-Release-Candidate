@@ -9,10 +9,18 @@
     <title>TV Mounting &amp; Installation Atlanta | Picture Perfect TV Install</title>
     <meta name="description" content="Professional TV mounting and smart home installation in Atlanta, GA. Serving Decatur and metro Atlanta. Book online or get a free quote. 22+ five-star reviews." />
     
-    <meta property="og:title" content="Picture Perfect TV Install - Atlanta" />
-    <meta property="og:description" content="Expert TV mounting and smart home setups. Book instantly online." />
+    <meta property="og:title" content="TV Mounting &amp; Installation Atlanta | Picture Perfect TV Install" />
+    <meta property="og:description" content="Professional TV mounting and smart home installation in Atlanta, GA. 22+ five-star reviews. Book online instantly." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pptvinstall.com" />
+    <meta property="og:image" content="https://pptvinstall.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Picture Perfect TV Install — Professional TV Mounting in Atlanta" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TV Mounting &amp; Installation Atlanta | Picture Perfect TV Install" />
+    <meta name="twitter:description" content="Professional TV mounting and smart home installation in Atlanta, GA. 22+ five-star reviews. Book online instantly." />
+    <meta name="twitter:image" content="https://pptvinstall.com/og-image.jpg" />
 
     <script type="application/ld+json">
     {
@@ -119,5 +127,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    </script>
   </body>
 </html>
