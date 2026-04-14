@@ -6,6 +6,10 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
 
+import { useEffect } from "react";
+import { useLocation } from "wouter";
+import { trackPageView } from "@/lib/analytics";
+
 // Layout & Components (not lazy — needed on every page)
 import Nav from "@/components/nav";
 import Footer from "@/components/footer";
@@ -41,9 +45,18 @@ function PageLoader() {
   );
 }
 
+function PageViewTracker() {
+  const [location] = useLocation();
+  useEffect(() => {
+    trackPageView(location);
+  }, [location]);
+  return null;
+}
+
 function Router() {
   return (
     <Suspense fallback={<PageLoader />}>
+      <PageViewTracker />
       <Switch>
         {/* Public Pages */}
         <Route path="/" component={Home} />
