@@ -29,6 +29,7 @@ const Booking = lazy(() => import("@/pages/booking"));
 const QuotePage = lazy(() => import("@/pages/quote"));
 const Confirmation = lazy(() => import("@/pages/Confirmation"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
+const AdminBookings = lazy(() => import("@/pages/admin-bookings"));
 const NotFoundPage = lazy(() => import("@/pages/not-found"));
 
 // City SEO pages — lazy loaded, share a single CityPage component
@@ -72,6 +73,9 @@ function Router() {
 
         {/* Owner Dashboard */}
         <Route path="/dashboard" component={Dashboard} />
+
+        {/* Admin — password-protected, not linked in nav */}
+        <Route path="/admin" component={AdminBookings} />
 
         {/* City SEO landing pages */}
         <Route path="/areas/:slug">

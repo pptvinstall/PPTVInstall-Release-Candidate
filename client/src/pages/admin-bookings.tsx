@@ -10,7 +10,7 @@ import { CalendarIcon, Clock, Search, ShieldAlert, Trash2, Edit, TrendingUp, Use
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 
-const SECRET_CODE = "admin123";
+const SECRET_CODE = (import.meta.env.VITE_ADMIN_PASSWORD as string | undefined) || "admin123";
 
 export default function AdminBookings() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
