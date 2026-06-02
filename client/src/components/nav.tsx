@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, Phone, X } from "lucide-react";
+import { CalendarDays, Menu, Phone, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
@@ -25,7 +25,7 @@ export default function Nav() {
         <div className="container mx-auto flex items-center justify-between px-4">
           <Logo variant="dark" />
 
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-6 md:flex">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <span className="cursor-pointer text-sm font-bold text-slate-900 transition-colors hover:text-blue-600">
@@ -33,6 +33,12 @@ export default function Nav() {
                 </span>
               </Link>
             ))}
+            <Link href="/booking">
+              <Button className="rounded-2xl bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-500">
+                <CalendarDays className="h-4 w-4" />
+                Book Now
+              </Button>
+            </Link>
             <a href="tel:4047024748" className="inline-flex items-center">
               <Button variant="outline" className="rounded-2xl border-slate-300 px-5 text-sm font-bold text-slate-900 hover:bg-slate-50">
                 <Phone className="h-4 w-4" />

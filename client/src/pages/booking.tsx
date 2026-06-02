@@ -214,7 +214,18 @@ export default function Booking() {
       setLocation("/confirmation");
     } catch (error) {
       console.error(error);
-      toast({ title: "Booking error", description: "We couldn't save your booking. Please try again.", variant: "destructive" });
+      toast({
+        title: "Booking didn't go through",
+        description: (
+          <span>
+            Call or text{" "}
+            <a href="tel:4047024748" className="font-bold underline">404-702-4748</a>
+            {" "}and we&apos;ll get you scheduled manually.{" "}
+            <a href="sms:4047024748" className="font-bold underline">Text us</a>
+          </span>
+        ),
+        variant: "destructive",
+      });
       setIsSubmitting(false);
     }
   }

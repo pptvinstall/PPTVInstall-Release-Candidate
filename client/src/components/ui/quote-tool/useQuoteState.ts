@@ -584,7 +584,7 @@ export function useQuoteState() {
       const followUpPreference =
         intent === "send_quote"
           ? "Customer requested this quote be sent for follow-up."
-          : "Customer requested a text confirmation before booking.";
+          : "Customer requested follow-up before booking.";
       const contactSummary = [
         followUpPreference,
         quoteRequest.email.trim()

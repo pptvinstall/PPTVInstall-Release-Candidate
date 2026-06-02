@@ -133,8 +133,8 @@ export default function QuoteActions() {
                   <div className="flex items-center gap-3">
                     <MessageSquare className="h-5 w-5 text-blue-600" />
                     <div>
-                      <p className="font-bold text-slate-900">Text Me To Confirm</p>
-                      <p className="text-sm text-slate-500">We&apos;ll follow up by text before you book.</p>
+                      <p className="font-bold text-slate-900">Request Follow-Up</p>
+                      <p className="text-sm text-slate-500">We&apos;ll follow up using the contact info you entered.</p>
                     </div>
                   </div>
                 </button>
@@ -180,14 +180,14 @@ export default function QuoteActions() {
             <div className="space-y-1">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">Next Step</p>
               <h4 className="text-3xl font-extrabold text-slate-900">
-                {nextStepIntent === "schedule" ? "Ready to schedule" : nextStepIntent === "send_quote" ? "Your quote request is in" : "We'll text you to confirm"}
+                {nextStepIntent === "schedule" ? "Ready to schedule" : nextStepIntent === "send_quote" ? "Your quote request is in" : "Follow-up requested"}
               </h4>
               <p className="text-base text-slate-600">
                 {nextStepIntent === "schedule"
                   ? "Your quote is saved. Continue to booking whenever you're ready."
                   : nextStepIntent === "send_quote"
                     ? "We'll use your contact info to follow up with this quote shortly."
-                    : "Expect a text follow-up soon so we can confirm the details with you."}
+                    : "We'll use your contact info to confirm details before you book."}
               </p>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Facebook, Instagram, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, MessageSquare, Phone } from "lucide-react";
 
 import { Logo } from "@/components/logo";
 
@@ -52,12 +52,16 @@ export default function Footer() {
           <div className="space-y-5">
             <div>
               <h4 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white">Contact</h4>
-              <div className="space-y-3 text-sm">
-                <a href="tel:4047024748" className="inline-flex items-center gap-3 text-slate-300 transition-colors hover:text-white">
+              <div className="flex flex-col items-start gap-3 text-sm">
+                <a href="tel:4047024748" className="flex items-center gap-3 text-slate-300 transition-colors hover:text-white">
                   <Phone className="h-5 w-5 text-blue-400" />
                   404-702-4748
                 </a>
-                <a href="mailto:pptvinstall@gmail.com" className="inline-flex items-center gap-3 text-slate-300 transition-colors hover:text-white">
+                <a href="sms:4047024748" className="flex items-center gap-3 text-slate-300 transition-colors hover:text-white">
+                  <MessageSquare className="h-5 w-5 text-blue-400" />
+                  Text us
+                </a>
+                <a href="mailto:pptvinstall@gmail.com" className="flex items-center gap-3 text-slate-300 transition-colors hover:text-white">
                   <Mail className="h-5 w-5 text-blue-400" />
                   pptvinstall@gmail.com
                 </a>
