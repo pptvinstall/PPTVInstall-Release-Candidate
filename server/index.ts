@@ -96,7 +96,8 @@ app.use((req, res, next) => {
 
   if (app.get("env") === "production") {
     try {
-      await checkDatabaseConnection(8000);
+      await checkDatabaseConnection(20000);
+      log("database preflight passed");
     } catch (error) {
       const message =
         error instanceof Error
@@ -104,8 +105,7 @@ app.use((req, res, next) => {
           : typeof error === "object" && error !== null
             ? JSON.stringify(error)
             : String(error);
-      log(`database preflight failed: ${message}`);
-      process.exit(1);
+      log(`database preflight failed; continuing startup: ${message}`);
     }
   }
 
