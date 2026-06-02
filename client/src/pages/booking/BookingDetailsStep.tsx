@@ -52,6 +52,42 @@ export default function BookingDetailsStep({ details, errors, setDetails, onBack
             <Label>Special instructions / notes</Label>
             <Textarea value={details.notes} onChange={(event) => setDetails((current) => ({ ...current, notes: event.target.value }))} placeholder="Parking info, floor number, gate code, TV already unboxed, etc." className="min-h-[140px] rounded-2xl" />
           </div>
+          <div className="space-y-2 md:col-span-2">
+            <Label>Birthday</Label>
+            <Input type="date" value={details.birthday} onChange={(event) => setDetails((current) => ({ ...current, birthday: event.target.value }))} className="h-12 rounded-xl" />
+            <p className="text-sm text-slate-500">Optional — used only for birthday offers if you opt in.</p>
+          </div>
+          <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 md:col-span-2">
+            <p className="text-sm font-semibold text-slate-900">Optional offers and reminders</p>
+            <label className="flex items-start gap-3 text-sm text-slate-700">
+              <input
+                type="checkbox"
+                checked={details.emailMarketingOptIn}
+                onChange={(event) => setDetails((current) => ({ ...current, emailMarketingOptIn: event.target.checked }))}
+                className="mt-1"
+              />
+              <span>Email me helpful reminders, seasonal offers, and Picture Perfect TV Install promotions.</span>
+            </label>
+            <label className="flex items-start gap-3 text-sm text-slate-700">
+              <input
+                type="checkbox"
+                checked={details.smsMarketingOptIn}
+                onChange={(event) => setDetails((current) => ({ ...current, smsMarketingOptIn: event.target.checked }))}
+                className="mt-1"
+              />
+              <span>Text me appointment updates and occasional offers from Picture Perfect TV Install. Message/data rates may apply. Reply STOP to opt out.</span>
+            </label>
+            <label className="flex items-start gap-3 text-sm text-slate-700">
+              <input
+                type="checkbox"
+                checked={details.birthdayPromoOptIn}
+                onChange={(event) => setDetails((current) => ({ ...current, birthdayPromoOptIn: event.target.checked }))}
+                className="mt-1"
+              />
+              <span>Send me birthday offers by email/text if I opted into those channels.</span>
+            </label>
+            <p className="text-xs text-slate-500">Appointment confirmations and reminders are transactional and do not require marketing opt-in.</p>
+          </div>
         </div>
         <div className="mt-8 flex justify-end">
           <Button className="h-12 rounded-2xl bg-blue-600 px-6 font-bold text-white hover:bg-blue-500" onClick={onContinue}>Continue</Button>

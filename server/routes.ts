@@ -4,7 +4,7 @@ import { timingSafeEqual } from "crypto";
 import nodemailer from "nodemailer";
 import { storage } from "./storage";
 import { sendBookingEmails, sendCancellationEmail, sendContactMessageEmail, sendRescheduleEmail } from "./email";
-import { insertBookingSchema, insertContactMessageSchema, promotions } from "@shared/schema";
+import { crmContacts, insertBookingSchema, insertContactMessageSchema, promotions } from "@shared/schema";
 import { addDays, format } from "date-fns";
 import { generateICS } from "./services/calendarService";
 import { monitoring } from "./monitoring";
@@ -123,6 +123,84 @@ export function registerRoutes(app: Express): Server {
       console.error("Could not parse service list for SMS:", error);
     }
     return fallback;
+  }
+
+  async function upsertCustomerCrmRecord(booking: any, consentSource = "booking_form", ipAddress?: string) {
+    const normalizedEmail = String(booking.email || "").trim().toLowerCase();
+    const normalizedPhone = String(booking.phone || "").replace(/\D/g, "");
+    if (!normalizedEmail && !normalizedPhone) return;
+
+    const emailOptIn = booking.emailMarketingOptIn === true;
+    const smsOptIn = booking.smsMarketingOptIn === true;
+    const birthdayOptIn = booking.birthdayPromoOptIn === true;
+    const hasMarketingConsent = emailOptIn || smsOptIn || birthdayOptIn;
+    const now = new Date();
+    const latestBookingDate = booking.preferredDate ? new Date(`${booking.preferredDate}T12:00:00`) : null;
+    const latestServiceSummary = getBriefServices(booking.pricingBreakdown, booking.serviceType);
+
+    const updateSet: Record<string, unknown> = {
+      fullName: booking.name,
+      email: booking.email || null,
+      normalizedEmail: normalizedEmail || null,
+      phone: normalizedPhone || booking.phone,
+      normalizedPhone: normalizedPhone || null,
+      cityArea: booking.city,
+      lastBookingId: Number(booking.id),
+      latestServiceSummary,
+      latestBookingDate,
+      updatedAt: now,
+    };
+
+    if (booking.birthday) updateSet.birthday = booking.birthday;
+    if (emailOptIn) updateSet.emailMarketingOptIn = true;
+    if (smsOptIn) updateSet.smsMarketingOptIn = true;
+    if (birthdayOptIn) updateSet.birthdayPromoOptIn = true;
+    if (hasMarketingConsent) {
+      updateSet.marketingConsentAt = now;
+      updateSet.marketingConsentSource = consentSource;
+      if (ipAddress) updateSet.consentIpAddress = ipAddress;
+    }
+
+    const matchConditions = [
+      normalizedEmail ? eq(crmContacts.normalizedEmail, normalizedEmail) : null,
+      normalizedPhone ? eq(crmContacts.normalizedPhone, normalizedPhone) : null,
+    ].filter((condition): condition is NonNullable<typeof condition> => Boolean(condition));
+
+    const [existingContact] = await db
+      .select()
+      .from(crmContacts)
+      .where(matchConditions.length === 1 ? matchConditions[0] : or(...matchConditions))
+      .limit(1);
+
+    if (existingContact) {
+      await db
+        .update(crmContacts)
+        .set(updateSet)
+        .where(eq(crmContacts.id, existingContact.id));
+      return;
+    }
+
+    await db
+      .insert(crmContacts)
+      .values({
+        fullName: booking.name,
+        email: booking.email || null,
+        normalizedEmail: normalizedEmail || null,
+        phone: normalizedPhone || booking.phone || null,
+        normalizedPhone: normalizedPhone || null,
+        birthday: booking.birthday || null,
+        cityArea: booking.city,
+        emailMarketingOptIn: emailOptIn,
+        smsMarketingOptIn: smsOptIn,
+        birthdayPromoOptIn: birthdayOptIn,
+        marketingConsentAt: hasMarketingConsent ? now : null,
+        marketingConsentSource: hasMarketingConsent ? consentSource : null,
+        consentIpAddress: hasMarketingConsent ? ipAddress || null : null,
+        lastBookingId: Number(booking.id),
+        latestServiceSummary,
+        latestBookingDate,
+        updatedAt: now,
+      });
   }
   
   // --- HELPER: GET SLOTS FOR A SPECIFIC DATE ---
@@ -314,6 +392,24 @@ export function registerRoutes(app: Express): Server {
       
       const booking = await storage.createBooking(data);
 
+      // CRM capture only: transactional booking emails/texts remain separate from marketing consent.
+      upsertCustomerCrmRecord(
+        {
+          ...booking,
+          birthday: data.birthday,
+          emailMarketingOptIn: data.emailMarketingOptIn,
+          smsMarketingOptIn: data.smsMarketingOptIn,
+          birthdayPromoOptIn: data.birthdayPromoOptIn,
+        },
+        data.consentSource || "booking_form",
+        getClientIpAddress(req),
+      ).catch((err) => console.error("CRM capture error:", {
+        bookingId: booking.id,
+        hasEmail: Boolean(booking.email),
+        phoneLast4: String(booking.phone || "").replace(/\D/g, "").slice(-4),
+        error: err,
+      }));
+
       sendBookingEmails(booking).catch(err => console.error("Email Error:", err));
       import("./services/smsService.js")
         .then(async (smsService) => {
@@ -473,6 +569,39 @@ export function registerRoutes(app: Express): Server {
       const bookings = await storage.getAllBookings();
       res.json(bookings);
     } catch (e) { res.status(500).json([]); }
+  });
+
+  app.get("/api/admin/customers", async (_req, res) => {
+    try {
+      const contactRows = await db
+        .select()
+        .from(crmContacts)
+        .orderBy(desc(crmContacts.updatedAt));
+
+      res.json({
+        customers: contactRows.map((contact) => ({
+          id: contact.id,
+          name: contact.fullName,
+          phone: contact.phone,
+          email: contact.email,
+          birthday: contact.birthday,
+          cityArea: contact.cityArea,
+          emailMarketingOptIn: contact.emailMarketingOptIn === true,
+          smsMarketingOptIn: contact.smsMarketingOptIn === true,
+          birthdayPromoOptIn: contact.birthdayPromoOptIn === true,
+          marketingConsentAt: contact.marketingConsentAt?.toISOString(),
+          marketingConsentSource: contact.marketingConsentSource,
+          latestBookingDate: contact.latestBookingDate?.toISOString(),
+          latestBookingService: contact.latestServiceSummary,
+          lastBookingId: contact.lastBookingId,
+          createdAt: contact.createdAt?.toISOString(),
+          updatedAt: contact.updatedAt?.toISOString(),
+        })),
+      });
+    } catch (error) {
+      console.error("Admin customers route error:", error);
+      res.status(500).json({ customers: [] });
+    }
   });
 
   app.post("/api/admin/bookings/:id/reschedule", async (req, res) => {

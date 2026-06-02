@@ -33,6 +33,11 @@ export const bookingSchema = z.object({
   status: z.enum(['active', 'cancelled', 'completed', 'scheduled']).optional().default('active'),
   pricingTotal: z.union([z.string(), z.number()]).optional(),
   pricingBreakdown: z.any().optional(),
+  birthday: z.string().optional(),
+  emailMarketingOptIn: z.boolean().optional(),
+  smsMarketingOptIn: z.boolean().optional(),
+  birthdayPromoOptIn: z.boolean().optional(),
+  consentSource: z.string().optional(),
   // Additional fields that we use in the admin panel
   tvSize: z.string().optional(),
   mountType: z.string().optional(),
@@ -230,6 +235,33 @@ export const customers = pgTable('customers', {
   }
 });
 
+export const crmContacts = pgTable('crm_contacts', {
+  id: serial('id').primaryKey(),
+  fullName: varchar('full_name', { length: 100 }).notNull(),
+  email: varchar('email', { length: 255 }),
+  normalizedEmail: varchar('normalized_email', { length: 255 }),
+  phone: varchar('phone', { length: 20 }),
+  normalizedPhone: varchar('normalized_phone', { length: 20 }),
+  birthday: varchar('birthday', { length: 10 }),
+  cityArea: varchar('city_area', { length: 100 }),
+  emailMarketingOptIn: boolean('email_marketing_opt_in').default(false),
+  smsMarketingOptIn: boolean('sms_marketing_opt_in').default(false),
+  birthdayPromoOptIn: boolean('birthday_promo_opt_in').default(false),
+  marketingConsentAt: timestamp('marketing_consent_at'),
+  marketingConsentSource: varchar('marketing_consent_source', { length: 50 }),
+  consentIpAddress: varchar('consent_ip_address', { length: 64 }),
+  lastBookingId: integer('last_booking_id'),
+  latestServiceSummary: text('latest_service_summary'),
+  latestBookingDate: timestamp('latest_booking_date'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow()
+}, (table) => {
+  return {
+    normalizedEmailIdx: uniqueIndex('crm_contacts_normalized_email_idx').on(table.normalizedEmail),
+    normalizedPhoneIdx: uniqueIndex('crm_contacts_normalized_phone_idx').on(table.normalizedPhone)
+  };
+});
+
 // Add customerId to bookings table
 export const bookingsRelations = relations(bookings, ({ one }) => ({
   customer: one(customers, {
@@ -331,6 +363,8 @@ export type BusinessHoursSelect = typeof businessHours.$inferSelect;
 export type BusinessHoursInsert = typeof businessHours.$inferInsert;
 export type CustomerSelect = typeof customers.$inferSelect;
 export type CustomerInsert = typeof customers.$inferInsert;
+export type CrmContactSelect = typeof crmContacts.$inferSelect;
+export type CrmContactInsert = typeof crmContacts.$inferInsert;
 
 // System settings schema
 export const systemSettingsSchema = z.object({

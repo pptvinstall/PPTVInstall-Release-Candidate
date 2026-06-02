@@ -5,7 +5,21 @@ import { pricingData } from "@/data/pricing-data";
 export type QuoteItem = { name: string; lineTotal: number; qty?: number };
 export type QuoteGroup = { title: string; items: QuoteItem[] };
 export type PendingQuote = { total: number; summary: string; groups: QuoteGroup[]; flags?: string[]; followUp?: string; promoCode?: string; zipCode?: string };
-export type Details = { firstName: string; lastName: string; phone: string; email: string; streetAddress: string; city: string; state: string; zipCode: string; notes: string };
+export type Details = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  streetAddress: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  notes: string;
+  birthday: string;
+  emailMarketingOptIn: boolean;
+  smsMarketingOptIn: boolean;
+  birthdayPromoOptIn: boolean;
+};
 export type EntryMode = "mount_one" | "mount_multiple" | "smart_home" | null;
 export type BookingStep = 1 | 2 | 3;
 
@@ -49,6 +63,10 @@ export function createInitialDetails(): Details {
     state: "GA",
     zipCode: "",
     notes: "",
+    birthday: "",
+    emailMarketingOptIn: false,
+    smsMarketingOptIn: false,
+    birthdayPromoOptIn: false,
   };
 }
 

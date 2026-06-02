@@ -187,6 +187,11 @@ export default function Booking() {
           appointmentTime: time,
           pricingTotal: String(estimatedTotal),
           pricingBreakdown,
+          birthday: details.birthday || undefined,
+          emailMarketingOptIn: details.emailMarketingOptIn,
+          smsMarketingOptIn: details.smsMarketingOptIn,
+          birthdayPromoOptIn: details.birthdayPromoOptIn,
+          consentSource: "booking_form",
           status: "active",
         }),
       });

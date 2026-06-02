@@ -83,6 +83,14 @@ function DashboardContent({ adminToken }: { adminToken: string }) {
     },
   });
 
+  const { data: customerResponse = { customers: [] } } = useQuery({
+    queryKey: ["/api/admin/customers"],
+    queryFn: async () => {
+      const res = await adminRequest("GET", "/api/admin/customers");
+      return res.json();
+    },
+  });
+
   const rescheduleMutation = useMutation({
     mutationFn: async ({ id, date, time }: { id: number, date: string, time: string }) => {
       await adminRequest("POST", `/api/admin/bookings/${id}/reschedule`, { date, time });
@@ -121,6 +129,7 @@ function DashboardContent({ adminToken }: { adminToken: string }) {
 
   const totalRevenue = filteredBookings.filter((b: any) => b.status !== 'cancelled').reduce((acc: number, b: any) => acc + (parseInt(b.pricingTotal) || 0), 0);
   const activeJobs = filteredBookings.filter((b: any) => b.status !== 'cancelled').length;
+  const safeCustomers = Array.isArray(customerResponse.customers) ? customerResponse.customers : [];
 
   return (
     <div className="min-h-screen bg-slate-50 p-6 md:p-12 relative">
@@ -222,6 +231,43 @@ function DashboardContent({ adminToken }: { adminToken: string }) {
              })}
            </div>
          )}
+
+         <div className="space-y-4">
+           <div>
+             <h2 className="text-2xl font-bold text-slate-900">Customer CRM</h2>
+             <p className="text-sm text-slate-500">Marketing consent is stored only. No bulk marketing sends are enabled.</p>
+           </div>
+           {safeCustomers.length === 0 ? (
+             <div className="rounded-xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">
+               CRM customers will appear here after bookings are submitted.
+             </div>
+           ) : (
+             <div className="grid gap-3">
+               {safeCustomers.map((customer: any) => (
+                 <Card key={customer.id} className="border-slate-200 p-5">
+                   <div className="grid gap-4 md:grid-cols-[1.1fr,1fr,1fr]">
+                     <div>
+                       <p className="font-bold text-slate-900">{customer.name}</p>
+                       <p className="text-sm text-slate-500">{customer.phone}</p>
+                       <p className="text-sm text-slate-500">{customer.email}</p>
+                       <p className="mt-1 text-xs text-slate-400">{customer.cityArea || "No city/area"}{customer.birthday ? ` • Birthday: ${customer.birthday}` : ""}</p>
+                     </div>
+                     <div className="flex flex-wrap gap-2">
+                       <Badge className={customer.emailMarketingOptIn ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"}>Email {customer.emailMarketingOptIn ? "opt-in" : "no opt-in"}</Badge>
+                       <Badge className={customer.smsMarketingOptIn ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"}>SMS {customer.smsMarketingOptIn ? "opt-in" : "no opt-in"}</Badge>
+                       <Badge className={customer.birthdayPromoOptIn ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"}>Birthday {customer.birthdayPromoOptIn ? "opt-in" : "no opt-in"}</Badge>
+                     </div>
+                     <div className="text-sm text-slate-500">
+                       <p className="font-semibold text-slate-700">Latest booking</p>
+                       <p>{customer.latestBookingDate || "None yet"}</p>
+                       <p>{customer.latestBookingService || "No service recorded"}</p>
+                     </div>
+                   </div>
+                 </Card>
+               ))}
+             </div>
+           )}
+         </div>
        </div>
 
        {rescheduleBooking && (
