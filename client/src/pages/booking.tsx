@@ -189,6 +189,8 @@ export default function Booking() {
           pricingBreakdown,
           birthday: details.birthday || undefined,
           emailMarketingOptIn: details.emailMarketingOptIn,
+          transactionalSmsOptIn: details.transactionalSmsOptIn,
+          transactionalSmsConsentSource: "booking_form",
           smsMarketingOptIn: details.smsMarketingOptIn,
           birthdayPromoOptIn: details.birthdayPromoOptIn,
           consentSource: "booking_form",

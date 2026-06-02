@@ -39,6 +39,11 @@ export class DatabaseStorage implements IStorage {
         mountType: insertBooking.mountType ?? null,
         wallMaterial: insertBooking.wallMaterial ?? null,
         specialInstructions: insertBooking.specialInstructions ?? null,
+        transactionalSmsOptIn: insertBooking.transactionalSmsOptIn === true,
+        transactionalSmsConsentAt: insertBooking.transactionalSmsOptIn === true ? new Date() : null,
+        transactionalSmsConsentSource: insertBooking.transactionalSmsOptIn === true
+          ? insertBooking.transactionalSmsConsentSource ?? "booking_form"
+          : null,
       })
       .returning();
 
@@ -110,6 +115,9 @@ export class DatabaseStorage implements IStorage {
       mountType: row.mountType ?? undefined,
       wallMaterial: row.wallMaterial ?? undefined,
       specialInstructions: row.specialInstructions ?? undefined,
+      transactionalSmsOptIn: row.transactionalSmsOptIn === true,
+      transactionalSmsConsentAt: row.transactionalSmsConsentAt?.toISOString() ?? undefined,
+      transactionalSmsConsentSource: row.transactionalSmsConsentSource ?? undefined,
       cancellationReason: row.cancellationReason ?? undefined,
       createdAt: row.createdAt?.toISOString() ?? undefined,
     } as unknown as Booking;

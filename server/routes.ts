@@ -4,11 +4,12 @@ import { timingSafeEqual } from "crypto";
 import nodemailer from "nodemailer";
 import { storage } from "./storage";
 import { sendBookingEmails, sendCancellationEmail, sendContactMessageEmail, sendRescheduleEmail } from "./email";
-import { crmContacts, insertBookingSchema, insertContactMessageSchema, promotions } from "@shared/schema";
+import { crmContacts, insertBookingSchema, insertContactMessageSchema, promotions, smsMessages, smsOptOuts } from "@shared/schema";
 import { addDays, format } from "date-fns";
 import { generateICS } from "./services/calendarService";
 import { monitoring } from "./monitoring";
 import { db } from "./db";
+import { isStopKeyword, normalizePhoneForSms, validateTwilioWebhookRequest } from "./services/smsService";
 import {
   checkAiQuoteRateLimit,
   getAiQuoteProtectionConfig,
@@ -120,17 +121,18 @@ export function registerRoutes(app: Express): Server {
           .join(", ");
       }
     } catch (error) {
-      console.error("Could not parse service list for SMS:", error);
+      console.error("Could not parse service list:", error);
     }
     return fallback;
   }
 
   async function upsertCustomerCrmRecord(booking: any, consentSource = "booking_form", ipAddress?: string) {
     const normalizedEmail = String(booking.email || "").trim().toLowerCase();
-    const normalizedPhone = String(booking.phone || "").replace(/\D/g, "");
+    const normalizedPhone = normalizePhoneForSms(booking.phone);
     if (!normalizedEmail && !normalizedPhone) return;
 
     const emailOptIn = booking.emailMarketingOptIn === true;
+    const transactionalSmsOptIn = booking.transactionalSmsOptIn === true;
     const smsOptIn = booking.smsMarketingOptIn === true;
     const birthdayOptIn = booking.birthdayPromoOptIn === true;
     const hasMarketingConsent = emailOptIn || smsOptIn || birthdayOptIn;
@@ -153,6 +155,7 @@ export function registerRoutes(app: Express): Server {
 
     if (booking.birthday) updateSet.birthday = booking.birthday;
     if (emailOptIn) updateSet.emailMarketingOptIn = true;
+    if (transactionalSmsOptIn) updateSet.transactionalSmsOptIn = true;
     if (smsOptIn) updateSet.smsMarketingOptIn = true;
     if (birthdayOptIn) updateSet.birthdayPromoOptIn = true;
     if (hasMarketingConsent) {
@@ -191,7 +194,9 @@ export function registerRoutes(app: Express): Server {
         birthday: booking.birthday || null,
         cityArea: booking.city,
         emailMarketingOptIn: emailOptIn,
+        transactionalSmsOptIn,
         smsMarketingOptIn: smsOptIn,
+        smsReachableStatus: "unknown",
         birthdayPromoOptIn: birthdayOptIn,
         marketingConsentAt: hasMarketingConsent ? now : null,
         marketingConsentSource: hasMarketingConsent ? consentSource : null,
@@ -398,6 +403,7 @@ export function registerRoutes(app: Express): Server {
           ...booking,
           birthday: data.birthday,
           emailMarketingOptIn: data.emailMarketingOptIn,
+          transactionalSmsOptIn: data.transactionalSmsOptIn,
           smsMarketingOptIn: data.smsMarketingOptIn,
           birthdayPromoOptIn: data.birthdayPromoOptIn,
         },
@@ -411,26 +417,8 @@ export function registerRoutes(app: Express): Server {
       }));
 
       sendBookingEmails(booking).catch(err => console.error("Email Error:", err));
-      import("./services/smsService.js")
-        .then(async (smsService) => {
-          const firstName = booking.name.split(" ")[0] || booking.name;
-          const services = getBriefServices(booking.pricingBreakdown, booking.serviceType);
-          const friendlyDate = format(new Date(`${booking.preferredDate}T12:00:00`), "EEEE, MMMM d");
-          const ownerMessage =
-            `NEW BOOKING\n` +
-            `${booking.name} -- ${friendlyDate} at ${booking.appointmentTime}\n` +
-            `${booking.streetAddress}, ${booking.city} ${booking.zipCode}\n` +
-            `Phone: ${booking.phone}\n` +
-            `Services: ${services}\n` +
-            `Total: $${booking.pricingTotal ?? "TBD"}`;
-          const customerMessage =
-            `Hi ${firstName}! Your Picture Perfect TV Install appointment is set for ${friendlyDate} at ${booking.appointmentTime}. ` +
-            `Questions? Text or call 404-702-4748. See you then!`;
-
-          await smsService.sendSMS(process.env.OWNER_PHONE || "4047024748", ownerMessage);
-          await smsService.sendSMS(booking.phone, customerMessage);
-        })
-        .catch((err) => console.error("SMS Error:", err));
+      // Phase 2A SMS foundation only: transactional SMS sends are intentionally disabled
+      // until reminder/confirmation jobs are added with dedupe and delivery logging.
       
       res.json(booking);
     } catch (error) {
@@ -530,13 +518,8 @@ export function registerRoutes(app: Express): Server {
       `Questions? Call 404-702-4748. - Picture Perfect TV Install`;
 
     try {
-      const smsService = await import("./services/smsService.js");
-      await smsService.sendSMS(process.env.OWNER_PHONE || "4047024748", ownerMessage);
-      await smsService.sendSMS(phone, customerMessage);
-      return res.json({ success: true, method: "sms" });
-    } catch (smsError) {
-      console.error("Quote request SMS failed:", smsError);
-
+      // Phase 2A SMS foundation only: quote request SMS is intentionally disabled
+      // until outbound SMS sends are added with consent checks and message logging.
       try {
         const transporter = nodemailer.createTransport({
           service: "gmail",
@@ -558,6 +541,75 @@ export function registerRoutes(app: Express): Server {
         console.error("Quote request email failed:", emailError);
         return res.status(500).json({ success: false, error: "Could not send notification" });
       }
+    } catch (error) {
+      console.error("Quote request notification failed:", error);
+      return res.status(500).json({ success: false, error: "Could not send notification" });
+    }
+  });
+
+  app.post("/api/sms/twilio/inbound", async (req, res) => {
+    const twilioResponse = (message?: string) => {
+      const body = message ? `<Message>${message}</Message>` : "";
+      return `<?xml version="1.0" encoding="UTF-8"?><Response>${body}</Response>`;
+    };
+
+    try {
+      const validation = validateTwilioWebhookRequest(req);
+      if (!validation.valid) {
+        console.warn("Twilio inbound webhook rejected:", validation.reason);
+        return res.status(validation.status).type("text/xml").send(twilioResponse());
+      }
+
+      const fromPhone = typeof req.body?.From === "string" ? req.body.From : "";
+      const inboundBody = typeof req.body?.Body === "string" ? req.body.Body : "";
+      const normalizedPhone = normalizePhoneForSms(fromPhone);
+      const tenDigitPhone = normalizedPhone.length === 11 && normalizedPhone.startsWith("1") ? normalizedPhone.slice(1) : normalizedPhone;
+
+      if (!normalizedPhone) {
+        return res.status(400).type("text/xml").send(twilioResponse());
+      }
+
+      if (!isStopKeyword(inboundBody)) {
+        return res.type("text/xml").send(twilioResponse());
+      }
+
+      const now = new Date();
+      await db
+        .insert(smsOptOuts)
+        .values({
+          normalizedPhone,
+          optedOutAt: now,
+          source: "twilio_inbound",
+          provider: "twilio",
+          rawMessage: inboundBody.trim().slice(0, 80),
+          updatedAt: now,
+        })
+        .onConflictDoUpdate({
+          target: smsOptOuts.normalizedPhone,
+          set: {
+            optedOutAt: now,
+            source: "twilio_inbound",
+            provider: "twilio",
+            rawMessage: inboundBody.trim().slice(0, 80),
+            updatedAt: now,
+          },
+        });
+
+      await db
+        .update(crmContacts)
+        .set({
+          smsReachableStatus: "opted_out",
+          transactionalSmsOptOutAt: now,
+          updatedAt: now,
+        })
+        .where(or(eq(crmContacts.normalizedPhone, normalizedPhone), eq(crmContacts.normalizedPhone, tenDigitPhone)));
+
+      return res
+        .type("text/xml")
+        .send(twilioResponse("You have been opted out of Picture Perfect TV Install text messages. Reply START to resubscribe."));
+    } catch (error) {
+      console.error("Twilio inbound webhook error:", error);
+      return res.status(500).type("text/xml").send(twilioResponse());
     }
   });
 
@@ -577,26 +629,45 @@ export function registerRoutes(app: Express): Server {
         .select()
         .from(crmContacts)
         .orderBy(desc(crmContacts.updatedAt));
+      const smsRows = await db
+        .select()
+        .from(smsMessages)
+        .orderBy(desc(smsMessages.createdAt));
+      const latestSmsByPhone = new Map<string, typeof smsRows[number]>();
+      for (const message of smsRows) {
+        if (!latestSmsByPhone.has(message.normalizedPhone)) {
+          latestSmsByPhone.set(message.normalizedPhone, message);
+        }
+      }
 
       res.json({
-        customers: contactRows.map((contact) => ({
-          id: contact.id,
-          name: contact.fullName,
-          phone: contact.phone,
-          email: contact.email,
-          birthday: contact.birthday,
-          cityArea: contact.cityArea,
-          emailMarketingOptIn: contact.emailMarketingOptIn === true,
-          smsMarketingOptIn: contact.smsMarketingOptIn === true,
-          birthdayPromoOptIn: contact.birthdayPromoOptIn === true,
-          marketingConsentAt: contact.marketingConsentAt?.toISOString(),
-          marketingConsentSource: contact.marketingConsentSource,
-          latestBookingDate: contact.latestBookingDate?.toISOString(),
-          latestBookingService: contact.latestServiceSummary,
-          lastBookingId: contact.lastBookingId,
-          createdAt: contact.createdAt?.toISOString(),
-          updatedAt: contact.updatedAt?.toISOString(),
-        })),
+        customers: contactRows.map((contact) => {
+          const latestSms = contact.normalizedPhone ? latestSmsByPhone.get(contact.normalizedPhone) : null;
+          return {
+            id: contact.id,
+            name: contact.fullName,
+            phone: contact.phone,
+            email: contact.email,
+            birthday: contact.birthday,
+            cityArea: contact.cityArea,
+            emailMarketingOptIn: contact.emailMarketingOptIn === true,
+            transactionalSmsOptIn: contact.transactionalSmsOptIn === true,
+            smsMarketingOptIn: contact.smsMarketingOptIn === true,
+            smsReachableStatus: contact.smsReachableStatus || "unknown",
+            transactionalSmsOptOutAt: contact.transactionalSmsOptOutAt?.toISOString(),
+            birthdayPromoOptIn: contact.birthdayPromoOptIn === true,
+            marketingConsentAt: contact.marketingConsentAt?.toISOString(),
+            marketingConsentSource: contact.marketingConsentSource,
+            latestSmsStatus: latestSms?.status,
+            latestSmsMessageType: latestSms?.messageType,
+            latestSmsAt: latestSms?.sentAt?.toISOString() || latestSms?.createdAt?.toISOString(),
+            latestBookingDate: contact.latestBookingDate?.toISOString(),
+            latestBookingService: contact.latestServiceSummary,
+            lastBookingId: contact.lastBookingId,
+            createdAt: contact.createdAt?.toISOString(),
+            updatedAt: contact.updatedAt?.toISOString(),
+          };
+        }),
       });
     } catch (error) {
       console.error("Admin customers route error:", error);

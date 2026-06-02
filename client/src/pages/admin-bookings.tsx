@@ -35,6 +35,14 @@ function formatCrmDate(value?: string | null) {
   return format(date, "MMM d, yyyy");
 }
 
+function formatStatus(value?: string | null) {
+  if (!value) return "Unknown";
+  return value
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 export default function AdminBookings() {
   const [adminToken, setAdminToken] = useState(() => sessionStorage.getItem(ADMIN_TOKEN_SESSION_KEY) || "");
   const [isAuthenticated, setIsAuthenticated] = useState(() => Boolean(sessionStorage.getItem(ADMIN_TOKEN_SESSION_KEY)));
@@ -157,6 +165,7 @@ function DashboardContent({ adminToken }: { adminToken: string }) {
   const crmStats = {
     total: safeCustomers.length,
     emailOptIns: safeCustomers.filter((customer: any) => customer.emailMarketingOptIn).length,
+    transactionalSmsOptIns: safeCustomers.filter((customer: any) => customer.transactionalSmsOptIn).length,
     smsOptIns: safeCustomers.filter((customer: any) => customer.smsMarketingOptIn).length,
     birthdayOptIns: safeCustomers.filter((customer: any) => customer.birthdayPromoOptIn).length,
   };
@@ -267,11 +276,12 @@ function DashboardContent({ adminToken }: { adminToken: string }) {
              <h2 className="text-2xl font-bold text-slate-900">Customer CRM</h2>
              <p className="text-sm text-slate-500">Marketing consent is stored only. No bulk marketing sends are enabled.</p>
            </div>
-           <div className="grid gap-3 md:grid-cols-4">
+           <div className="grid gap-3 md:grid-cols-5">
              {[
                { label: "CRM Contacts", value: crmStats.total },
                { label: "Email Opt-ins", value: crmStats.emailOptIns },
-               { label: "SMS Opt-ins", value: crmStats.smsOptIns },
+               { label: "Appt SMS Opt-ins", value: crmStats.transactionalSmsOptIns },
+               { label: "Marketing SMS Opt-ins", value: crmStats.smsOptIns },
                { label: "Birthday Opt-ins", value: crmStats.birthdayOptIns },
              ].map((stat) => (
                <Card key={stat.label} className="border-slate-200 bg-white p-4">
@@ -302,14 +312,20 @@ function DashboardContent({ adminToken }: { adminToken: string }) {
                        <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Consent</p>
                        <div className="flex flex-wrap gap-2">
                          <Badge className={customer.emailMarketingOptIn ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"}>Email {customer.emailMarketingOptIn ? "opt-in" : "no opt-in"}</Badge>
-                         <Badge className={customer.smsMarketingOptIn ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"}>SMS {customer.smsMarketingOptIn ? "opt-in" : "no opt-in"}</Badge>
+                         <Badge className={customer.transactionalSmsOptIn ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"}>Appt SMS {customer.transactionalSmsOptIn ? "opt-in" : "no opt-in"}</Badge>
+                         <Badge className={customer.smsMarketingOptIn ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"}>Marketing SMS {customer.smsMarketingOptIn ? "opt-in" : "no opt-in"}</Badge>
                          <Badge className={customer.birthdayPromoOptIn ? "bg-green-100 text-green-700 hover:bg-green-100" : "bg-slate-100 text-slate-500 hover:bg-slate-100"}>Birthday {customer.birthdayPromoOptIn ? "opt-in" : "no opt-in"}</Badge>
+                       </div>
+                       <div className="grid gap-1 text-sm text-slate-600">
+                         <p><span className="font-semibold text-slate-800">SMS reachable:</span> {formatStatus(customer.smsReachableStatus)}</p>
+                         <p><span className="font-semibold text-slate-800">SMS opt-out:</span> {formatCrmDate(customer.transactionalSmsOptOutAt)}</p>
                        </div>
                      </div>
                      <div className="space-y-2 text-sm text-slate-600">
                        <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Latest Booking</p>
                        <p><span className="font-semibold text-slate-800">Date:</span> {formatCrmDate(customer.latestBookingDate)}</p>
                        <p><span className="font-semibold text-slate-800">Service:</span> {customer.latestBookingService || "No service recorded"}</p>
+                       <p><span className="font-semibold text-slate-800">Latest SMS:</span> {customer.latestSmsStatus ? `${formatStatus(customer.latestSmsStatus)} (${formatStatus(customer.latestSmsMessageType)})` : "No SMS yet"}</p>
                      </div>
                    </div>
                  </Card>

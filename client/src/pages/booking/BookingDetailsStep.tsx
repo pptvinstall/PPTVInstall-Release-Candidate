@@ -71,11 +71,20 @@ export default function BookingDetailsStep({ details, errors, setDetails, onBack
             <label className="flex items-start gap-3 text-sm text-slate-700">
               <input
                 type="checkbox"
+                checked={details.transactionalSmsOptIn}
+                onChange={(event) => setDetails((current) => ({ ...current, transactionalSmsOptIn: event.target.checked }))}
+                className="mt-1"
+              />
+              <span>Text me appointment confirmations and reminders for this booking. Message/data rates may apply. Reply STOP to opt out.</span>
+            </label>
+            <label className="flex items-start gap-3 text-sm text-slate-700">
+              <input
+                type="checkbox"
                 checked={details.smsMarketingOptIn}
                 onChange={(event) => setDetails((current) => ({ ...current, smsMarketingOptIn: event.target.checked }))}
                 className="mt-1"
               />
-              <span>Text me appointment updates and occasional offers from Picture Perfect TV Install. Message/data rates may apply. Reply STOP to opt out.</span>
+              <span>Text me occasional offers from Picture Perfect TV Install. Message/data rates may apply. Reply STOP to opt out.</span>
             </label>
             <label className="flex items-start gap-3 text-sm text-slate-700">
               <input
@@ -86,7 +95,7 @@ export default function BookingDetailsStep({ details, errors, setDetails, onBack
               />
               <span>Send me birthday offers by email/text if I opted into those channels.</span>
             </label>
-            <p className="text-xs text-slate-500">Appointment confirmations and reminders are transactional and do not require marketing opt-in.</p>
+            <p className="text-xs text-slate-500">Transactional appointment texts are separate from marketing SMS consent.</p>
           </div>
         </div>
         <div className="mt-8 flex justify-end">

@@ -17,6 +17,7 @@ export type Details = {
   notes: string;
   birthday: string;
   emailMarketingOptIn: boolean;
+  transactionalSmsOptIn: boolean;
   smsMarketingOptIn: boolean;
   birthdayPromoOptIn: boolean;
 };
@@ -65,6 +66,7 @@ export function createInitialDetails(): Details {
     notes: "",
     birthday: "",
     emailMarketingOptIn: false,
+    transactionalSmsOptIn: false,
     smsMarketingOptIn: false,
     birthdayPromoOptIn: false,
   };

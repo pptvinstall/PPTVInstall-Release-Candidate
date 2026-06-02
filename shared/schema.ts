@@ -35,6 +35,8 @@ export const bookingSchema = z.object({
   pricingBreakdown: z.any().optional(),
   birthday: z.string().optional(),
   emailMarketingOptIn: z.boolean().optional(),
+  transactionalSmsOptIn: z.boolean().optional(),
+  transactionalSmsConsentSource: z.string().optional(),
   smsMarketingOptIn: z.boolean().optional(),
   birthdayPromoOptIn: z.boolean().optional(),
   consentSource: z.string().optional(),
@@ -84,6 +86,9 @@ export const bookings = pgTable('bookings', {
   createdAt: timestamp('created_at').defaultNow(),
   // Consent to receiving notifications
   consentToContact: boolean('consent_to_contact').default(false),
+  transactionalSmsOptIn: boolean('transactional_sms_opt_in').default(false),
+  transactionalSmsConsentAt: timestamp('transactional_sms_consent_at'),
+  transactionalSmsConsentSource: varchar('transactional_sms_consent_source', { length: 50 }),
   // Field for cancellation reason
   cancellationReason: text('cancellation_reason')
 });
@@ -245,7 +250,10 @@ export const crmContacts = pgTable('crm_contacts', {
   birthday: varchar('birthday', { length: 10 }),
   cityArea: varchar('city_area', { length: 100 }),
   emailMarketingOptIn: boolean('email_marketing_opt_in').default(false),
+  transactionalSmsOptIn: boolean('transactional_sms_opt_in').default(false),
   smsMarketingOptIn: boolean('sms_marketing_opt_in').default(false),
+  transactionalSmsOptOutAt: timestamp('transactional_sms_opt_out_at'),
+  smsReachableStatus: varchar('sms_reachable_status', { length: 30 }).default('unknown'),
   birthdayPromoOptIn: boolean('birthday_promo_opt_in').default(false),
   marketingConsentAt: timestamp('marketing_consent_at'),
   marketingConsentSource: varchar('marketing_consent_source', { length: 50 }),
@@ -259,6 +267,42 @@ export const crmContacts = pgTable('crm_contacts', {
   return {
     normalizedEmailIdx: uniqueIndex('crm_contacts_normalized_email_idx').on(table.normalizedEmail),
     normalizedPhoneIdx: uniqueIndex('crm_contacts_normalized_phone_idx').on(table.normalizedPhone)
+  };
+});
+
+export const smsOptOuts = pgTable('sms_opt_outs', {
+  id: serial('id').primaryKey(),
+  normalizedPhone: varchar('normalized_phone', { length: 20 }).notNull(),
+  optedOutAt: timestamp('opted_out_at').defaultNow(),
+  source: varchar('source', { length: 50 }),
+  provider: varchar('provider', { length: 30 }),
+  rawMessage: text('raw_message'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow()
+}, (table) => {
+  return {
+    normalizedPhoneIdx: uniqueIndex('sms_opt_outs_normalized_phone_idx').on(table.normalizedPhone)
+  };
+});
+
+export const smsMessages = pgTable('sms_messages', {
+  id: serial('id').primaryKey(),
+  bookingId: integer('booking_id'),
+  crmContactId: integer('crm_contact_id'),
+  messageType: varchar('message_type', { length: 50 }).notNull(),
+  toPhone: varchar('to_phone', { length: 20 }).notNull(),
+  normalizedPhone: varchar('normalized_phone', { length: 20 }).notNull(),
+  provider: varchar('provider', { length: 30 }).notNull(),
+  providerMessageId: varchar('provider_message_id', { length: 100 }),
+  status: varchar('status', { length: 30 }).notNull().default('queued'),
+  errorMessage: text('error_message'),
+  sentAt: timestamp('sent_at'),
+  deliveredAt: timestamp('delivered_at'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow()
+}, (table) => {
+  return {
+    bookingMessageTypeIdx: uniqueIndex('sms_messages_booking_message_type_idx').on(table.bookingId, table.messageType)
   };
 });
 
@@ -365,6 +409,10 @@ export type CustomerSelect = typeof customers.$inferSelect;
 export type CustomerInsert = typeof customers.$inferInsert;
 export type CrmContactSelect = typeof crmContacts.$inferSelect;
 export type CrmContactInsert = typeof crmContacts.$inferInsert;
+export type SmsOptOutSelect = typeof smsOptOuts.$inferSelect;
+export type SmsOptOutInsert = typeof smsOptOuts.$inferInsert;
+export type SmsMessageSelect = typeof smsMessages.$inferSelect;
+export type SmsMessageInsert = typeof smsMessages.$inferInsert;
 
 // System settings schema
 export const systemSettingsSchema = z.object({
