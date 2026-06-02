@@ -1,5 +1,6 @@
-import type { Express } from "express";
+import type { Express, NextFunction, Request, Response } from "express";
 import { createServer, type Server } from "http";
+import { timingSafeEqual } from "crypto";
 import nodemailer from "nodemailer";
 import { storage } from "./storage";
 import { sendBookingEmails, sendCancellationEmail, sendContactMessageEmail, sendRescheduleEmail } from "./email";
@@ -16,6 +17,37 @@ import {
 } from "./services/aiQuoteService";
 import { and, desc, eq, gte, isNull, lte, or } from "drizzle-orm";
 import { ZodError } from "zod";
+
+function getAdminToken() {
+  const configuredToken = process.env.ADMIN_API_TOKEN?.trim() || process.env.ADMIN_PASSWORD?.trim();
+  if (configuredToken) return configuredToken;
+
+  // Local development fallback only. Production must explicitly configure an admin token.
+  if (process.env.NODE_ENV !== "production") return "dev-admin-token";
+
+  return "";
+}
+
+function tokensMatch(providedToken: string, configuredToken: string) {
+  const provided = Buffer.from(providedToken);
+  const configured = Buffer.from(configuredToken);
+  if (provided.length !== configured.length) return false;
+  return timingSafeEqual(provided, configured);
+}
+
+function requireAdminToken(req: Request, res: Response, next: NextFunction) {
+  const configuredToken = getAdminToken();
+  if (!configuredToken) {
+    return res.status(503).json({ message: "Admin API is not configured." });
+  }
+
+  const providedToken = req.header("x-admin-token")?.trim() || "";
+  if (!providedToken || !tokensMatch(providedToken, configuredToken)) {
+    return res.status(401).json({ message: "Admin authorization required." });
+  }
+
+  next();
+}
 
 export function registerRoutes(app: Express): Server {
   app.get("/api/promotions", async (_req, res) => {
@@ -434,6 +466,8 @@ export function registerRoutes(app: Express): Server {
   });
 
   // --- ADMIN ROUTES ---
+  app.use("/api/admin", requireAdminToken);
+
   app.get("/api/admin/bookings", async (req, res) => {
     try {
       const bookings = await storage.getAllBookings();

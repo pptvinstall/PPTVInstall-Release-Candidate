@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Phone, MapPin, XCircle, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const PIN = "2025";
 const SESSION_KEY = "dashboard_auth";
+const TOKEN_KEY = "dashboard_admin_token";
 
 type Booking = {
   id: number;
@@ -23,6 +23,7 @@ type Booking = {
 
 export default function Dashboard() {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem(SESSION_KEY) === "true");
+  const [adminToken, setAdminToken] = useState(() => sessionStorage.getItem(TOKEN_KEY) || "");
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -32,29 +33,43 @@ export default function Dashboard() {
   useEffect(() => {
     if (!authed) return;
     setLoading(true);
-    fetch("/api/admin/bookings")
-      .then(r => r.json())
+    fetch("/api/admin/bookings", {
+      headers: { "x-admin-token": adminToken },
+    })
+      .then(r => {
+        if (!r.ok) throw new Error("Admin authorization failed");
+        return r.json();
+      })
       .then(data => setBookings(Array.isArray(data) ? data : []))
-      .catch(() => setBookings([]))
+      .catch(() => {
+        setBookings([]);
+        setPinError(true);
+        sessionStorage.removeItem(SESSION_KEY);
+        sessionStorage.removeItem(TOKEN_KEY);
+        setAuthed(false);
+      })
       .finally(() => setLoading(false));
-  }, [authed]);
+  }, [adminToken, authed]);
 
   function handlePinSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (pin === PIN) {
-      sessionStorage.setItem(SESSION_KEY, "true");
-      setAuthed(true);
-    } else {
-      setPinError(true);
-      setPin("");
-    }
+    const token = pin.trim();
+    if (!token) return;
+    sessionStorage.setItem(SESSION_KEY, "true");
+    sessionStorage.setItem(TOKEN_KEY, token);
+    setAdminToken(token);
+    setAuthed(true);
   }
 
   async function cancelBooking(id: number) {
     if (!confirm("Cancel this booking?")) return;
     setCancelling(id);
     try {
-      await fetch(`/api/admin/bookings/${id}/cancel`, { method: "POST" });
+      const response = await fetch(`/api/admin/bookings/${id}/cancel`, {
+        method: "POST",
+        headers: { "x-admin-token": adminToken },
+      });
+      if (!response.ok) throw new Error("Admin authorization failed");
       setBookings(prev => prev.map(b => b.id === id ? { ...b, status: "cancelled" } : b));
     } finally {
       setCancelling(null);
@@ -99,7 +114,7 @@ export default function Dashboard() {
             </p>
           </div>
           <button
-            onClick={() => { sessionStorage.removeItem(SESSION_KEY); setAuthed(false); }}
+            onClick={() => { sessionStorage.removeItem(SESSION_KEY); sessionStorage.removeItem(TOKEN_KEY); setAuthed(false); }}
             className="text-slate-400 text-sm hover:text-white transition-colors"
           >
             Lock

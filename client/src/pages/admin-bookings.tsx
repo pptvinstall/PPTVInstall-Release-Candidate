@@ -8,13 +8,21 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon, Clock, Search, ShieldAlert, Trash2, Edit, TrendingUp, Users, Inbox, X, ChevronDown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
 
-const SECRET_CODE = (import.meta.env.VITE_ADMIN_PASSWORD as string | undefined) || "";
+const ADMIN_TOKEN_SESSION_KEY = "admin_api_token";
 
 export default function AdminBookings() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [adminToken, setAdminToken] = useState(() => sessionStorage.getItem(ADMIN_TOKEN_SESSION_KEY) || "");
+  const [isAuthenticated, setIsAuthenticated] = useState(() => Boolean(sessionStorage.getItem(ADMIN_TOKEN_SESSION_KEY)));
   const [passcode, setPasscode] = useState("");
+
+  function unlockDashboard() {
+    const token = passcode.trim();
+    if (!token) return;
+    sessionStorage.setItem(ADMIN_TOKEN_SESSION_KEY, token);
+    setAdminToken(token);
+    setIsAuthenticated(true);
+  }
 
   if (!isAuthenticated) {
     return (
@@ -31,11 +39,9 @@ export default function AdminBookings() {
               className="bg-slate-900 border-slate-600 text-white"
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && passcode === SECRET_CODE && setIsAuthenticated(true)}
+              onKeyDown={(e) => e.key === "Enter" && unlockDashboard()}
             />
-            <Button className="w-full bg-blue-600 hover:bg-blue-500" onClick={() => {
-              if (passcode === SECRET_CODE) setIsAuthenticated(true);
-            }}>
+            <Button className="w-full bg-blue-600 hover:bg-blue-500" onClick={unlockDashboard}>
               Unlock Dashboard
             </Button>
           </div>
@@ -44,26 +50,42 @@ export default function AdminBookings() {
     );
   }
 
-  return <DashboardContent />;
+  return <DashboardContent adminToken={adminToken} />;
 }
 
-function DashboardContent() {
+function DashboardContent({ adminToken }: { adminToken: string }) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
   const [rescheduleBooking, setRescheduleBooking] = useState<any>(null);
 
+  async function adminRequest(method: string, url: string, data?: unknown) {
+    const headers: Record<string, string> = { "x-admin-token": adminToken };
+    let body: string | undefined;
+    if (data !== undefined) {
+      headers["Content-Type"] = "application/json";
+      body = JSON.stringify(data);
+    }
+
+    const response = await fetch(url, { method, headers, body, credentials: "include" });
+    if (!response.ok) {
+      const payload = await response.json().catch(() => null);
+      throw new Error(payload?.message || response.statusText);
+    }
+    return response;
+  }
+
   const { data: bookings = [] } = useQuery({
     queryKey: ["/api/admin/bookings"],
     queryFn: async () => {
-      const res = await apiRequest("GET", "/api/admin/bookings");
+      const res = await adminRequest("GET", "/api/admin/bookings");
       return res.json();
     },
   });
 
   const rescheduleMutation = useMutation({
     mutationFn: async ({ id, date, time }: { id: number, date: string, time: string }) => {
-      await apiRequest("POST", `/api/admin/bookings/${id}/reschedule`, { date, time });
+      await adminRequest("POST", `/api/admin/bookings/${id}/reschedule`, { date, time });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/bookings"] });
@@ -77,7 +99,7 @@ function DashboardContent() {
 
   const cancelMutation = useMutation({
     mutationFn: async (id: number) => {
-      await apiRequest("POST", `/api/admin/bookings/${id}/cancel`);
+      await adminRequest("POST", `/api/admin/bookings/${id}/cancel`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/bookings"] });
