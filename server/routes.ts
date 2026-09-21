@@ -382,19 +382,37 @@ export function registerRoutes(app: Express): Server {
   app.post("/api/bookings", async (req, res) => {
     try {
       const data = insertBookingSchema.parse(req.body);
-      const allBookings = await storage.getAllBookings();
-      const isTaken = allBookings.find(b => 
-        b.preferredDate === data.preferredDate && 
-        b.appointmentTime === data.appointmentTime &&
-        b.status !== "cancelled"
-      );
+      const requestedDate = new Date(`${data.preferredDate}T12:00:00`);
 
-      if (isTaken) {
-        console.log(`🚫 Blocked duplicate booking for ${data.preferredDate} @ ${data.appointmentTime}`);
+      if (Number.isNaN(requestedDate.getTime())) {
+        return res.status(400).json({ message: "Please select a valid appointment date." });
+      }
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const requestedDay = new Date(requestedDate);
+      requestedDay.setHours(0, 0, 0, 0);
+
+      if (requestedDay < today) {
+        return res.status(400).json({ message: "Please select a future appointment date." });
+      }
+
+      if (!getSlots(requestedDate).includes(data.appointmentTime)) {
+        return res.status(400).json({ message: "That appointment time is outside our available hours." });
+      }
+
+      if (
+        requestedDay.getTime() === today.getTime() &&
+        parseSlotTime(requestedDate, data.appointmentTime).getTime() < Date.now() + 2 * 60 * 60 * 1000
+      ) {
+        return res.status(409).json({ message: "Same-day appointments require at least two hours notice." });
+      }
+
+      const booking = await storage.createBookingIfAvailable(data);
+      if (!booking) {
+        console.log(`Blocked duplicate booking for ${data.preferredDate} @ ${data.appointmentTime}`);
         return res.status(409).json({ message: "That time slot was just booked. Please select another time." });
       }
-      
-      const booking = await storage.createBooking(data);
 
       // CRM capture only: transactional booking emails/texts remain separate from marketing consent.
       upsertCustomerCrmRecord(
@@ -423,10 +441,13 @@ export function registerRoutes(app: Express): Server {
     } catch (error) {
       if (error instanceof ZodError) {
         console.warn("Booking validation failed");
-      } else {
-        console.error("Booking Error:", error);
+        return res.status(400).json({ message: "Invalid booking data" });
       }
-      res.status(400).json({ message: "Invalid booking data" });
+
+      console.error("Booking Error:", error);
+      return res.status(500).json({
+        message: "We couldn't complete that booking right now. Please try again or call us directly.",
+      });
     }
   });
 
