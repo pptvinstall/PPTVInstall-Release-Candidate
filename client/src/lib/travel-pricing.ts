@@ -146,10 +146,10 @@ export function getTravelTier(zip: string): TravelTier {
   return tiers[zip] ?? "out_of_range";
 }
 
-export function getTravelFee(zip: string): number | "out_of_range" {
-  const tier = getTravelTier(zip);
-  if (tier === "out_of_range") return "out_of_range";
-  return TRAVEL_FEE[tier];
+export function getTravelFee(_zip: string): number | "out_of_range" {
+  // Current policy: do not auto-apply mileage/travel fees from ZIP alone.
+  // Distance, route fit, access, and the total ticket are reviewed case-by-case.
+  return 0;
 }
 
 export function getTravelContext(zip: string): {
@@ -170,14 +170,9 @@ export function getTravelContext(zip: string): {
   const oneWayMiles = tier === "out_of_range" ? null : ONE_WAY_MILES_ESTIMATE[tier];
   const roundTripMiles = oneWayMiles === null ? null : oneWayMiles * 2;
 
-  let feeLabel = "";
-  if (fee === "out_of_range") {
-    feeLabel = "Outside service area";
-  } else if (fee === 0) {
-    feeLabel = "No travel fee";
-  } else {
-    feeLabel = `+$${fee} travel fee (from ${origin})`;
-  }
+  const feeLabel = tier === "out_of_range"
+    ? "Route review required"
+    : "Travel reviewed before booking";
 
   return { fee, tier, dayType, origin, availabilityNote, feeLabel, oneWayMiles, roundTripMiles };
 }

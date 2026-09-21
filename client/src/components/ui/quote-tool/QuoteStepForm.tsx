@@ -9,13 +9,12 @@ import {
 
 import { formatPrice, pricingData } from "@/data/pricing-data";
 import {
-  calculateTroubleshootingTotal,
   type CameraConfig,
   type CameraType,
   type MountType,
   type WallType,
 } from "@/lib/quote-calculator";
-import { getAreaName, getTravelDayLabel } from "@/lib/travel-pricing";
+import { getAreaName } from "@/lib/travel-pricing";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -36,7 +35,7 @@ import {
   isValidFiveDigitZip,
 } from "@/components/ui/quote-tool/shared";
 import { SelectorButton, ToggleCard } from "@/components/ui/quote-tool/QuoteComponents";
-import { useQuoteContext, businessPhone } from "@/components/ui/quote-tool/useQuoteState";
+import { useQuoteContext } from "@/components/ui/quote-tool/useQuoteState";
 
 export default function QuoteStepForm() {
   const {
@@ -380,26 +379,26 @@ export default function QuoteStepForm() {
                     <div className="rounded-2xl border border-slate-200 bg-white p-4">
                       <h5 className="text-sm font-bold text-slate-900">{pricingData.otherServices.avTroubleshooting.name}</h5>
                       <p className="mt-1 text-sm text-slate-500">{pricingData.otherServices.avTroubleshooting.description}</p>
-                      <p className="mt-2 text-sm font-semibold text-blue-600">{formatPrice(pricingData.otherServices.avTroubleshooting.minimum ?? pricingData.otherServices.avTroubleshooting.price)} first hour, {formatPrice(pricingData.otherServices.avTroubleshooting.halfHourRate ?? 0)} each additional 30 min</p>
+                      <p className="mt-2 text-sm font-semibold text-blue-600">Custom quote after scope review</p>
                       <div className="mt-3 grid grid-cols-2 gap-2">
                         {[
-                          { minutes: 60, label: `1 hr (${formatPrice(calculateTroubleshootingTotal(60))})` },
-                          { minutes: 90, label: `1.5 hr (${formatPrice(calculateTroubleshootingTotal(90))})` },
-                          { minutes: 120, label: `2 hr (${formatPrice(calculateTroubleshootingTotal(120))})` },
-                          { minutes: 150, label: `2.5 hr (${formatPrice(calculateTroubleshootingTotal(150))})` },
+                          { minutes: 60, label: "Up to 1 hr" },
+                          { minutes: 90, label: "About 1.5 hr" },
+                          { minutes: 120, label: "About 2 hr" },
+                          { minutes: 150, label: "2+ hr / unsure" },
                         ].map((option) => (
                           <SelectorButton key={option.minutes} selected={standaloneServices.troubleshootingMinutes === option.minutes} onClick={() => setStandaloneServices((current) => ({ ...current, troubleshootingMinutes: option.minutes }))}>
                             {option.label}
                           </SelectorButton>
                         ))}
                       </div>
-                      <p className="mt-3 text-sm text-slate-500">Minimum 1 hour for troubleshooting visits.</p>
+                      <p className="mt-3 text-sm text-slate-500">Time is only for scope planning; final pricing is confirmed after review.</p>
                     </div>
 
                     <div className="rounded-2xl border border-slate-200 bg-white p-4">
                       <h5 className="text-sm font-bold text-slate-900">{pricingData.otherServices.wireManagementOnly.name}</h5>
                       <p className="mt-1 text-sm text-slate-500">{pricingData.otherServices.wireManagementOnly.description}</p>
-                      <p className="mt-2 text-sm font-semibold text-blue-600">{formatPrice(pricingData.otherServices.wireManagementOnly.price)} first location, +{formatPrice(pricingData.otherServices.wireManagementOnly.additionalLocationPrice)} each additional</p>
+                      <p className="mt-2 text-sm font-semibold text-blue-600">Custom quote · outlet-behind-TV is our standard clean-cord option</p>
                       <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
                         {[0, 1, 2, 3].map((count) => (
                           <SelectorButton key={count} selected={standaloneServices.wireManagementLocations === count} onClick={() => setStandaloneServices((current) => ({ ...current, wireManagementLocations: count }))}>
@@ -412,7 +411,7 @@ export default function QuoteStepForm() {
                     <div className="rounded-2xl border border-slate-200 bg-white p-4">
                       <h5 className="text-sm font-bold text-slate-900">{pricingData.otherServices.deviceSetup.name}</h5>
                       <p className="mt-1 text-sm text-slate-500">{pricingData.otherServices.deviceSetup.description}</p>
-                      <p className="mt-2 text-sm font-semibold text-blue-600">{formatPrice(pricingData.otherServices.deviceSetup.price)} flat</p>
+                      <p className="mt-2 text-sm font-semibold text-blue-600">Custom quote after device review</p>
                       <div className="mt-3">
                         <ToggleCard
                           title="Add device setup service"
@@ -484,7 +483,7 @@ export default function QuoteStepForm() {
                             <option value="outdoor">Outdoor</option>
                           </select>
                           <p className="md:col-span-3 text-xs text-slate-500">
-                            Camera {index + 1} prices at {formatPrice(pricingData.smartHome.securityCamera.price)}. Wired DVR setups may require additional assessment.
+                            Camera {index + 1} is custom-priced after device, wiring, and location review.
                           </p>
                         </div>
                       ))}
@@ -494,22 +493,22 @@ export default function QuoteStepForm() {
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <ToggleCard
-                    title={`Add smart doorbell install (+${formatPrice(pricingData.smartHome.doorbell.price)})`}
+                    title="Add smart doorbell install (custom quote)"
                     active={formState.doorbell}
                     onClick={() => setFormState((current) => ({ ...current, doorbell: !current.doorbell }))}
                   />
                   <ToggleCard
-                    title={`Add soundbar setup (+${formatPrice(pricingData.soundSystem.soundbar.price)})`}
+                    title="Add soundbar setup (custom quote)"
                     active={formState.soundbar}
                     onClick={() => setFormState((current) => ({ ...current, soundbar: !current.soundbar }))}
                   />
                   <ToggleCard
-                    title={`Add surround sound installation (+${formatPrice(pricingData.soundSystem.surroundSound.price)})`}
+                    title="Surround-sound request (scope review)"
                     active={formState.surroundSound}
                     onClick={() => setFormState((current) => ({ ...current, surroundSound: !current.surroundSound }))}
                   />
                   <ToggleCard
-                    title={`Add smart floodlight (+${formatPrice(pricingData.smartHome.floodlight.price)})`}
+                    title="Add smart floodlight (custom quote)"
                     active={formState.floodlight}
                     onClick={() => setFormState((current) => ({ ...current, floodlight: !current.floodlight }))}
                   />
@@ -551,32 +550,17 @@ export default function QuoteStepForm() {
 
                 <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
                   <ToggleCard
-                    title="I need some handyman work too"
+                    title="I have a specialty AV / mounting request"
                     active={formState.handymanMinutes > 0}
                     onClick={() => setFormState((current) => ({ ...current, handymanMinutes: current.handymanMinutes > 0 ? 0 : 60 }))}
                   />
                   {formState.handymanMinutes > 0 ? (
                     <>
-                      <div className="grid gap-3 md:grid-cols-4">
-                        {[
-                          { minutes: 30, label: "30 min ($50)" },
-                          { minutes: 60, label: "1 hr ($100)" },
-                          { minutes: 90, label: "1.5 hrs ($150)" },
-                          { minutes: 120, label: "2 hrs ($200)" },
-                        ].map((option) => (
-                          <SelectorButton
-                            key={option.minutes}
-                            selected={formState.handymanMinutes === option.minutes}
-                            onClick={() => setFormState((current) => ({ ...current, handymanMinutes: option.minutes }))}
-                          >
-                            {option.label}
-                          </SelectorButton>
-                        ))}
-                      </div>
+                      <p className="text-sm text-slate-500">Tell us the exact scope below. We&apos;ll confirm whether it fits PPTVInstall and price it before booking.</p>
                       <Input
                         value={formState.notes}
                         onChange={(event) => setFormState((current) => ({ ...current, notes: event.target.value }))}
-                        placeholder="What do you need? (shelves, mirrors, furniture assembly, etc.)"
+                        placeholder="What do you need? (projector, outdoor TV, unusual device setup, specialty mounting, etc.)"
                         className="h-12 rounded-xl bg-white"
                       />
                     </>
@@ -587,7 +571,7 @@ export default function QuoteStepForm() {
               <section className="space-y-4 rounded-[28px] border border-slate-200 bg-white p-5 md:p-6">
                 <div>
                   <h4 className="text-xl font-bold text-slate-900">4. ZIP code and notes</h4>
-                  <p className="text-sm text-slate-500">We use your ZIP to estimate travel and confirm service coverage.</p>
+                  <p className="text-sm text-slate-500">We use your ZIP to confirm route fit and service coverage.</p>
                 </div>
 
                 <div className="space-y-2">
@@ -611,23 +595,18 @@ export default function QuoteStepForm() {
                       <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
                         <div className="flex items-center gap-2 font-semibold">
                           <AlertCircle className="h-4 w-4 shrink-0" />
-                          <span>Outside our standard area</span>
+                          <span>Route review needed</span>
                         </div>
-                        <p className="mt-1">We may still be able to help — call {businessPhone}</p>
+                        <p className="mt-1">This ZIP isn&apos;t in our quick lookup. We&apos;ll review distance and route fit instead of applying an automatic fee.</p>
                       </div>
                     ) : (
-                      <div className={cn("rounded-2xl border p-4 text-sm", typeof travelContext.fee === "number" && travelContext.fee > 0 ? "border-amber-200 bg-amber-50 text-amber-900" : "border-green-200 bg-green-50 text-green-900")}>
+                      <div className="rounded-2xl border border-green-200 bg-green-50 p-4 text-sm text-green-900">
                         <div className="flex items-center gap-2 font-semibold">
-                          <CheckCircle2 className={cn("h-4 w-4 shrink-0", typeof travelContext.fee === "number" && travelContext.fee > 0 ? "text-amber-600" : "text-green-600")} />
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-green-600" />
                           <span>We serve {getAreaName(formState.zipCode)}</span>
                         </div>
                         <div className="mt-1.5 space-y-1">
-                          {travelContext.fee === 0
-                            ? <p>No travel fee — you&apos;re in our home zone (from {travelContext.origin} on {getTravelDayLabel(travelContext.dayType)})</p>
-                            : <>
-                                <p>Travel fee: +${travelContext.fee} (from {travelContext.origin} on {getTravelDayLabel(travelContext.dayType)})</p>
-                                {travelContext.roundTripMiles !== null ? <p>Round-trip distance: approximately {travelContext.roundTripMiles} miles</p> : null}
-                              </>}
+                          <p>Travel and route fit are reviewed before final booking. No automatic mileage fee is added from ZIP alone.</p>
                           {travelContext.availabilityNote ? <p className="text-xs opacity-80">{travelContext.availabilityNote}</p> : null}
                         </div>
                       </div>
@@ -703,7 +682,7 @@ export default function QuoteStepForm() {
                 <p className="text-sm text-slate-500">Example: Mount 1 TV on drywall, set up a soundbar, and the outlet is already close to the TV spot</p>
               </div>
               <div className="flex items-center justify-between gap-3 text-sm">
-                <label className="text-sm font-semibold text-slate-900">ZIP Code (for travel pricing)</label>
+                <label className="text-sm font-semibold text-slate-900">ZIP Code (for route review)</label>
                 <span className={cn("font-semibold transition-colors", describeUsageRatio >= 1 ? "text-red-600" : describeUsageRatio >= 0.9 ? "text-amber-600" : describeUsageRatio >= 0.75 ? "text-slate-700" : "text-slate-500")}>
                   {describeCharacterCount} / {DESCRIBE_IT_MAX_CHARS}
                 </span>
@@ -733,23 +712,18 @@ export default function QuoteStepForm() {
                   <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
                     <div className="flex items-center gap-2 font-semibold">
                       <AlertCircle className="h-4 w-4 shrink-0" />
-                      <span>Outside our standard area</span>
+                      <span>Route review needed</span>
                     </div>
-                    <p className="mt-2">We may still be able to help — call {businessPhone}</p>
+                    <p className="mt-2">This ZIP isn&apos;t in our quick lookup. We&apos;ll review distance and route fit instead of applying an automatic fee.</p>
                   </div>
                 ) : (
-                  <div className={cn("rounded-2xl border p-4 text-sm", typeof textTravelContext.fee === "number" && textTravelContext.fee > 0 ? "border-amber-200 bg-amber-50 text-amber-900" : "border-green-200 bg-green-50 text-green-900")}>
+                  <div className="rounded-2xl border border-green-200 bg-green-50 p-4 text-sm text-green-900">
                     <div className="flex items-center gap-2 font-semibold">
-                      <CheckCircle2 className={cn("h-4 w-4 shrink-0", typeof textTravelContext.fee === "number" && textTravelContext.fee > 0 ? "text-amber-600" : "text-green-600")} />
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-green-600" />
                       <span>We serve {getAreaName(textZipCode)}</span>
                     </div>
                     <div className="mt-2 space-y-1 text-sm">
-                      {textTravelContext.fee === 0
-                        ? <p>No travel fee — you&apos;re in our home zone</p>
-                        : <>
-                            <p>Travel fee: +${textTravelContext.fee} (from {textTravelContext.origin} on {getTravelDayLabel(textTravelContext.dayType)})</p>
-                            {textTravelContext.roundTripMiles !== null ? <p>Round-trip distance: approximately {textTravelContext.roundTripMiles} miles</p> : null}
-                          </>}
+                      <p>Travel and route fit are reviewed before final booking. No automatic mileage fee is added from ZIP alone.</p>
                       {textTravelContext.availabilityNote ? <p className="text-xs opacity-80">{textTravelContext.availabilityNote}</p> : null}
                     </div>
                   </div>

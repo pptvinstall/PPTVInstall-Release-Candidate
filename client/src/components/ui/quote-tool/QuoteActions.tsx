@@ -90,7 +90,7 @@ export default function QuoteActions() {
               <div className="rounded-[28px] bg-slate-900 p-5 text-white shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Estimated Total</p>
                 <p className="mt-3 text-4xl font-extrabold">{formatPrice(quote.total)}</p>
-                <p className="mt-2 text-sm text-slate-300">Travel: {quote.travelFee === "out_of_range" ? "Custom quote" : formatPrice(typeof quote.travelFee === "number" ? quote.travelFee : 0)}</p>
+                <p className="mt-2 text-sm text-slate-300">Travel: reviewed before booking</p>
               </div>
 
               <div className="space-y-3">

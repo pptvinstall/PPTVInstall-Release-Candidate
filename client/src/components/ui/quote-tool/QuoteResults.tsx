@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { AlertCircle, ArrowRight } from "lucide-react";
 
 import { formatPrice } from "@/data/pricing-data";
-import { getTravelDayLabel } from "@/lib/travel-pricing";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -87,18 +86,14 @@ export default function QuoteResults() {
 
       <div className="grid gap-4 md:grid-cols-3">
         <div className="rounded-[28px] bg-slate-900 p-5 text-white shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Final Price</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">Estimated Total</p>
           <p className="mt-3 text-4xl font-extrabold">{formatPrice(quote.total)}</p>
-          <p className="mt-2 text-sm text-slate-300">Most installs take 30–90 minutes.</p>
+          <p className="mt-2 text-sm text-slate-300">Custom-quote items are confirmed before booking and are not included until priced.</p>
         </div>
         <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Travel Fee</p>
-          <p className="mt-3 text-2xl font-extrabold text-slate-900">
-            {quote.travelFee === "out_of_range" ? "Custom quote" : formatPrice(typeof quote.travelFee === "number" ? quote.travelFee : 0)}
-          </p>
-          <p className="mt-2 text-sm text-slate-500">
-            {quote.travelFee === "out_of_range" ? "Outside the standard service area." : quote.travelFee === 0 ? "No travel fee for this ZIP." : `${quote.travelContext.origin} origin on ${getTravelDayLabel(quote.travelContext.dayType)}.`}
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Travel / Route</p>
+          <p className="mt-3 text-2xl font-extrabold text-slate-900">Reviewed</p>
+          <p className="mt-2 text-sm text-slate-500">Distance, access, and route fit are confirmed before final booking.</p>
         </div>
         <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Promo</p>
@@ -140,8 +135,9 @@ export default function QuoteResults() {
                 <div key={`${group.title}-${item.name}-${item.lineTotal}`} className="flex items-start justify-between gap-4 text-sm">
                   <div className="text-slate-700">{item.qty && item.qty > 1 ? `${item.qty}x ${item.name}` : item.name}</div>
                   <div className={cn("shrink-0 font-semibold", item.lineTotal < 0 ? "text-green-700" : "text-slate-900")}>
-                    {item.lineTotal < 0 ? "-" : ""}
-                    {formatPrice(Math.abs(item.lineTotal))}
+                    {item.lineTotal === 0 && /custom quote|scope review|assessment required/i.test(item.name)
+                      ? "Custom"
+                      : <>{item.lineTotal < 0 ? "-" : ""}{formatPrice(Math.abs(item.lineTotal))}</>}
                   </div>
                 </div>
               ))}

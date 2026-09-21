@@ -308,94 +308,69 @@ export function calculateQuote(state: QuoteFormState): QuoteResult {
   const sharedItems: QuoteLineItem[] = [];
 
   if (state.cameras.length > 0) {
-    const cameraTotal = state.cameras.length * pricingData.smartHome.securityCamera.price;
     const brandSummary = Array.from(new Set(state.cameras.map((camera) => cameraBrandLabels[camera.brand]))).join(", ");
-
     sharedItems.push({
-      name:
-        brandSummary.length > 0
-          ? `${brandSummary} security camera installation`
-          : pricingData.smartHome.securityCamera.name,
-      price: pricingData.smartHome.securityCamera.price,
+      name: `${brandSummary || "Security camera"} installation — custom quote`,
+      price: 0,
       qty: state.cameras.length,
-      lineTotal: cameraTotal,
+      lineTotal: 0,
     });
-    positiveSubtotal += cameraTotal;
-
-    if (state.cameras.some((camera) => camera.type === "wired_dvr")) {
-      flags.add("Wired DVR/NVR systems vary significantly in complexity. We'll confirm final pricing after reviewing your setup.");
-    }
+    flags.add("Security-camera work is reviewed by device, wiring, location, and scope before a final price is confirmed.");
   }
 
   if (state.doorbell) {
-    const label = state.doorbellBrand
-      ? `${state.doorbellBrand} doorbell installation`
-      : pricingData.smartHome.doorbell.name;
-
+    const label = state.doorbellBrand ? `${state.doorbellBrand} doorbell installation` : "Smart doorbell installation";
     sharedItems.push({
-      name: label,
-      price: pricingData.smartHome.doorbell.price,
+      name: `${label} — custom quote`,
+      price: 0,
       qty: 1,
-      lineTotal: pricingData.smartHome.doorbell.price,
+      lineTotal: 0,
     });
-    positiveSubtotal += pricingData.smartHome.doorbell.price;
+    flags.add("Smart-home device work is custom-priced after the exact device and installation conditions are reviewed.");
   }
 
   if (state.soundbar) {
     sharedItems.push({
-      name: pricingData.soundSystem.soundbar.name,
-      price: pricingData.soundSystem.soundbar.price,
+      name: "Soundbar mounting / setup — custom quote",
+      price: 0,
       qty: 1,
-      lineTotal: pricingData.soundSystem.soundbar.price,
+      lineTotal: 0,
     });
-    positiveSubtotal += pricingData.soundSystem.soundbar.price;
+    flags.add("Soundbar work is custom-priced after placement, wall type, and cable/device scope are confirmed.");
   }
 
   if (state.surroundSound) {
     sharedItems.push({
-      name: pricingData.soundSystem.surroundSound.name,
-      price: pricingData.soundSystem.surroundSound.price,
+      name: "Surround-sound request — scope review required",
+      price: 0,
       qty: 1,
-      lineTotal: pricingData.soundSystem.surroundSound.price,
+      lineTotal: 0,
     });
-    positiveSubtotal += pricingData.soundSystem.surroundSound.price;
+    flags.add("Full home-theater wiring is not a standard PPTVInstall service. We can review the exact scope and confirm whether we can help.");
   }
 
   if (state.floodlight) {
     sharedItems.push({
-      name: pricingData.smartHome.floodlight.name,
-      price: pricingData.smartHome.floodlight.price,
+      name: "Smart floodlight installation — custom quote",
+      price: 0,
       qty: 1,
-      lineTotal: pricingData.smartHome.floodlight.price,
+      lineTotal: 0,
     });
-    positiveSubtotal += pricingData.smartHome.floodlight.price;
-    flags.add("Floodlight install requires existing outdoor wiring. If no wiring exists, we'll need to assess before confirming price.");
+    flags.add("Smart floodlight work requires review of the exact device and existing outdoor wiring before price is confirmed.");
   }
 
   if (state.handymanMinutes > 0) {
-    const handymanRatePerHalfHour = pricingData.customServices.handyman.halfHourRate ?? 50;
-    const handymanTotal = (state.handymanMinutes / 30) * handymanRatePerHalfHour;
     sharedItems.push({
-      name: `Handyman work estimate (${state.handymanMinutes} min)`,
-      price: handymanTotal,
+      name: "Specialty AV / mounting add-on — custom quote",
+      price: 0,
       qty: 1,
-      lineTotal: handymanTotal,
+      lineTotal: 0,
     });
-    positiveSubtotal += handymanTotal;
+    flags.add("PPTVInstall is not a general handyman service. Specialty AV, projector, outdoor-TV, or unusual mounting requests are reviewed individually.");
   }
 
-  if (travelFee !== "out_of_range" && travelFee > 0) {
-    sharedItems.push({
-      name: `Travel fee (${state.zipCode}, ${travelContext.dayType} ${travelContext.dayType === "weekday" ? "evening" : "hours"})`,
-      price: travelFee,
-      qty: 1,
-      lineTotal: travelFee,
-    });
-    positiveSubtotal += travelFee;
-  }
-
-  if (travelFee === "out_of_range") {
-    flags.add("We don't regularly serve this ZIP code, but we may still be able to accommodate. Call us to confirm availability.");
+  if (travelTier === "out_of_range") {
+    flags.add("This ZIP is not in our quick route lookup. We may still serve it; distance and route fit will be reviewed before final booking.");
   }
 
   if (state.tvs.length >= 5) {
@@ -410,11 +385,7 @@ export function calculateQuote(state: QuoteFormState): QuoteResult {
     });
   }
 
-  const bundleDiscount =
-    state.tvs.length > 1
-      ? (additionalTvDiscountUnits * pricingData.discounts.multipleTvs.amount) +
-        (Math.max(0, pricedWireJobs - 1) * pricingData.discounts.multipleOutlets.amount)
-      : 0;
+  const bundleDiscount = 0;
 
   return {
     groups,

@@ -1,6 +1,5 @@
 import "../env";
 import { pricingData } from "../../client/src/data/pricing-data";
-import { TRAVEL_FEE } from "../../client/src/lib/travel-pricing";
 
 type RateLimitEntry = {
   count: number;
@@ -49,7 +48,7 @@ export function getAiQuoteProtectionConfig() {
 export function buildAiQuotePrompt(message: string): string {
   return [
     "You are a pricing assistant for Picture Perfect TV Install.",
-    "Use ONLY the pricing data and ZIP travel fee data below as the source of truth.",
+    "Use ONLY the canonical fixed-price data and policy rules below as the source of truth.",
     "Return ONLY valid JSON. No markdown. No preamble.",
     "Return this exact schema:",
     '{"groups":[{"title":"string","subtitle":"optional string","items":[{"name":"string","price":0,"qty":1,"lineTotal":0,"isDiscount":false}],"subtotal":0}],"subtotal":0,"discount":0,"total":0,"summary":"string","flags":["string"],"followUp":"optional string"}',
@@ -60,22 +59,28 @@ export function buildAiQuotePrompt(message: string): string {
     "Treat the fireplace mounting price as the complete mounting charge for that fireplace TV. Do not add a separate non-drywall or brick/masonry surcharge to the same fireplace TV unless the customer clearly described a separate extra service.",
     "Do not apply automatic discounts. Set quote-level discount to 0 unless an explicitly approved promotion is provided in the customer request.",
     "Multi-TV, repeat-customer, referral, mount-bundle, and multi-outlet discounts are owner-approved case-by-case and must never be invented by the quote assistant.",
+    "Custom-quote policy: soundbars, outdoor installs, commercial work, projector/projector-screen assistance, selective smart-home devices, unusual specialty finishes, very large TVs, helper-required jobs, troubleshooting, and complex high-rise access must NOT receive an invented fixed price.",
+    "For a custom-quote item, include a $0 line item whose name ends with '— custom quote' and add a flag explaining what must be reviewed.",
+    "PPTVInstall is not a general handyman service. Do not quote furniture assembly, shelves, mirrors, ceiling fans, TV repair, or broad electrical/home-theater wiring as standard services.",
+    "Travel policy: never add an automatic mileage or ZIP travel fee. Distance, route fit, access, schedule, and total ticket are reviewed case-by-case before final booking.",
     "If fireplace wire concealment is requested, include a $0 line item named 'Wire concealment assessment required' and add a flag about photo assessment.",
     "If one TV is over a fireplace and another TV is a standard drywall install, only the fireplace TV should use the assessment-only concealment line. The drywall TV should still receive the normal wire concealment price when requested.",
     "Do not let a fireplace TV or a masonry TV cause a second standard drywall TV to lose its normal wire concealment pricing.",
     "For standard non-fireplace wire concealment, if the customer clearly says the outlet is already close, nearby, directly below, or within 1–2 feet, keep the normal concealment pricing with no extra clarification.",
     "For standard non-fireplace wire concealment, if the customer clearly says the outlet is farther away or not nearby, keep the normal concealment pricing but add a flag that extra outlet work may need confirmation.",
     `If standard non-fireplace wire concealment is included and outlet distance is not clearly known, use this follow-up question exactly: "${"Is the existing outlet within 1–2 feet of where you want the TV mounted?"}"`,
-    "If the ZIP code is outside the listed service area, do not add a travel fee and add a flag telling the customer to call for availability.",
-    "If a floodlight is included, add a flag about existing outdoor wiring.",
-    "If a wired DVR/NVR camera system is included, add a flag about final pricing needing review.",
-    `Additional services: TV unmounting or removal is $${pricingData.otherServices.tvUnmounting.price} per TV.`,
-    `Additional services: AV troubleshooting is $${pricingData.otherServices.avTroubleshooting.minimum ?? pricingData.otherServices.avTroubleshooting.price} for the first hour and $${pricingData.otherServices.avTroubleshooting.halfHourRate ?? 0} for each additional 30 minutes.`,
-    `Additional services: Cable or wire management only is $${pricingData.otherServices.wireManagementOnly.price} for the first location and $${pricingData.otherServices.wireManagementOnly.additionalLocationPrice} for each additional location.`,
-    `Additional services: Device setup and configuration is $${pricingData.otherServices.deviceSetup.price} flat for smart TV setup, streaming apps, Alexa or Google Home linking, and WiFi config.`,
-    "Map phrases like unmount, remove my TV, take down, troubleshoot, sound isn't working, HDMI issue, remote not working, setup my TV, and streaming not working to those services when appropriate.",
-    `Pricing data: ${JSON.stringify(pricingData)}`,
-    `Travel fees: ${JSON.stringify(TRAVEL_FEE)}`,
+    "If the ZIP is unfamiliar or farther away, add a route-review flag; do not reject it automatically.",
+    "If a floodlight is included, make it a custom quote and add a flag about the exact device and existing outdoor wiring.",
+    "If any camera system is included, make it a custom quote; wired DVR/NVR systems require especially careful scope review.",
+    "Smart doorbells and other smart-home device installs are custom quotes until the exact device and scope are confirmed.",
+    "Soundbar work is a custom quote. Full home-theater wiring is not a standard service.",
+    "Streaming-device and cable-box setup may be offered, but price it as a custom quote until the exact scope is confirmed.",
+    `Fixed-price service: standard drywall TV mounting with customer-supplied compatible mount is $${pricingData.tvMounting.standard.price}.`,
+    `Fixed-price condition: fireplace placement is $${pricingData.tvMounting.fireplace.price} total for the base fireplace mounting path before any separately confirmed extra scope.`,
+    `Fixed-price condition: brick/stone add-on is $${pricingData.tvMounting.nonDrywall.price}; high-rise/steel-stud working add-on is $${pricingData.tvMounting.highRise.price} when the job remains within normal scope.`,
+    `Fixed-price service: outlet behind TV / clean-cord setup is $${pricingData.wireConcealment.standard.price}.`,
+    `Fixed-price service: TV unmounting/removal only is $${pricingData.otherServices.tvUnmounting.price} per TV.`,
+    `PPTV-supplied mount add-ons: fixed 32–55 $${pricingData.tvMounts.fixedSmall.price}, tilt 32–55 $${pricingData.tvMounts.tiltingSmall.price}, full motion 32–55 $${pricingData.tvMounts.fullMotionSmall.price}, fixed 56+ $${pricingData.tvMounts.fixedBig.price}, tilt 56+ $${pricingData.tvMounts.tiltingBig.price}, full motion 56+ $${pricingData.tvMounts.fullMotionBig.price}.`,
     `Customer request: ${message}`,
   ].join("\n");
 }
