@@ -9,9 +9,24 @@ import { alertOnError } from "./services/errorAlertService";
 import { startScheduler } from "./services/schedulerService";
 
 const app = express();
+
+// Render terminates HTTPS and forwards traffic through a single proxy hop.
+// Trust exactly that hop so req.ip and express-rate-limit see the real client IP.
+app.set("trust proxy", 1);
+
 app.use(compression());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "256kb" }));
+app.use(express.urlencoded({ extended: false, limit: "256kb" }));
+
+// Lightweight liveness endpoint for the hosting platform.
+// This intentionally does not depend on the database; /api/ready covers readiness.
+app.get("/healthz", (_req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+  res.status(200).json({
+    status: "ok",
+    uptimeSeconds: Math.round(process.uptime()),
+  });
+});
 
 // General API limiter: 100 requests per 15 minutes per IP
 const apiLimiter = rateLimit({
@@ -41,32 +56,17 @@ app.use("/api/", apiLimiter);
 // Apply strict limiter specifically to POST /api/bookings (registered before routes)
 app.post("/api/bookings", bookingLimiter);
 
-// Middleware for logging
+// Middleware for request logging.
+// Never serialize response bodies here: booking/admin responses can contain customer data.
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
-
-  const originalResJson = res.json;
-  res.json = function (bodyJson, ...args) {
-    capturedJsonResponse = bodyJson;
-    return originalResJson.apply(res, [bodyJson, ...args]);
-  };
 
   res.on("finish", () => {
+    if (!path.startsWith("/api")) return;
+
     const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
-      }
-
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
-      log(logLine);
-    }
+    log(`${req.method} ${path} ${res.statusCode} in ${duration}ms`);
   });
 
   next();
@@ -76,15 +76,25 @@ app.use((req, res, next) => {
   const server = await registerRoutes(app);
 
   // Global Error Handler
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-    res.status(status).json({ message });
-    // Alert on 5xx errors only — 4xx are expected client errors
-    if (status >= 500) {
-      alertOnError(err instanceof Error ? err : new Error(message), `HTTP ${status}`);
+  app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
+    if (res.headersSent) {
+      return next(err);
     }
-    throw err;
+
+    const status = Number(err?.status || err?.statusCode || 500);
+    const internalMessage = err?.message || "Internal Server Error";
+    const clientMessage = status >= 500 ? "Internal Server Error" : internalMessage;
+
+    // Alert on 5xx errors only — 4xx are expected client errors.
+    if (status >= 500) {
+      alertOnError(
+        err instanceof Error ? err : new Error(internalMessage),
+        `HTTP ${status}`,
+      );
+    }
+
+    // A handled HTTP error should end with the response, not be thrown again.
+    return res.status(status).json({ message: clientMessage });
   });
 
   // Setup Vite or Static serving
