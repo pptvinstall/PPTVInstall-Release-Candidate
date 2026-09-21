@@ -5,6 +5,7 @@ import { DatabaseStorage } from "./storage.db";
 export interface IStorage {
   // Booking Methods
   createBooking(booking: InsertBooking): Promise<Booking>;
+  createBookingIfAvailable(booking: InsertBooking): Promise<Booking | null>;
   getAllBookings(): Promise<Booking[]>;
   updateBooking(id: number, updates: Partial<Booking>): Promise<Booking>;
 }
@@ -38,6 +39,18 @@ export class MemStorage implements IStorage {
     this.bookings.set(id, booking);
     console.log(`✅ Storage: Saved Booking #${id} for ${booking.email}`);
     return booking;
+  }
+
+  async createBookingIfAvailable(insertBooking: InsertBooking): Promise<Booking | null> {
+    const isTaken = Array.from(this.bookings.values()).some(
+      (booking) =>
+        booking.preferredDate === insertBooking.preferredDate &&
+        booking.appointmentTime === insertBooking.appointmentTime &&
+        booking.status !== "cancelled",
+    );
+
+    if (isTaken) return null;
+    return this.createBooking(insertBooking);
   }
 
   async getAllBookings(): Promise<Booking[]> {
