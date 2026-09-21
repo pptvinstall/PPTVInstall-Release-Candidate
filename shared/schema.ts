@@ -153,6 +153,7 @@ export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 
 export type Booking = z.infer<typeof bookingSchema> & {
   id?: string;
+  managementToken?: string;
   createdAt?: string;
   cancellationReason?: string;
 };
