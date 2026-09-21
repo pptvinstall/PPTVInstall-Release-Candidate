@@ -12,21 +12,21 @@ const PHONE = siteConfig.businessInfo.phone;
 const TEL_HREF = `tel:${PHONE.replace(/\D/g, "")}`;
 
 const SERVICES = [
-  { icon: Tv, label: "TV Mounting", price: `from $${pricingData.tvMounting.standard.price}` },
-  { icon: Plug, label: "Wire Concealment", price: `from $${pricingData.wireConcealment.standard.price}` },
-  { icon: Camera, label: "Security Cameras", price: `from $${pricingData.smartHome.securityCamera.price}/camera` },
-  { icon: Bell, label: "Smart Doorbell", price: `$${pricingData.smartHome.doorbell.price} installed` },
-  { icon: Speaker, label: "Soundbar Setup", price: `$${pricingData.soundSystem.soundbar.price} flat` },
-  { icon: Wrench, label: "AV Troubleshooting", price: `from $${pricingData.otherServices.avTroubleshooting.minimum ?? pricingData.otherServices.avTroubleshooting.price}/hr` },
-  { icon: Smartphone, label: "Device Setup", price: `$${pricingData.otherServices.deviceSetup.price} flat` },
-  { icon: Trash2, label: "TV Removal", price: `$${pricingData.otherServices.tvUnmounting.price} each` },
+  { icon: Tv, label: "TV Mounting", price: `from ${pricingData.tvMounting.standard.price}` },
+  { icon: Plug, label: "Outlet Behind TV", price: `${pricingData.wireConcealment.standard.price}` },
+  { icon: Camera, label: "Security Cameras", price: "Custom quote" },
+  { icon: Bell, label: "Smart Doorbell", price: "Custom quote" },
+  { icon: Speaker, label: "Soundbar Setup", price: "Custom quote" },
+  { icon: Wrench, label: "AV Troubleshooting", price: "Custom quote" },
+  { icon: Smartphone, label: "Device Setup", price: "Custom quote" },
+  { icon: Trash2, label: "TV Removal", price: `${pricingData.otherServices.tvUnmounting.price} each` },
 ];
 
 const TRUST_POINTS = [
-  "Licensed, background-checked technician",
-  "All hardware and tools included",
-  "100% satisfaction guarantee",
-  "Clean workspace — we leave no mess",
+  "10+ years of TV mounting experience",
+  "TV and mount compatibility checked before install",
+  "Clear scope and pricing before work begins",
+  "Clean, level, secure installation",
   "Evening and weekend availability",
 ];
 
@@ -40,7 +40,7 @@ export default function CityPage({ city }: Props) {
     if (metaDesc) {
       metaDesc.setAttribute(
         "content",
-        `Professional TV mounting and smart home installation in ${city.name}, ${city.county}. Same-day bookings available. Starting at $100 — call ${PHONE}.`,
+        `Professional TV mounting and selective smart-home installation in ${city.name}, ${city.county}. Evening and weekend appointments; same-day may be possible. Starting at $100 — call ${PHONE}.`,
       );
     }
   }, [city]);
@@ -67,13 +67,13 @@ export default function CityPage({ city }: Props) {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         opens: "17:30",
-        closes: "22:00",
+        closes: "19:00",
       },
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Saturday", "Sunday"],
-        opens: "10:00",
-        closes: "22:00",
+        opens: "11:00",
+        closes: "19:00",
       },
     ],
     priceRange: "$$",
