@@ -150,6 +150,16 @@ export class DatabaseStorage implements IStorage {
     });
   }
 
+  async getBookingById(id: number): Promise<Booking | null> {
+    const [row] = await db
+      .select()
+      .from(bookings)
+      .where(eq(bookings.id, id))
+      .limit(1);
+
+    return row ? this.toBooking(row) : null;
+  }
+
   async getAllBookings(): Promise<Booking[]> {
     const rows = await db
       .select()
@@ -196,6 +206,7 @@ export class DatabaseStorage implements IStorage {
   private toBooking(row: typeof bookings.$inferSelect): Booking {
     return {
       id: String(row.id),
+      managementToken: row.managementToken,
       name: row.name,
       email: row.email,
       phone: row.phone,
