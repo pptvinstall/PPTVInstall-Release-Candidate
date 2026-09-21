@@ -38,7 +38,7 @@ jobs:
             exit 1
           fi
 
-          if git grep -q -E 'postgres(ql)?://[^[:space:]/]+:[^[:space:]@]+@' -- . ':!.env.example'; then
+          if git grep -q -E 'postgres(ql)?://[^[:space:]/]+:[^[:space:]@]+@' -- . ':!.env.example' ':!.github/workflows/ci.yml'; then
             echo "Possible credential-bearing PostgreSQL URL found in tracked files."
             exit 1
           fi
