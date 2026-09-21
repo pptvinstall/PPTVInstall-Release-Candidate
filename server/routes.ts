@@ -454,10 +454,17 @@ export function registerRoutes(app: Express): Server {
   app.get("/api/bookings/:id/calendar", async (req, res) => {
     try {
       const id = Number(req.params.id);
-      const bookings = await storage.getAllBookings();
-      const booking = bookings.find((entry) => Number(entry.id) === id);
+      const token = typeof req.query.token === "string" ? req.query.token.trim() : "";
 
-      if (!booking) {
+      if (!Number.isInteger(id) || id <= 0 || !token) {
+        return res.status(404).json({ message: "Booking not found" });
+      }
+
+      const booking = await storage.getBookingById(id);
+
+      // Treat an invalid token exactly like a missing booking so this endpoint
+      // cannot be used to enumerate appointment/customer data by sequential ID.
+      if (!booking?.managementToken || !tokensMatch(token, booking.managementToken)) {
         return res.status(404).json({ message: "Booking not found" });
       }
 
@@ -489,12 +496,13 @@ export function registerRoutes(app: Express): Server {
         total: Number(booking.pricingTotal || 0),
       });
 
+      res.setHeader("Cache-Control", "private, no-store");
       res.setHeader("Content-Type", "text/calendar; charset=utf-8");
       res.setHeader("Content-Disposition", 'attachment; filename="pptvinstall-appointment.ics"');
-      res.send(ics);
+      return res.send(ics);
     } catch (error) {
       console.error("Calendar endpoint error:", error);
-      res.status(500).json({ message: "Could not generate calendar file" });
+      return res.status(500).json({ message: "Could not generate calendar file" });
     }
   });
 
