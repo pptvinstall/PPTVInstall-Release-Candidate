@@ -89,7 +89,9 @@ export async function sendBookingEmails(booking: any) {
   const ownerSubject = `New Booking -- ${booking.name} -- ${booking.preferredDate} at ${booking.appointmentTime}`;
   const customerSubject = `Booking Received -- Picture Perfect TV Install -- ${booking.preferredDate} at ${booking.appointmentTime}`;
   const appBaseUrl = process.env.PUBLIC_APP_URL || "https://pptvinstall.com";
-  const calendarUrl = `${appBaseUrl}/api/bookings/${booking.id}/calendar`;
+  const calendarUrl = booking.managementToken
+    ? `${appBaseUrl}/api/bookings/${booking.id}/calendar?token=${encodeURIComponent(booking.managementToken)}`
+    : "";
   const summaryText = items.map((item) => item.name).join(", ");
   const googleCalendarUrl = getGoogleCalendarUrl(booking, summaryText);
 
@@ -118,7 +120,7 @@ export async function sendBookingEmails(booking: any) {
         <p>Your appointment request is in for <strong>${appointmentLabel}</strong> at <strong>${address}</strong>.</p>
         <div style="margin:24px 0;text-align:center;">
           <p style="color:#64748b;font-size:14px;margin-bottom:12px;">Add this appointment to your calendar:</p>
-          <a href="${calendarUrl}" style="display:inline-block;background:#2563eb;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;margin:4px;">Add to Calendar</a>
+          ${calendarUrl ? `<a href="${calendarUrl}" style="display:inline-block;background:#2563eb;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;margin:4px;">Add to Calendar</a>` : ""}
           <a href="${googleCalendarUrl}" style="display:inline-block;background:#ffffff;color:#2563eb;border:2px solid #2563eb;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:bold;margin:4px;">Google Calendar</a>
           <p style="color:#64748b;font-size:13px;margin-top:12px;">The "Add to Calendar" button works with Google Calendar, Apple Calendar, and Outlook. On iPhone: tap the button and choose "Add" when prompted.</p>
         </div>
@@ -150,7 +152,7 @@ export async function sendBookingEmails(booking: any) {
   const customerText =
     `Hi ${firstName || "there"}!\n\n` +
     `Your appointment request is set for ${appointmentLabel} at ${address}.\n\n` +
-    `Add to Calendar: ${calendarUrl}\n` +
+    (calendarUrl ? `Add to Calendar: ${calendarUrl}\n` : "") +
     `Google Calendar: ${googleCalendarUrl}\n\n` +
     `${itemsText}\n\n` +
     `Estimated total: $${booking.pricingTotal ?? "TBD"}\n\n` +

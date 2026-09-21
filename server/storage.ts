@@ -6,6 +6,7 @@ export interface IStorage {
   // Booking Methods
   createBooking(booking: InsertBooking): Promise<Booking>;
   createBookingIfAvailable(booking: InsertBooking): Promise<Booking | null>;
+  getBookingById(id: number): Promise<Booking | null>;
   getAllBookings(): Promise<Booking[]>;
   rescheduleBookingIfAvailable(id: number, preferredDate: string, appointmentTime: string): Promise<Booking | null>;
   updateBooking(id: number, updates: Partial<Booking>): Promise<Booking>;
@@ -52,6 +53,10 @@ export class MemStorage implements IStorage {
 
     if (isTaken) return null;
     return this.createBooking(insertBooking);
+  }
+
+  async getBookingById(id: number): Promise<Booking | null> {
+    return this.bookings.get(id) ?? null;
   }
 
   async getAllBookings(): Promise<Booking[]> {
