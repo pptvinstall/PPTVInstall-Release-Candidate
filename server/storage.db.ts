@@ -4,7 +4,7 @@ import {
   type Booking,
   type InsertBooking,
 } from "@shared/schema";
-import { eq, desc } from "drizzle-orm";
+import { and, desc, eq, isNull, ne, or, sql } from "drizzle-orm";
 import type { IStorage } from "./storage";
 
 export class DatabaseStorage implements IStorage {
@@ -48,6 +48,71 @@ export class DatabaseStorage implements IStorage {
       .returning();
 
     return this.toBooking(row);
+  }
+
+  async createBookingIfAvailable(insertBooking: InsertBooking): Promise<Booking | null> {
+    return db.transaction(async (tx) => {
+      // Serialize only attempts for this exact date/time. The transaction-scoped
+      // advisory lock is released automatically on commit/rollback.
+      await tx.execute(
+        sql`select pg_advisory_xact_lock(
+          hashtext(${insertBooking.preferredDate}),
+          hashtext(${insertBooking.appointmentTime})
+        )`,
+      );
+
+      const [existing] = await tx
+        .select({ id: bookings.id })
+        .from(bookings)
+        .where(
+          and(
+            eq(bookings.preferredDate, insertBooking.preferredDate),
+            eq(bookings.appointmentTime, insertBooking.appointmentTime),
+            or(isNull(bookings.status), ne(bookings.status, "cancelled")),
+          ),
+        )
+        .limit(1);
+
+      if (existing) return null;
+
+      const [row] = await tx
+        .insert(bookings)
+        .values({
+          name: insertBooking.name,
+          email: insertBooking.email,
+          phone: insertBooking.phone,
+          streetAddress: insertBooking.streetAddress,
+          addressLine2: insertBooking.addressLine2 ?? null,
+          city: insertBooking.city,
+          state: insertBooking.state,
+          zipCode: insertBooking.zipCode,
+          notes: insertBooking.notes ?? null,
+          serviceType: insertBooking.serviceType,
+          preferredDate: insertBooking.preferredDate,
+          appointmentTime: insertBooking.appointmentTime,
+          status: insertBooking.status ?? "active",
+          pricingTotal: insertBooking.pricingTotal != null
+            ? String(insertBooking.pricingTotal)
+            : null,
+          pricingBreakdown: insertBooking.pricingBreakdown != null
+            ? typeof insertBooking.pricingBreakdown === "string"
+              ? insertBooking.pricingBreakdown
+              : JSON.stringify(insertBooking.pricingBreakdown)
+            : "{}",
+          tvSize: insertBooking.tvSize ?? null,
+          mountType: insertBooking.mountType ?? null,
+          wallMaterial: insertBooking.wallMaterial ?? null,
+          specialInstructions: insertBooking.specialInstructions ?? null,
+          transactionalSmsOptIn: insertBooking.transactionalSmsOptIn === true,
+          transactionalSmsConsentAt: insertBooking.transactionalSmsOptIn === true ? new Date() : null,
+          transactionalSmsConsentSource: insertBooking.transactionalSmsOptIn === true
+            ? insertBooking.transactionalSmsConsentSource ?? "booking_form"
+            : null,
+        })
+        .returning();
+
+      return this.toBooking(row);
+    });
   }
 
   async getAllBookings(): Promise<Booking[]> {
