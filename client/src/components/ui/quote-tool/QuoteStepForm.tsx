@@ -9,13 +9,12 @@ import {
 
 import { formatPrice, pricingData } from "@/data/pricing-data";
 import {
-  calculateTroubleshootingTotal,
   type CameraConfig,
   type CameraType,
   type MountType,
   type WallType,
 } from "@/lib/quote-calculator";
-import { getAreaName, getTravelDayLabel } from "@/lib/travel-pricing";
+import { getAreaName } from "@/lib/travel-pricing";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -36,7 +35,7 @@ import {
   isValidFiveDigitZip,
 } from "@/components/ui/quote-tool/shared";
 import { SelectorButton, ToggleCard } from "@/components/ui/quote-tool/QuoteComponents";
-import { useQuoteContext, businessPhone } from "@/components/ui/quote-tool/useQuoteState";
+import { useQuoteContext } from "@/components/ui/quote-tool/useQuoteState";
 
 export default function QuoteStepForm() {
   const {
