@@ -12,21 +12,21 @@ const tvServices = [
     title: "Basic Mounting",
     price: "$100",
     description: "Customer provides the TV and mount.",
-    features: ["Level installation guaranteed", "Any TV size supported", "Basic cable management"],
+    features: ["Level, secure installation", "TV size and wall conditions reviewed for safe mounting", "Basic cable cleanup"],
     mostPopular: true,
   },
   {
     title: "Hardware Bundle",
     price: "$130+",
     description: "We provide the mount and install it.",
-    features: ["Mount included", "Fixed, tilt, or full motion options", "Professional installation"],
+    features: ["PPTV-supplied mount available", "Fixed, tilt, or full motion options", "Mount add-on varies by TV size and style"],
     mostPopular: false,
   },
   {
     title: "Fireplace Mounting",
     price: "$200+",
     description: "Specialized over-fireplace setups.",
-    features: ["Drywall or masonry", "Heat-safe placement", "Wire concealment available"],
+    features: ["Drywall or masonry", "Placement and wall conditions reviewed", "Fireplace wire concealment requires assessment"],
     mostPopular: false,
   },
 ];
@@ -34,20 +34,20 @@ const tvServices = [
 const smartHomeServices = [
   {
     title: "Smart Doorbell",
-    price: "$85",
-    description: "Professional wiring, chime sync, and full app setup.",
+    price: "Custom quote",
+    description: "Device-specific installation and setup after we review the exact model and wiring.",
     features: ["Wiring setup", "Chime sync", "App connection"],
   },
   {
     title: "Security Camera",
-    price: "$75",
-    description: "Secure exterior or interior camera mounting and configuration.",
+    price: "Custom quote",
+    description: "Selective camera installation after device, wiring, location, and access review.",
     features: ["Secure mounting", "Power connection", "WiFi setup"],
   },
   {
     title: "Floodlight Cam",
-    price: "$125",
-    description: "Weatherproof installation with existing outdoor wiring.",
+    price: "Custom quote",
+    description: "Outdoor smart-floodlight installation after device and existing-wiring review.",
     features: ["Weatherproof install", "Existing wiring integration", "App config"],
   },
 ];
@@ -55,7 +55,7 @@ const smartHomeServices = [
 const troubleshootingServices = [
   {
     title: "AV Troubleshooting",
-    price: "$100/hr",
+    price: "Custom quote",
     description: "Remote issues, input problems, sound not working, TV won't connect. We diagnose and fix your existing setup.",
     icon: Wrench,
     features: [
@@ -67,8 +67,8 @@ const troubleshootingServices = [
   },
   {
     title: "Device & Smart Home Setup",
-    price: "$75",
-    description: "New smart TV or streaming device? We'll get everything connected and configured so you can just press play.",
+    price: "Custom quote",
+    description: "Streaming-device, cable-box, or smart-TV setup priced after we review the exact scope.",
     icon: Settings,
     features: [
       "Smart TV initial setup",
@@ -85,7 +85,7 @@ const troubleshootingServices = [
     features: [
       "Safe TV removal",
       "Mount hardware removed",
-      "Optional hole patching (ask for quote)",
+      "Mount removal and area left ready for your next step",
       "Prep for new install or storage",
     ],
   },
@@ -141,7 +141,7 @@ export default function Services() {
 
           <div className="mb-4 flex items-center gap-2 text-sm text-slate-500">
             <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-            Available evenings &amp; weekends — same-day bookings accepted with 2 hours notice
+            Available evenings &amp; weekends — same-day may be possible when a slot is open
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tvServices.map((service) => (
