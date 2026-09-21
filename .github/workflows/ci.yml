@@ -25,6 +25,24 @@ jobs:
           node-version: "22"
           cache: npm
 
+      - name: Secret hygiene
+        shell: bash
+        run: |
+          if git ls-files --error-unmatch env >/dev/null 2>&1; then
+            echo "Refusing to build with a tracked bare env file."
+            exit 1
+          fi
+
+          if git grep -q -E 'VITE_[A-Z0-9_]*(PASSWORD|SECRET|TOKEN)=' -- . ':!*.md'; then
+            echo "Refusing to expose password/secret/token values through VITE_* variables."
+            exit 1
+          fi
+
+          if git grep -q -E 'postgres(ql)?://[^[:space:]/]+:[^[:space:]@]+@' -- . ':!.env.example'; then
+            echo "Possible credential-bearing PostgreSQL URL found in tracked files."
+            exit 1
+          fi
+
       - name: Install dependencies
         run: npm ci
 
