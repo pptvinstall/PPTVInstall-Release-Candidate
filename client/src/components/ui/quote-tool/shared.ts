@@ -1,6 +1,5 @@
 import { formatPrice, pricingData } from "@/data/pricing-data";
 import {
-  calculateTroubleshootingTotal,
   createDefaultCameraConfig,
   createDefaultTVConfig,
   type CameraConfig,
