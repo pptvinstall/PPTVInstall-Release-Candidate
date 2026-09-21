@@ -36,19 +36,19 @@ const smartHomeServices = [
     title: "Smart Doorbell",
     price: "Custom quote",
     description: "Device-specific installation and setup after we review the exact model and wiring.",
-    features: ["Wiring setup", "Chime sync", "App connection"],
+    features: ["Existing setup reviewed", "Device-specific installation scope", "App setup when applicable"],
   },
   {
     title: "Security Camera",
     price: "Custom quote",
     description: "Selective camera installation after device, wiring, location, and access review.",
-    features: ["Secure mounting", "Power connection", "WiFi setup"],
+    features: ["Mounting location reviewed", "Power/wiring needs reviewed", "Device setup when applicable"],
   },
   {
     title: "Floodlight Cam",
     price: "Custom quote",
     description: "Outdoor smart-floodlight installation after device and existing-wiring review.",
-    features: ["Weatherproof install", "Existing wiring integration", "App config"],
+    features: ["Outdoor location reviewed", "Existing wiring required for standard scope", "Device setup when applicable"],
   },
 ];
 
@@ -64,6 +64,7 @@ const troubleshootingServices = [
       "Network and streaming issues",
       "HDMI and cable troubleshooting",
     ],
+    quoteOnly: true,
   },
   {
     title: "Device & Smart Home Setup",
@@ -76,6 +77,7 @@ const troubleshootingServices = [
       "Alexa / Google Home linking",
       "WiFi and network setup",
     ],
+    quoteOnly: true,
   },
   {
     title: "TV Removal / Unmounting",
@@ -88,6 +90,7 @@ const troubleshootingServices = [
       "Mount removal and area left ready for your next step",
       "Prep for new install or storage",
     ],
+    quoteOnly: false,
   },
 ];
 
@@ -212,8 +215,8 @@ export default function Services() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/booking">
-                    <Button variant="outline" className="w-full rounded-2xl border-purple-200 text-purple-700 hover:bg-purple-50">Book This Service</Button>
+                  <Link href="/quote">
+                    <Button variant="outline" className="w-full rounded-2xl border-purple-200 text-purple-700 hover:bg-purple-50">Get Custom Quote</Button>
                   </Link>
                 </CardContent>
               </Card>
@@ -262,8 +265,8 @@ export default function Services() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/booking">
-                    <Button variant="outline" className="w-full rounded-2xl border-amber-200 text-amber-700 hover:bg-amber-50">Book This Service</Button>
+                  <Link href={service.quoteOnly ? "/quote" : "/booking"}>
+                    <Button variant="outline" className="w-full rounded-2xl border-amber-200 text-amber-700 hover:bg-amber-50">{service.quoteOnly ? "Get Custom Quote" : "Book This Service"}</Button>
                   </Link>
                 </CardContent>
               </Card>
