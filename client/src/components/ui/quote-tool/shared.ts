@@ -566,11 +566,7 @@ export function buildLocalQuoteSummary(quote: QuoteResult, state: QuoteFormState
   }
 
   const serviceSummary = parts.length > 0 ? parts.join(", ") : "your installation";
-  const travelSummary = quote.travelFee === "out_of_range"
-    ? "Travel is outside the standard service area and may need a custom quote."
-    : quote.travelFee === 0
-      ? "No travel fee applies for this ZIP code."
-      : `This estimate includes a ${formatPrice(typeof quote.travelFee === "number" ? quote.travelFee : 0)} travel fee.`;
+  const travelSummary = "Travel and route fit are reviewed before final booking; no automatic mileage fee is added from ZIP alone.";
 
   return `This estimate covers ${serviceSummary}. ${travelSummary}`;
 }
@@ -592,40 +588,33 @@ export function buildAugmentedQuote(baseQuote: QuoteResult, standaloneServices: 
   }
 
   if (standaloneServices.troubleshootingMinutes > 0) {
-    const lineTotal = calculateTroubleshootingTotal(standaloneServices.troubleshootingMinutes);
     extraItems.push({
-      name: `AV troubleshooting (${standaloneServices.troubleshootingMinutes} min)`,
-      price: lineTotal,
+      name: `AV troubleshooting (${standaloneServices.troubleshootingMinutes} min scope) — custom quote`,
+      price: 0,
       qty: 1,
-      lineTotal,
+      lineTotal: 0,
     });
-    extraSubtotal += lineTotal;
-    if (standaloneServices.troubleshootingMinutes <= 60) {
-      flags.push("AV troubleshooting has a 1-hour minimum. Shorter visits are billed at the first-hour rate.");
-    }
+    flags.push("Troubleshooting is custom-priced after the issue, devices, and likely scope are reviewed.");
   }
 
   if (standaloneServices.wireManagementLocations > 0) {
-    const lineTotal =
-      pricingData.otherServices.wireManagementOnly.price +
-      Math.max(0, standaloneServices.wireManagementLocations - 1) * pricingData.otherServices.wireManagementOnly.additionalLocationPrice;
     extraItems.push({
-      name: `Cable / wire management only (${standaloneServices.wireManagementLocations} location${standaloneServices.wireManagementLocations > 1 ? "s" : ""})`,
-      price: lineTotal,
+      name: `Cable / device cleanup (${standaloneServices.wireManagementLocations} location${standaloneServices.wireManagementLocations > 1 ? "s" : ""}) — custom quote`,
+      price: 0,
       qty: 1,
-      lineTotal,
+      lineTotal: 0,
     });
-    extraSubtotal += lineTotal;
+    flags.push("Cable-management-only requests are reviewed case-by-case. The outlet-behind-TV service is the standard clean-cord solution.");
   }
 
   if (standaloneServices.deviceSetup) {
     extraItems.push({
-      name: "Device setup and configuration",
-      price: pricingData.otherServices.deviceSetup.price,
+      name: "Streaming / cable-box / device setup — custom quote",
+      price: 0,
       qty: 1,
-      lineTotal: pricingData.otherServices.deviceSetup.price,
+      lineTotal: 0,
     });
-    extraSubtotal += pricingData.otherServices.deviceSetup.price;
+    flags.push("Device setup is custom-priced after the exact devices and requested setup are confirmed.");
   }
 
   if (standaloneServices.sharedUnmountCount > 0) {
