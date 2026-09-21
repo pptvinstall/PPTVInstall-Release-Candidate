@@ -277,17 +277,13 @@ function normalizeDiscountPresentation(groups: QuoteGroup[]) {
         (Math.max(0, pricedWireJobs - 1) * pricingData.discounts.multipleOutlets.amount)
       : 0;
 
-  const fallbackDiscount = groups.reduce(
-    (sum, group) => sum + group.items.filter((item) => item.lineTotal < 0).reduce((groupSum, item) => groupSum + Math.abs(item.lineTotal), 0),
-    0,
-  );
-
   return {
     groups: groupsWithoutDiscountLines.map((group) => ({
       ...group,
       subtotal: group.items.filter((item) => item.lineTotal >= 0).reduce((sum, item) => sum + item.lineTotal, 0),
     })),
-    discount: bundleDiscount > 0 ? bundleDiscount : fallbackDiscount,
+    // Discounts are never automatic; owner-approved promotions are handled separately.
+    discount: bundleDiscount,
   };
 }
 
