@@ -46,7 +46,7 @@ EMAIL_USER=pptvinstall@gmail.com
 EMAIL_PASS=YOUR_GMAIL_APP_PASSWORD_HERE
 ADMIN_EMAIL=pptvinstall@gmail.com
 EMAIL_FROM="Picture Perfect TV Install <pptvinstall@gmail.com>"
-ADMIN_PASSWORD=generate_a_strong_value
+ADMIN_PASSWORD=REPLACE_WITH_A_LONG_RANDOM_SECRET
 ```
 
 ### 4. Database Setup

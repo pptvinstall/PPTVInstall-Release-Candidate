@@ -21,7 +21,7 @@ EMAIL_PASS=your_gmail_app_password
 ADMIN_EMAIL=pptvinstall@gmail.com
 EMAIL_FROM="Picture Perfect TV Install <pptvinstall@gmail.com>"
 
-ADMIN_PASSWORD=generate_a_strong_value
+ADMIN_PASSWORD=REPLACE_WITH_A_LONG_RANDOM_SECRET
 ```
 
 ## Deployment Checklist
