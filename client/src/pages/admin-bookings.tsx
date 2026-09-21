@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -132,8 +132,12 @@ function DashboardContent({ adminToken }: { adminToken: string }) {
       toast({ title: "Updated!", description: "Customer has been emailed." });
       setRescheduleBooking(null);
     },
-    onError: () => {
-      toast({ title: "Error", description: "Failed to update.", variant: "destructive" });
+    onError: (error) => {
+      toast({
+        title: "Could not move appointment",
+        description: error instanceof Error ? error.message : "Failed to update.",
+        variant: "destructive",
+      });
     }
   });
 
@@ -354,13 +358,42 @@ function DashboardContent({ adminToken }: { adminToken: string }) {
   );
 }
 
+function getAdminTimeSlots(date?: Date) {
+  if (!date) return [];
+  const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+  if (!isWeekend) {
+    return ["5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM"];
+  }
+
+  const slots: string[] = [];
+  for (let hour = 11; hour <= 19; hour += 1) {
+    slots.push(format(new Date(2026, 0, 1, hour, 0), "h:mm a"));
+    if (hour < 19) {
+      slots.push(format(new Date(2026, 0, 1, hour, 30), "h:mm a"));
+    }
+  }
+  return slots;
+}
+
 function RescheduleForm({ booking, onSubmit }: any) {
   const [date, setDate] = useState<Date | undefined>(() => {
     if (!booking?.preferredDate) return new Date();
     return new Date(booking.preferredDate + 'T12:00:00');
   });
   
-  const [time, setTime] = useState(booking?.appointmentTime || "8:00 AM");
+  const initialSlots = getAdminTimeSlots(date);
+  const [time, setTime] = useState(
+    initialSlots.includes(booking?.appointmentTime) ? booking.appointmentTime : initialSlots[0] || "",
+  );
+
+  useEffect(() => {
+    const validSlots = getAdminTimeSlots(date);
+    if (!validSlots.includes(time)) {
+      setTime(validSlots[0] || "");
+    }
+  }, [date, time]);
+
+  const timeSlots = getAdminTimeSlots(date);
 
   return (
     <div className="space-y-6">
@@ -381,7 +414,7 @@ function RescheduleForm({ booking, onSubmit }: any) {
              onChange={(e) => setTime(e.target.value)}
              className="w-full h-11 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 appearance-none cursor-pointer font-medium text-slate-700"
            >
-              {["8:00 AM", "10:00 AM", "12:00 PM", "2:00 PM", "4:00 PM", "5:30 PM", "6:30 PM", "8:30 PM"].map(t => (
+              {timeSlots.map((t) => (
                 <option key={t} value={t}>{t}</option>
               ))}
            </select>

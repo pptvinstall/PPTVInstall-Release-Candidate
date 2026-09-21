@@ -115,6 +115,41 @@ export class DatabaseStorage implements IStorage {
     });
   }
 
+  async rescheduleBookingIfAvailable(id: number, preferredDate: string, appointmentTime: string): Promise<Booking | null> {
+    return db.transaction(async (tx) => {
+      await tx.execute(
+        sql`select pg_advisory_xact_lock(
+          hashtext(${preferredDate}),
+          hashtext(${appointmentTime})
+        )`,
+      );
+
+      const [conflict] = await tx
+        .select({ id: bookings.id })
+        .from(bookings)
+        .where(
+          and(
+            ne(bookings.id, id),
+            eq(bookings.preferredDate, preferredDate),
+            eq(bookings.appointmentTime, appointmentTime),
+            or(isNull(bookings.status), ne(bookings.status, "cancelled")),
+          ),
+        )
+        .limit(1);
+
+      if (conflict) return null;
+
+      const [row] = await tx
+        .update(bookings)
+        .set({ preferredDate, appointmentTime })
+        .where(eq(bookings.id, id))
+        .returning();
+
+      if (!row) throw new Error(`Booking #${id} not found`);
+      return this.toBooking(row);
+    });
+  }
+
   async getAllBookings(): Promise<Booking[]> {
     const rows = await db
       .select()

@@ -16,7 +16,6 @@
     "client/src/lib/performance-monitor.ts",
     "client/src/lib/use-pricing.ts",
     "client/src/pages/admin/**/*",
-    "client/src/pages/admin-bookings.tsx",
     "client/src/pages/admin.tsx",
     "client/src/pages/customer-login.tsx",
     "client/src/pages/customer-portal.tsx",

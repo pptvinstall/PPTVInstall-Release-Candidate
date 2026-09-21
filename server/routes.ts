@@ -696,14 +696,55 @@ export function registerRoutes(app: Express): Server {
   });
 
   app.post("/api/admin/bookings/:id/reschedule", async (req, res) => {
-    const id = parseInt(req.params.id);
-    const updated = await storage.updateBooking(id, {
-      ...req.body,
-      preferredDate: req.body.preferredDate ?? req.body.date,
-      appointmentTime: req.body.appointmentTime ?? req.body.time,
-    });
-    sendRescheduleEmail(updated).catch(e => console.error(e));
-    res.json(updated);
+    try {
+      const id = Number(req.params.id);
+      const preferredDate = String(req.body?.preferredDate ?? req.body?.date ?? "").trim();
+      const appointmentTime = String(req.body?.appointmentTime ?? req.body?.time ?? "").trim();
+
+      if (!Number.isInteger(id) || id <= 0) {
+        return res.status(400).json({ message: "Invalid booking ID." });
+      }
+
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(preferredDate)) {
+        return res.status(400).json({ message: "Please choose a valid appointment date." });
+      }
+
+      const requestedDate = new Date(`${preferredDate}T12:00:00`);
+      if (Number.isNaN(requestedDate.getTime())) {
+        return res.status(400).json({ message: "Please choose a valid appointment date." });
+      }
+
+      const today = new Date();
+      const requestedDay = new Date(requestedDate);
+      today.setHours(0, 0, 0, 0);
+      requestedDay.setHours(0, 0, 0, 0);
+
+      if (requestedDay < today) {
+        return res.status(400).json({ message: "Appointments cannot be moved to a past date." });
+      }
+
+      if (!getSlots(requestedDate).includes(appointmentTime)) {
+        return res.status(400).json({ message: "That time is outside the current booking hours." });
+      }
+
+      if (
+        requestedDay.getTime() === today.getTime() &&
+        parseSlotTime(requestedDate, appointmentTime).getTime() <= Date.now()
+      ) {
+        return res.status(400).json({ message: "Appointments cannot be moved to a time that has already passed." });
+      }
+
+      const updated = await storage.rescheduleBookingIfAvailable(id, preferredDate, appointmentTime);
+      if (!updated) {
+        return res.status(409).json({ message: "That time is already booked. Choose another slot." });
+      }
+
+      sendRescheduleEmail(updated).catch((error) => console.error("Reschedule email error:", error));
+      return res.json(updated);
+    } catch (error) {
+      console.error("Admin reschedule error:", error);
+      return res.status(500).json({ message: "Could not reschedule this appointment right now." });
+    }
   });
 
   app.post("/api/admin/bookings/:id/cancel", async (req, res) => {

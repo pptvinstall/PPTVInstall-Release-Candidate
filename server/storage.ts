@@ -7,6 +7,7 @@ export interface IStorage {
   createBooking(booking: InsertBooking): Promise<Booking>;
   createBookingIfAvailable(booking: InsertBooking): Promise<Booking | null>;
   getAllBookings(): Promise<Booking[]>;
+  rescheduleBookingIfAvailable(id: number, preferredDate: string, appointmentTime: string): Promise<Booking | null>;
   updateBooking(id: number, updates: Partial<Booking>): Promise<Booking>;
 }
 
@@ -55,6 +56,25 @@ export class MemStorage implements IStorage {
 
   async getAllBookings(): Promise<Booking[]> {
     return Array.from(this.bookings.values());
+  }
+
+  async rescheduleBookingIfAvailable(id: number, preferredDate: string, appointmentTime: string): Promise<Booking | null> {
+    const booking = this.bookings.get(id);
+    if (!booking) throw new Error("Booking not found");
+
+    const isTaken = Array.from(this.bookings.entries()).some(
+      ([otherId, other]) =>
+        otherId !== id &&
+        other.preferredDate === preferredDate &&
+        other.appointmentTime === appointmentTime &&
+        other.status !== "cancelled",
+    );
+
+    if (isTaken) return null;
+
+    const updated = { ...booking, preferredDate, appointmentTime };
+    this.bookings.set(id, updated);
+    return updated;
   }
 
   async updateBooking(id: number, updates: Partial<Booking>): Promise<Booking> {
