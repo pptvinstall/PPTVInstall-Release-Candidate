@@ -682,7 +682,7 @@ export default function QuoteStepForm() {
                 <p className="text-sm text-slate-500">Example: Mount 1 TV on drywall, set up a soundbar, and the outlet is already close to the TV spot</p>
               </div>
               <div className="flex items-center justify-between gap-3 text-sm">
-                <label className="text-sm font-semibold text-slate-900">ZIP Code (for travel pricing)</label>
+                <label className="text-sm font-semibold text-slate-900">ZIP Code (for route review)</label>
                 <span className={cn("font-semibold transition-colors", describeUsageRatio >= 1 ? "text-red-600" : describeUsageRatio >= 0.9 ? "text-amber-600" : describeUsageRatio >= 0.75 ? "text-slate-700" : "text-slate-500")}>
                   {describeCharacterCount} / {DESCRIBE_IT_MAX_CHARS}
                 </span>
@@ -712,23 +712,18 @@ export default function QuoteStepForm() {
                   <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
                     <div className="flex items-center gap-2 font-semibold">
                       <AlertCircle className="h-4 w-4 shrink-0" />
-                      <span>Outside our standard area</span>
+                      <span>Route review needed</span>
                     </div>
-                    <p className="mt-2">We may still be able to help — call {businessPhone}</p>
+                    <p className="mt-2">This ZIP isn&apos;t in our quick lookup. We&apos;ll review distance and route fit instead of applying an automatic fee.</p>
                   </div>
                 ) : (
-                  <div className={cn("rounded-2xl border p-4 text-sm", typeof textTravelContext.fee === "number" && textTravelContext.fee > 0 ? "border-amber-200 bg-amber-50 text-amber-900" : "border-green-200 bg-green-50 text-green-900")}>
+                  <div className="rounded-2xl border border-green-200 bg-green-50 p-4 text-sm text-green-900">
                     <div className="flex items-center gap-2 font-semibold">
-                      <CheckCircle2 className={cn("h-4 w-4 shrink-0", typeof textTravelContext.fee === "number" && textTravelContext.fee > 0 ? "text-amber-600" : "text-green-600")} />
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-green-600" />
                       <span>We serve {getAreaName(textZipCode)}</span>
                     </div>
                     <div className="mt-2 space-y-1 text-sm">
-                      {textTravelContext.fee === 0
-                        ? <p>No travel fee — you&apos;re in our home zone</p>
-                        : <>
-                            <p>Travel fee: +${textTravelContext.fee} (from {textTravelContext.origin} on {getTravelDayLabel(textTravelContext.dayType)})</p>
-                            {textTravelContext.roundTripMiles !== null ? <p>Round-trip distance: approximately {textTravelContext.roundTripMiles} miles</p> : null}
-                          </>}
+                      <p>Travel and route fit are reviewed before final booking. No automatic mileage fee is added from ZIP alone.</p>
                       {textTravelContext.availabilityNote ? <p className="text-xs opacity-80">{textTravelContext.availabilityNote}</p> : null}
                     </div>
                   </div>
