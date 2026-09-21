@@ -39,32 +39,32 @@ export const pricingData = {
   tvMounts: {
     fixedSmall: {
       name: "Fixed Mount (32\"-55\")",
-      price: 50,
+      price: 30,
       description: "Fixed position TV mount for TVs between 32\" and 55\"."
     },
     fixedBig: {
       name: "Fixed Mount (56\"+)",
-      price: 65,
+      price: 40,
       description: "Fixed position TV mount for TVs 56\" and larger."
     },
     tiltingSmall: {
       name: "Tilting Mount (32\"-55\")",
-      price: 65,
+      price: 40,
       description: "Tilting TV mount for TVs between 32\" and 55\"."
     },
     tiltingBig: {
       name: "Tilting Mount (56\"+)",
-      price: 80,
+      price: 50,
       description: "Tilting TV mount for TVs 56\" and larger."
     },
     fullMotionSmall: {
       name: "Full Motion Mount (32\"-55\")",
-      price: 90,
+      price: 60,
       description: "Full motion (articulating) TV mount for TVs between 32\" and 55\"."
     },
     fullMotionBig: {
       name: "Full Motion Mount (56\"+)",
-      price: 120,
+      price: 80,
       description: "Full motion (articulating) TV mount for TVs 56\" and larger."
     }
   },
@@ -72,13 +72,13 @@ export const pricingData = {
   // Wire Concealment & Outlet Installation
   wireConcealment: {
     standard: {
-      name: "Standard Wire Concealment (New Outlet Behind TV)",
+      name: "Outlet Behind TV / Clean-Cord Setup",
       price: 100,
-      description: "Installing a new outlet behind the TV with concealed wires."
+      description: "Installing an outlet behind the TV as the primary clean-cord solution."
     },
     additional: {
-      name: "Additional Outlet Installation (Same Visit)",
-      price: 85,
+      name: "Additional Outlet Behind TV (Same Visit)",
+      price: 100,
       description: "Each additional outlet installation at the same location."
     },
     fireplaceWarning: {
@@ -148,16 +148,16 @@ export const pricingData = {
   // Discounts
   discounts: {
     multipleTvs: {
-      name: "$10 Off Per Additional TV",
-      amount: 10
+      name: "Multi-TV Discount (Owner Approved)",
+      amount: 0
     },
     multipleOutlets: {
-      name: "$10 Off Per Additional Outlet Install",
-      amount: 10
+      name: "Multi-Outlet Discount (Owner Approved)",
+      amount: 0
     },
     mountBundle: {
-      name: "$5 Off Per Additional Mount Purchased",
-      amount: 5
+      name: "Mount Bundle Discount (Owner Approved)",
+      amount: 0
     }
   },
 
