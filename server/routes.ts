@@ -216,9 +216,9 @@ export function registerRoutes(app: Express): Server {
     }
 
     const slots: string[] = [];
-    for (let hour = 8; hour <= 17; hour += 1) {
+    for (let hour = 11; hour <= 19; hour += 1) {
       slots.push(format(new Date(2026, 0, 1, hour, 0), "h:mm a"));
-      if (hour < 17) {
+      if (hour < 19) {
         slots.push(format(new Date(2026, 0, 1, hour, 30), "h:mm a"));
       }
     }
@@ -242,8 +242,7 @@ export function registerRoutes(app: Express): Server {
     let allSlots = getSlots(date);
     if (isToday) {
       const twoHoursFromNow = new Date(now.getTime() + 2 * 60 * 60 * 1000);
-      if (now.getHours() >= 17) allSlots = [];
-      else allSlots = allSlots.filter((slot) => parseSlotTime(date, slot) >= twoHoursFromNow);
+      allSlots = allSlots.filter((slot) => parseSlotTime(date, slot) >= twoHoursFromNow);
     }
     return allSlots.filter((slot) => !bookedSlots.includes(slot));
   }
